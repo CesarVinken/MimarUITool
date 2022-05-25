@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class PlayerManager : MonoBehaviour
+{
+    public static PlayerManager Instance;
+
+    public Dictionary<PlayerNumber, Player> Players = new Dictionary<PlayerNumber, Player>();
+    public List<Player> PlayersByPriority = new List<Player>();
+
+    private void Awake()
+    {
+        Instance = this;
+
+        Players.Add(PlayerNumber.Player1, new Player(PlayerNumber.Player1, "Cesar"));
+        Players.Add(PlayerNumber.Player2, new Player(PlayerNumber.Player2, "Yigit"));
+        Players.Add(PlayerNumber.Player3, new Player(PlayerNumber.Player3, "Ayhan"));
+
+        InitialisePlayerPriority();
+    }
+
+    private void Start()
+    {
+    }
+
+    public UIPlayerData GetPlayerData(PlayerNumber playerNumber)
+    {
+        Player player = Players[playerNumber];
+
+        UIPlayerData playerData = new UIPlayerData()
+            .WithPlayer(player)
+            .WithGold(player.Gold)
+            .WithReputation(player.Reputation)
+            .WithStockpileMaximum(player.StockpileMaximum);
+
+        return playerData;
+    }
+
+    public void InitialisePlayerPriority()
+    {
+        PlayersByPriority.Clear();
+
+        List<Player> players = Players.Values.ToList();
+
+        //randomly sort list
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player temp = players[i];
+            int randomIndex = UnityEngine.Random.Range(i, players.Count);
+            players[i] = players[randomIndex];
+            players[randomIndex] = temp;
+        }
+
+        for (int j = 0; j < players.Count; j++)
+        {
+            players[j].SetPriority(PlayerUtility.IntToPlayerPriority(j + 1));
+            PlayersByPriority.Add(players[j]);
+        }
+    }
+
+    public void UpdatePlayerPriority(Player updatedPlayer, int oldReputation)
+    {
+        List<Player> newPriorityList = PlayersByPriority;
+        newPriorityList.Remove(updatedPlayer);
+
+        int priorityPosition = 1;
+        for (int n = 0; n < newPriorityList.Count; n++)
+        {
+            if (newPriorityList[n].Reputation > updatedPlayer.Reputation)
+            {
+                priorityPosition++;
+            }
+            else if(newPriorityList[n].Reputation == updatedPlayer.Reputation &&
+                oldReputation > newPriorityList[n].Reputation)
+            {
+                priorityPosition++;
+            }
+        }
+
+        newPriorityList.Insert(priorityPosition - 1, updatedPlayer);
+
+        //List<Player> oldPriorityList = new List<Player>();
+        //for (int p = 0; p < PlayersByPriority.Count; p++)
+        //{
+        //    oldPriorityList.Add(PlayersByPriority[p]);
+        //}
+
+        //for (int j = 0; j < oldPriorityList.Count; j++)
+        //{
+        //    Debug.Log($"old priority list {j}: {oldPriorityList[j].PlayerNumber}");
+        //}
+
+        for (int k = 0; k < newPriorityList.Count; k++)
+        {
+            //Debug.Log($"new priority list {k}: {newPriorityList[k].PlayerNumber}");
+            newPriorityList[k].SetPriority(PlayerUtility.IntToPlayerPriority(k + 1));
+        }
+
+        PlayersByPriority = newPriorityList;
+    }
+}
