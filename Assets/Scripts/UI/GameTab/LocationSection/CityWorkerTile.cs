@@ -16,6 +16,8 @@ public class CityWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _serviceLengthInputField");
         }
+
+        _serviceLengthInputField.onValueChanged.AddListener(delegate { OnChangeServiceLengthInputField(); });
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)
@@ -24,6 +26,7 @@ public class CityWorkerTile : WorkerTile
 
         Worker = worker;
         Worker.SetUIWorkerTile(this);
+        UpdateServiceLength(3);
 
         switch (_locationType)
         {
@@ -54,5 +57,12 @@ public class CityWorkerTile : WorkerTile
         {
             _tileBackground.color = ColourUtility.GetColour(ColourType.Empty);
         }
+    }
+
+    protected override void SetWorkerToNeutral()
+    {
+        MonumentLocationUIContainer constructionSiteContainer = NavigationManager.Instance.GetMonumentLocationUIContainer(Worker.Location.LocationType);
+
+        constructionSiteContainer.RemoveWorkerFromSite(this);
     }
 }

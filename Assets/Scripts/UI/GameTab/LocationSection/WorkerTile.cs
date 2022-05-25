@@ -11,23 +11,53 @@ public abstract class WorkerTile : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI _statusText;
     [SerializeField] protected TMP_InputField _serviceLengthInputField;
 
+    // called when changing the input field
     public void OnChangeServiceLengthInputField()
     {
-        int newContractLength = int.Parse(_serviceLengthInputField.text);
+        Debug.Log("Value Changed");
+        int newContractLength = 1;
 
-        // The user should not be allowed to set a contract to anything less than 1 in the input field. Because 0 would effectively mean the contract has ended, and should assign the employer too None.
-        if(newContractLength <= 0)
+        if (int.TryParse(_serviceLengthInputField.text, out int result))
         {
-            _serviceLengthInputField.text = "1";
+            newContractLength = result;
         }
 
+        UpdateServiceLength(newContractLength);    
+    }
+
+    protected void UpdateServiceLength(int newContractLength)
+    {
+        Debug.Log($"UpdateServiceLength to {newContractLength}");
+
+        // The user should not be allowed to set a contract to anything less than 1 in the input field. Because 0 would effectively mean the contract has ended, and should assign the employer too None.
+        if (newContractLength <= 0)
+        {
+            newContractLength = 1;
+        }
+
+        _serviceLengthInputField.text = newContractLength.ToString();
         Worker.SetServiceLength(newContractLength);
     }
 
+    public void DistractServiceLength()
+    {
+        int newContractLength = Worker.ServiceLength - 1;
+
+        if (newContractLength <= 0)
+        {
+            SetWorkerToNeutral();
+        }
+        else
+        {
+            UpdateServiceLength(newContractLength);
+        }
+    }
+
+    protected abstract void SetWorkerToNeutral();
 
     public abstract void Initialise(LocationType locationType, IWorker worker);
 
-    protected void SetEmployer(PlayerNumber newEmployer)
+    public void SetEmployer(PlayerNumber newEmployer)
     {
         if(newEmployer == PlayerNumber.None)
         {

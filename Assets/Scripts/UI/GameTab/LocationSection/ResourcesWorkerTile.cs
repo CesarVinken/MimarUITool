@@ -33,6 +33,9 @@ public class ResourcesWorkerTile : WorkerTile
         {
             SetNextEmployer();
         });
+
+        _serviceLengthInputField.onValueChanged.AddListener(delegate { OnChangeServiceLengthInputField(); });
+
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)
@@ -41,6 +44,7 @@ public class ResourcesWorkerTile : WorkerTile
         Worker = worker;
 
         Worker.SetUIWorkerTile(this);
+
         SetEmployer(PlayerNumber.None);
     }
 
@@ -59,12 +63,19 @@ public class ResourcesWorkerTile : WorkerTile
                 break;
             case PlayerNumber.None:
                 SetEmployer(PlayerNumber.Player1);
+                UpdateServiceLength(3);
                 break;
             default:
                 break;
         }
 
         SetButtonColour(Worker.Employer);
+    }
+
+    protected override void SetWorkerToNeutral()
+    {
+        SetEmployer(PlayerNumber.None);
+        SetButtonColour(PlayerNumber.None);
     }
 
     private void SetButtonColour(PlayerNumber playerNumber)

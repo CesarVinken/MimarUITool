@@ -34,7 +34,7 @@ public class MonumentLocationUIContainer : MonoBehaviour
 
         _removeWorkerButton.onClick.AddListener(() =>
         {
-            RemoveWorker();
+            RemoveLastWorkerFromSite();
         });
         _addWorkerButton.onClick.AddListener(() =>
         {
@@ -47,8 +47,8 @@ public class MonumentLocationUIContainer : MonoBehaviour
         _locationType = locationType;
     }
 
-    // Remove worker from construction site, add worker as neutral worker
-    public void RemoveWorker()
+    // Remove last worker from construction site, add worker as neutral worker
+    public void RemoveLastWorkerFromSite()
     {
         if (_workerTiles.Count <= 0) return;
 
@@ -70,6 +70,29 @@ public class MonumentLocationUIContainer : MonoBehaviour
 
         lastWorkerTile.Destroy();
     }
+
+    // remove a particular worker from a site (for example, when a contract finishes. Make a worker available in the neutral pool
+    public void RemoveWorkerFromSite(WorkerTile workerTile)
+    {
+        ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(LocationType.Constantinople);
+
+        IWorker transferredWorker = workerTile.Worker;
+
+        WorkerTile constantinopleWorkerTile = _constantinopleContainer.AddWorkerTile(labourPoolLocation);
+
+        constantinopleWorkerTile.Initialise(LocationType.Constantinople, transferredWorker);
+
+        if (workerTile == null)
+        {
+            Debug.LogError($"Could not find WorkerTile");
+        }
+
+        _workerTiles.Remove(workerTile);
+
+        workerTile.Destroy();
+    }
+
+
 
     // Add worker tile to construction site, remove neutral worker tile work Constantinople location
     public void AddWorker()

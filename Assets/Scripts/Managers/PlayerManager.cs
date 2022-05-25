@@ -107,6 +107,12 @@ public class PlayerManager : MonoBehaviour
         {
             Player player = item.Value;
             player.SetGold(player.Gold + StatCalculator.CalculateIncome(player));
+            for (int i = 0; i < player.HiredWorkers.Count; i++)
+            {
+                IWorker worker = player.HiredWorkers[i];
+                worker.UIWorkerTile.DistractServiceLength(); // Maybe this should not be directed through the worker tile, but through some manager?
+            }
+
         }
     }
 }

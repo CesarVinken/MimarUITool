@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class NavigationManager : MonoBehaviour {
     public static NavigationManager Instance;
@@ -26,6 +27,8 @@ public class NavigationManager : MonoBehaviour {
     [SerializeField] private PlayersTabContainer _playersTabContainer;
     [SerializeField] private StatsTabContainer _statsTabContainer;
     [SerializeField] private OptionsTabContainer _optionsTabContainer;
+
+    private Dictionary<LocationType, MonumentLocationUIContainer> _constructionSiteContainersByLocationType = new Dictionary<LocationType, MonumentLocationUIContainer>();
 
     public void Awake()
     {
@@ -98,9 +101,13 @@ public class NavigationManager : MonoBehaviour {
         _marbleQuarryContainer.SetLocationType(LocationType.MarbleQuarry);
         _graniteQuarryContainer.SetLocationType(LocationType.GraniteQuarry);
         _constantinopleContainer.SetLocationType(LocationType.Constantinople);
+
         _constructionSite1Container.SetLocationType(LocationType.ConstructionSite1);
         _constructionSite2Container.SetLocationType(LocationType.ConstructionSite2);
         _constructionSite3Container.SetLocationType(LocationType.ConstructionSite3);
+        _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite1, _constructionSite1Container);
+        _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite2, _constructionSite2Container);
+        _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite3, _constructionSite3Container);
     }
 
     private void Start()
@@ -153,5 +160,16 @@ public class NavigationManager : MonoBehaviour {
                 Debug.LogError($"Location type {locationType} was not yet implemented");
                 return null;
         }
+    }
+
+    public MonumentLocationUIContainer GetMonumentLocationUIContainer(LocationType locationType)
+    {
+        if(_constructionSiteContainersByLocationType.TryGetValue(locationType, out MonumentLocationUIContainer constructionSiteContainer))
+        {
+            return constructionSiteContainer;
+        }
+
+        Debug.LogError($"Could not find constructionSiteContainer for location type {locationType}");
+        return null;
     }
 }
