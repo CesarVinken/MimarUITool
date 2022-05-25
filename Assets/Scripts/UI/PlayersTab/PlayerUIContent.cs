@@ -72,7 +72,7 @@ public class PlayerUIContent : MonoBehaviour
         _reputationInputField.text = newReputation.ToString();
 
         int recalculatedIncome = StatCalculator.CalculateIncome(_player);
-        _incomeLabel.text = $"+{recalculatedIncome.ToString()}";
+        _incomeLabel.text = $"+({recalculatedIncome.ToString()})";
     }
 
     public void OnReputationInputFieldChange()

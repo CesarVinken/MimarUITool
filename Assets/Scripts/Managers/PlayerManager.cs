@@ -100,4 +100,13 @@ public class PlayerManager : MonoBehaviour
 
         PlayersByPriority = newPriorityList;
     }
+
+    public void PayIncomes()
+    {
+        foreach (KeyValuePair<PlayerNumber, Player> item in PlayerManager.Instance.Players)
+        {
+            Player player = item.Value;
+            player.SetGold(player.Gold + StatCalculator.CalculateIncome(player));
+        }
+    }
 }

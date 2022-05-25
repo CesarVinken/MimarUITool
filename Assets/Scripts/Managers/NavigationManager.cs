@@ -4,10 +4,15 @@ public class NavigationManager : MonoBehaviour {
     public static NavigationManager Instance;
 
     public UITabButton CurrentTab { get; private set; } = null;
+
+    [Header("Buttons")]
+
     [SerializeField] private UITabButton _gameTabButton;
     [SerializeField] private UITabButton _playersTabButton;
     [SerializeField] private UITabButton _statsTabButton;
     [SerializeField] private UITabButton _optionsTabButton;
+
+    [Header("Containers")]
 
     [SerializeField] private UILocationContainer _forestContainer;
     [SerializeField] private UILocationContainer _marbleQuarryContainer;
