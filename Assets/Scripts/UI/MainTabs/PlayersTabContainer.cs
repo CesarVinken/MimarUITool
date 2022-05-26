@@ -61,7 +61,7 @@ public class PlayersTabContainer : UITabContainer
 
     public void FillInPlayerContent(UIPlayerData playerData)
     {
-        _playerUIContentContainer.FillInPlayerContent(playerData);
+        _playerUIContentContainer.UpdatePlayerUIContent(playerData);
     }
 
     public override void Activate()

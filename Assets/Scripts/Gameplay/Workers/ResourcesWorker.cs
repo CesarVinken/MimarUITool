@@ -1,3 +1,4 @@
+using UnityEngine;
 public class ResourcesWorker : IWorker
 {
     public PlayerNumber Employer { get; private set; } = PlayerNumber.None;

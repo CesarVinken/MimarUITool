@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Forest : ILocation, ILabourPoolLocation
 {
+    public ResourceType ResourceType { get; private set; } = ResourceType.Wood;
     public LocationType LocationType { get; private set; } = LocationType.Forest;
     public string Name { get; private set; } = "Forest";
     public List<IWorker> LabourPoolWorkers { get; private set; }  = new List<IWorker>();

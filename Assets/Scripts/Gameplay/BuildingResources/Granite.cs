@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Granite : IResource
+public class Granite : BaseResource
 {
-
+    public Granite(int amount)
+    {
+        Amount = amount;
+    }
 }

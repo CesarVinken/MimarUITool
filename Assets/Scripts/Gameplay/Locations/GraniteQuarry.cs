@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GraniteQuarry : ILocation, ILabourPoolLocation
 {
+    public ResourceType ResourceType { get; private set; } = ResourceType.Granite;
     public LocationType LocationType { get; private set; } = LocationType.GraniteQuarry;
     public string Name { get; private set; } = "Granite Quarry";
     public List<IWorker> LabourPoolWorkers { get; private set; } = new List<IWorker>();

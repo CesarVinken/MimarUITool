@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class PlayerUIContent : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _reputationInputField;
     [SerializeField] private TMP_InputField _currentGoldInputField;
-    [SerializeField] private TextMeshProUGUI _incomeLabel;
+    [SerializeField] private TextMeshProUGUI _goldIncomeProjectionLabel;
     [SerializeField] private TMP_InputField _currentStockpileInputField;
 
     [SerializeField] private PlayerResourceUIContainer _woodResourceContainer;
@@ -24,9 +25,9 @@ public class PlayerUIContent : MonoBehaviour
         {
             Debug.LogError($"could not find _currentGoldInputField");
         }
-        if (_incomeLabel == null)
+        if (_goldIncomeProjectionLabel == null)
         {
-            Debug.LogError($"could not find _incomeLabel");
+            Debug.LogError($"could not find _goldIncomeProjectionLabel");
         }
         if (_currentStockpileInputField == null)
         {
@@ -54,25 +55,32 @@ public class PlayerUIContent : MonoBehaviour
         _graniteResourceContainer.Initialise(ResourceType.Granite);
     }
 
-    public void FillInPlayerContent(UIPlayerData uiPlayerData)
+    public void UpdatePlayerUIContent(UIPlayerData uiPlayerData)
     {
         _player = uiPlayerData.Player;
 
-        SetReputation(uiPlayerData.Reputation); // TODO MOVE TO DEDICATED CONTAINERS LIKE RESOURCES
-        SetGold(uiPlayerData.Gold);
-        SetStockpileMaximum(uiPlayerData.StockpileMaximum);
+        SetReputation(_player.Reputation); // TODO MOVE TO DEDICATED CONTAINERS LIKE RESOURCES
+        SetGold(_player.Gold);
+        SetResources(_player.Resources);
+        SetStockpileMaximum(_player.StockpileMaximum);
 
-        _woodResourceContainer.FillInPlayerContent(uiPlayerData);
-        _marbleResourceContainer.FillInPlayerContent(uiPlayerData);
-        _graniteResourceContainer.FillInPlayerContent(uiPlayerData);
+
     }
 
     public void SetReputation(int newReputation)
     {
         _reputationInputField.text = newReputation.ToString();
 
-        int recalculatedIncome = StatCalculator.CalculateIncome(_player);
-        _incomeLabel.text = $"+({recalculatedIncome.ToString()})";
+        int recalculatedIncome = StatCalculator.CalculateGoldIncome(_player);
+        _goldIncomeProjectionLabel.text = $"+{recalculatedIncome.ToString()}";
+    }
+
+    public void SetResources(Dictionary<ResourceType, IResource> resources)
+    {
+        _woodResourceContainer.UpdateUI(_player, resources[ResourceType.Wood]);
+        _marbleResourceContainer.UpdateUI(_player, resources[ResourceType.Marble]);
+        _graniteResourceContainer.UpdateUI(_player, resources[ResourceType.Granite]);
+
     }
 
     public void OnReputationInputFieldChange()
@@ -87,8 +95,8 @@ public class PlayerUIContent : MonoBehaviour
         _player.SetReputation(newReputation);
         PlayerManager.Instance.UpdatePlayerPriority(_player, oldReputation);
 
-        int recalculatedIncome = StatCalculator.CalculateIncome(_player);
-        _incomeLabel.text = $"+{recalculatedIncome.ToString()}";
+        int recalculatedIncome = StatCalculator.CalculateGoldIncome(_player);
+        _goldIncomeProjectionLabel.text = $"+{recalculatedIncome.ToString()}";
     }
 
     public void SetGold(int newGold)

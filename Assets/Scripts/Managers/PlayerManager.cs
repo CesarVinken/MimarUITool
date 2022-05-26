@@ -30,10 +30,11 @@ public class PlayerManager : MonoBehaviour
         Player player = Players[playerNumber];
 
         UIPlayerData playerData = new UIPlayerData()
-            .WithPlayer(player)
-            .WithGold(player.Gold)
-            .WithReputation(player.Reputation)
-            .WithStockpileMaximum(player.StockpileMaximum);
+            .WithPlayer(player);
+            //.WithGold(player.Gold)
+            //.WithReputation(player.Reputation)
+            //.WithResources(player.Resources)
+            //.WithStockpileMaximum(player.StockpileMaximum);
 
         return playerData;
     }
@@ -106,7 +107,7 @@ public class PlayerManager : MonoBehaviour
         foreach (KeyValuePair<PlayerNumber, Player> item in PlayerManager.Instance.Players)
         {
             Player player = item.Value;
-            player.SetGold(player.Gold + StatCalculator.CalculateIncome(player));
+            player.SetGold(player.Gold + StatCalculator.CalculateGoldIncome(player));
             for (int i = 0; i < player.HiredWorkers.Count; i++)
             {
                 IWorker worker = player.HiredWorkers[i];

@@ -25,38 +25,47 @@ public class PlayerResourceUIContainer : MonoBehaviour
         _resourceType = resourceType;
     }
 
-    public void FillInPlayerContent(UIPlayerData uiPlayerData)
+    public void UpdateUI(Player player, IResource resource)
     {
-        _player = uiPlayerData.Player;
+        _player = player;
 
-        SetResource(uiPlayerData.Player.Resources[_resourceType]);
-    }
-
-    public void SetResource(int newAmount)
-    {
-        if(newAmount > _player.StockpileMaximum)
-        {
-            newAmount = _player.StockpileMaximum;
-        }
-
-        _currentAmountInputField.text = newAmount.ToString();
+        SetCurrentResourceDisplay(resource.Amount);
+        SetIncomeProjectionLabel();
     }
 
     public void OnResourceInputFieldChange()
     {
         if (string.IsNullOrWhiteSpace(_currentAmountInputField.text) || int.Parse(_currentAmountInputField.text) == 0)
         {
-            _currentAmountInputField.text = "0";
+            SetCurrentResourceDisplay(0);
+            _player.SetResource(_resourceType, 0);
+            return;
         }
-
+        
         int newAmount = int.Parse(_currentAmountInputField.text);
 
         if (newAmount > _player.StockpileMaximum)
         {
             newAmount = _player.StockpileMaximum;
-            _currentAmountInputField.text = newAmount.ToString();
+            SetCurrentResourceDisplay(newAmount);
         }
-
         _player.SetResource(_resourceType, newAmount);
+    }
+
+    private void SetCurrentResourceDisplay(int newAmount)
+    {
+        //if(newAmount > _player.StockpileMaximum)
+        //{
+        //    newAmount = _player.StockpileMaximum;
+        //    //_player.SetResource(_resourceType, newAmount);
+        //}
+
+        _currentAmountInputField.text = newAmount.ToString();
+    }
+
+    private void SetIncomeProjectionLabel()
+    {
+        int projectedResourceIncome = StatCalculator.CalculateResourceIncome(_resourceType, _player);
+        _incomeProjectionLabel.text = $"+{projectedResourceIncome}";
     }
 }

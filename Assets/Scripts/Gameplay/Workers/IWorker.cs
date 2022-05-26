@@ -9,5 +9,4 @@ public interface IWorker
     public void SetServiceLength(int newValue);
 
     public void SetUIWorkerTile(WorkerTile workerTile);
-
 }

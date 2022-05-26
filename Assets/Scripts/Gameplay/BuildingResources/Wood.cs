@@ -1,5 +1,7 @@
-
-public class Wood : IResource
+public class Wood : BaseResource
 {
-
+    public Wood(int amount)
+    {
+        Amount = amount;
+    }
 }

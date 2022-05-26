@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StatCalculator : MonoBehaviour
 {
-    public static int CalculateIncome(Player player)
+    public static int CalculateGoldIncome(Player player)
     {
         int reputation = player.Reputation;
 
@@ -40,5 +40,21 @@ public class StatCalculator : MonoBehaviour
         }
 
         return baseIncome - wages;
+    }
+
+    public static int CalculateResourceIncome(ResourceType resourceType, Player player)
+    {
+        int resourceIncome = 0;
+        for (int i = 0; i < player.HiredWorkers.Count; i++)
+        {
+            ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(player.HiredWorkers[i].Location.LocationType);
+
+            if (labourPoolLocation.ResourceType == resourceType)
+            {
+                resourceIncome += 10; // Later the amount of collected resources will depend on modifiers
+            }
+        }
+
+        return resourceIncome;
     }
 }
