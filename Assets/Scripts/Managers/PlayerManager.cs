@@ -82,20 +82,8 @@ public class PlayerManager : MonoBehaviour
 
         newPriorityList.Insert(priorityPosition - 1, updatedPlayer);
 
-        //List<Player> oldPriorityList = new List<Player>();
-        //for (int p = 0; p < PlayersByPriority.Count; p++)
-        //{
-        //    oldPriorityList.Add(PlayersByPriority[p]);
-        //}
-
-        //for (int j = 0; j < oldPriorityList.Count; j++)
-        //{
-        //    Debug.Log($"old priority list {j}: {oldPriorityList[j].PlayerNumber}");
-        //}
-
         for (int k = 0; k < newPriorityList.Count; k++)
         {
-            //Debug.Log($"new priority list {k}: {newPriorityList[k].PlayerNumber}");
             newPriorityList[k].SetPriority(PlayerUtility.IntToPlayerPriority(k + 1));
         }
 
@@ -107,13 +95,38 @@ public class PlayerManager : MonoBehaviour
         foreach (KeyValuePair<PlayerNumber, Player> item in PlayerManager.Instance.Players)
         {
             Player player = item.Value;
+
+            // TODO: If we do not have enough gold, force fire workers
             player.SetGold(player.Gold + StatCalculator.CalculateGoldIncome(player));
+
+        }
+    }
+
+    public void DistractWorkerServiceLength()
+    {
+        foreach (KeyValuePair<PlayerNumber, Player> item in PlayerManager.Instance.Players)
+        {
+            Player player = item.Value;
             for (int i = 0; i < player.HiredWorkers.Count; i++)
             {
                 IWorker worker = player.HiredWorkers[i];
                 worker.UIWorkerTile.DistractServiceLength(); // Maybe this should not be directed through the worker tile, but through some manager?
             }
+        }
+    }
 
+    public void CollectResources()
+    {
+        foreach (KeyValuePair<PlayerNumber, Player> playerItem in PlayerManager.Instance.Players)
+        {
+            Player player = playerItem.Value;
+
+            foreach (KeyValuePair<ResourceType, IResource> resourceItem in player.Resources)
+            {
+                int addedAmount = StatCalculator.CalculateResourceIncome(resourceItem.Key, player);
+
+                player.AddResource(resourceItem.Key, addedAmount);
+            }
         }
     }
 }

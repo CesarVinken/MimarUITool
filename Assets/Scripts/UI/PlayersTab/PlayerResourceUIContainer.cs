@@ -18,6 +18,9 @@ public class PlayerResourceUIContainer : MonoBehaviour
         {
             Debug.LogError($"could not find  incomeProjectionLabel");
         }
+
+        _currentAmountInputField.onValueChanged.AddListener(delegate { OnResourceInputFieldChange(); });
+
     }
 
     public void Initialise(ResourceType resourceType)
@@ -59,6 +62,7 @@ public class PlayerResourceUIContainer : MonoBehaviour
         //    newAmount = _player.StockpileMaximum;
         //    //_player.SetResource(_resourceType, newAmount);
         //}
+        Debug.Log($"newAmount of {_resourceType} is {newAmount}");
 
         _currentAmountInputField.text = newAmount.ToString();
     }

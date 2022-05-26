@@ -21,5 +21,7 @@ public class GameFlowManager : MonoBehaviour
     private void NextTurn()
     {
         PlayerManager.Instance.PayIncomes();
+        PlayerManager.Instance.CollectResources();
+        PlayerManager.Instance.DistractWorkerServiceLength();
     }
 }

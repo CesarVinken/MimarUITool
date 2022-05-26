@@ -22,7 +22,7 @@ public class Player
         HiredWorkers = new List<IWorker>();
         Gold = 0;
         Reputation = 15;
-        StockpileMaximum = 8;
+        StockpileMaximum = 80;
         Name = playerName;
         InitialiseResources();
         InitialisePlayerColour();

@@ -59,15 +59,13 @@ public class PlayerUIContent : MonoBehaviour
     {
         _player = uiPlayerData.Player;
 
-        SetReputation(_player.Reputation); // TODO MOVE TO DEDICATED CONTAINERS LIKE RESOURCES
-        SetGold(_player.Gold);
-        SetResources(_player.Resources);
-        SetStockpileMaximum(_player.StockpileMaximum);
-
-
+        SetReputationUI(_player.Reputation); // TODO MOVE TO DEDICATED CONTAINERS LIKE RESOURCES
+        SetGoldUI(_player.Gold);
+        SetResourcesUI(_player.Resources);
+        SetStockpileMaximumUI(_player.StockpileMaximum);
     }
 
-    public void SetReputation(int newReputation)
+    public void SetReputationUI(int newReputation)
     {
         _reputationInputField.text = newReputation.ToString();
 
@@ -75,12 +73,11 @@ public class PlayerUIContent : MonoBehaviour
         _goldIncomeProjectionLabel.text = $"+{recalculatedIncome.ToString()}";
     }
 
-    public void SetResources(Dictionary<ResourceType, IResource> resources)
+    public void SetResourcesUI(Dictionary<ResourceType, IResource> resources)
     {
         _woodResourceContainer.UpdateUI(_player, resources[ResourceType.Wood]);
         _marbleResourceContainer.UpdateUI(_player, resources[ResourceType.Marble]);
         _graniteResourceContainer.UpdateUI(_player, resources[ResourceType.Granite]);
-
     }
 
     public void OnReputationInputFieldChange()
@@ -99,7 +96,7 @@ public class PlayerUIContent : MonoBehaviour
         _goldIncomeProjectionLabel.text = $"+{recalculatedIncome.ToString()}";
     }
 
-    public void SetGold(int newGold)
+    public void SetGoldUI(int newGold)
     {
         _currentGoldInputField.text = newGold.ToString();
     }
@@ -121,7 +118,7 @@ public class PlayerUIContent : MonoBehaviour
         _player.SetGold(newGold);
     }
 
-    public void SetStockpileMaximum(int newMaximum)
+    public void SetStockpileMaximumUI(int newMaximum)
     {
         _currentStockpileInputField.text = newMaximum.ToString();
     }
