@@ -63,6 +63,14 @@ public class PlayerResourceUIContainer : MonoBehaviour
     private void SetIncomeProjectionLabel()
     {
         int projectedResourceIncome = StatCalculator.CalculateResourceIncome(_resourceType, _player);
-        _incomeProjectionLabel.text = $"+{projectedResourceIncome}";
+
+        if(_player.Resources[_resourceType].Amount + projectedResourceIncome > _player.StockpileMaximum)
+        {
+            _incomeProjectionLabel.text = $"<color=red>+{projectedResourceIncome}</color>";
+        }
+        else
+        {
+            _incomeProjectionLabel.text = $"+{projectedResourceIncome}";
+        }
     }
 }
