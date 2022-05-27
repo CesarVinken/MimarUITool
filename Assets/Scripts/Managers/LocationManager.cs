@@ -60,6 +60,9 @@ public class LocationManager : MonoBehaviour
             case LocationType.GraniteQuarry:
                 return _graniteQuarry;
             case LocationType.Constantinople:
+            case LocationType.ConstructionSite1:
+            case LocationType.ConstructionSite2:
+            case LocationType.ConstructionSite3:
                 return _constantinople;
             default:
                 Debug.LogError($"Location type {locationType} was not yet implemented");

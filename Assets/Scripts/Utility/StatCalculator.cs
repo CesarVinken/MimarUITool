@@ -47,7 +47,10 @@ public class StatCalculator : MonoBehaviour
         int resourceIncome = 0;
         for (int i = 0; i < player.HiredWorkers.Count; i++)
         {
-            ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(player.HiredWorkers[i].Location.LocationType);
+            IWorker worker = player.HiredWorkers[i];
+            LocationType locationType = worker.Location.LocationType;
+
+            ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(locationType);
 
             if (labourPoolLocation.ResourceType == resourceType)
             {
