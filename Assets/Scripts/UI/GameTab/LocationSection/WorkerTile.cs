@@ -14,7 +14,6 @@ public abstract class WorkerTile : MonoBehaviour
     // called when changing the input field
     public void OnChangeServiceLengthInputField()
     {
-        Debug.Log("Value Changed");
         int newContractLength = 1;
 
         if (int.TryParse(_serviceLengthInputField.text, out int result))
@@ -27,8 +26,6 @@ public abstract class WorkerTile : MonoBehaviour
 
     protected void UpdateServiceLength(int newContractLength)
     {
-        Debug.Log($"UpdateServiceLength to {newContractLength}");
-
         // The user should not be allowed to set a contract to anything less than 1 in the input field. Because 0 would effectively mean the contract has ended, and should assign the employer too None.
         if (newContractLength <= 0)
         {
@@ -39,7 +36,7 @@ public abstract class WorkerTile : MonoBehaviour
         Worker.SetServiceLength(newContractLength);
     }
 
-    public void DistractServiceLength()
+    public void SubtractServiceLength()
     {
         int newContractLength = Worker.ServiceLength - 1;
 

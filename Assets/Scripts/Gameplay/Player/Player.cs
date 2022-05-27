@@ -81,12 +81,25 @@ public class Player
 
     public void SetResource(ResourceType resourceType, int amount)
     {
+        if (amount > StockpileMaximum)
+        {
+            Resources[resourceType].SetAmount(StockpileMaximum);
+            return;
+        }
+
         Resources[resourceType].SetAmount(amount);
     }
 
     public void AddResource(ResourceType resourceType, int amount)
     {
+        if(Resources[resourceType].Amount + amount > StockpileMaximum)
+        {
+            Resources[resourceType].SetAmount(StockpileMaximum);
+            return;
+        }
+
         Resources[resourceType].AddAmount(amount);
+
     }
 
     public void SetStockpileMaximum(int maximum)

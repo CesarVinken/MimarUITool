@@ -57,13 +57,6 @@ public class PlayerResourceUIContainer : MonoBehaviour
 
     private void SetCurrentResourceDisplay(int newAmount)
     {
-        //if(newAmount > _player.StockpileMaximum)
-        //{
-        //    newAmount = _player.StockpileMaximum;
-        //    //_player.SetResource(_resourceType, newAmount);
-        //}
-        Debug.Log($"newAmount of {_resourceType} is {newAmount}");
-
         _currentAmountInputField.text = newAmount.ToString();
     }
 

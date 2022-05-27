@@ -107,10 +107,10 @@ public class PlayerManager : MonoBehaviour
         foreach (KeyValuePair<PlayerNumber, Player> item in PlayerManager.Instance.Players)
         {
             Player player = item.Value;
-            for (int i = 0; i < player.HiredWorkers.Count; i++)
+            for (int i = player.HiredWorkers.Count - 1; i >= 0; i--)
             {
                 IWorker worker = player.HiredWorkers[i];
-                worker.UIWorkerTile.DistractServiceLength(); // Maybe this should not be directed through the worker tile, but through some manager?
+                worker.UIWorkerTile.SubtractServiceLength(); // Maybe this should not be directed through the worker tile, but through some manager?
             }
         }
     }
