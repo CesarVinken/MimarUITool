@@ -6,7 +6,7 @@ public class PlayerSelectionButton : MonoBehaviour
 {
     [SerializeField] private Image _image;
 	[SerializeField] private PlayersTabContainer _playersTab;
-	private PlayerNumber _playerNumber = PlayerNumber.None;
+	public PlayerNumber PlayerNumber { get; private set; } = PlayerNumber.None;
 	//[SerializeField] private PlayersContentContainer _playersContentContainer;
 
 	private void Awake()
@@ -24,7 +24,7 @@ public class PlayerSelectionButton : MonoBehaviour
 
 	public void Initialise(PlayerNumber playerNumber)
     {
-		_playerNumber = playerNumber;
+		PlayerNumber = playerNumber;
 	}
 
 
@@ -41,13 +41,13 @@ public class PlayerSelectionButton : MonoBehaviour
 
 	public void UpdatePlayerData()
     {
-		UIPlayerData playerData = PlayerManager.Instance.GetPlayerData(_playerNumber);
+		UIPlayerData playerData = PlayerManager.Instance.GetPlayerData(PlayerNumber);
 		_playersTab.FillInPlayerContent(playerData);
+		_playersTab.UpdateMonumentDisplay();
 	}
 
 	public void Deactivate()
 	{
 		_image.color = ColourUtility.GetColour(ColourType.Empty);
-		//_playersContentContainer.Deactivate();
 	}
 }

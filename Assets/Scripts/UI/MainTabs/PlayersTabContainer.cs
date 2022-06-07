@@ -7,6 +7,7 @@ public class PlayersTabContainer : UITabContainer
     [SerializeField] private PlayerSelectionButton _player3SelectionButton;
 
     [SerializeField] private PlayerUIContent _playerUIContentContainer;
+    [SerializeField] private MonumentsDisplayContainer _monumentsDisplayContainer;
     public PlayerSelectionButton CurrentPlayerTab { get; private set; } = null;
 
     private void Awake()
@@ -27,6 +28,10 @@ public class PlayersTabContainer : UITabContainer
         if (_playerUIContentContainer == null)
         {
             Debug.LogError($"Cannot find _playerUIContentContainer on {gameObject.name}");
+        }
+        if (_monumentsDisplayContainer == null)
+        {
+            Debug.LogError($"Cannot find _monumentsDisplayContainer on {gameObject.name}");
         }
     }
 
@@ -64,9 +69,17 @@ public class PlayersTabContainer : UITabContainer
         _playerUIContentContainer.UpdatePlayerUIContent(playerData);
     }
 
+    public void UpdateMonumentDisplay()
+    {
+        _monumentsDisplayContainer.ShowMonument(CurrentPlayerTab.PlayerNumber);
+    }
+
     public override void Activate()
     {
+
+        Debug.Log($"A");
         CurrentPlayerTab.UpdatePlayerData();
         gameObject.SetActive(true);
+        // show monument
     }
 }
