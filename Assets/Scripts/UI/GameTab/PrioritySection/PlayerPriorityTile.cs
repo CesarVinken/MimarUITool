@@ -6,16 +6,21 @@ using UnityEngine.UI;
 
 public class PlayerPriorityTile : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textField;
+    [SerializeField] private TextMeshProUGUI _playerNameTextField;
+    [SerializeField] private TextMeshProUGUI _playerInfoTextField;
     [SerializeField] private Image _background;
 
     private PriorityNumber _priorityNumber;
 
     private void Awake()
     {
-        if (_textField == null)
+        if (_playerNameTextField == null)
         {
-            Debug.LogError($"Could not find text field on {gameObject.name}");
+            Debug.LogError($"Could not find _playerNameTextField on {gameObject.name}");
+        }
+        if (_playerInfoTextField == null)
+        {
+            Debug.LogError($"Could not find _playerInfoTextField on {gameObject.name}");
         }
         if (_background == null)
         {
@@ -46,7 +51,8 @@ public class PlayerPriorityTile : MonoBehaviour
             rankingNumber = 3;
         }
 
-        _textField.text = $"{rankingNumber}. {player.Name} ({player.Reputation})";
+        _playerNameTextField.text = $"{rankingNumber}. {player.Name}";
+        _playerInfoTextField.text = $"Rep: {player.Reputation} Gold: {player.Gold}";
     }
 
     private void SetColour(PlayerNumber playerNumber)
