@@ -7,7 +7,6 @@ public class PlayerSelectionButton : MonoBehaviour
     [SerializeField] private Image _image;
 	[SerializeField] private PlayersTabContainer _playersTab;
 	public PlayerNumber PlayerNumber { get; private set; } = PlayerNumber.None;
-	//[SerializeField] private PlayersContentContainer _playersContentContainer;
 
 	private void Awake()
 	{
@@ -26,7 +25,6 @@ public class PlayerSelectionButton : MonoBehaviour
     {
 		PlayerNumber = playerNumber;
 	}
-
 
 	public void OnClick()
     {

@@ -76,10 +76,7 @@ public class PlayersTabContainer : UITabContainer
 
     public override void Activate()
     {
-
-        Debug.Log($"A");
         CurrentPlayerTab.UpdatePlayerData();
         gameObject.SetActive(true);
-        // show monument
     }
 }

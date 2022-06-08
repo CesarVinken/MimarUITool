@@ -13,6 +13,8 @@ public class PlayerUIContent : MonoBehaviour
     [SerializeField] private PlayerResourceUIContainer _marbleResourceContainer;
     [SerializeField] private PlayerResourceUIContainer _graniteResourceContainer;
 
+    [SerializeField] private UIMonumentContainer _uiMonumentContainer;
+
     private Player _player;
 
     private void Awake()
@@ -46,6 +48,11 @@ public class PlayerUIContent : MonoBehaviour
         {
             Debug.LogError($"could not find _graniteResourceContainer");
         }
+
+        if (_uiMonumentContainer == null)
+        {
+            Debug.LogError($"could not find _uiMonumentContainer on {gameObject.name}");
+        }
     }
 
     public void Initialise()
@@ -53,6 +60,8 @@ public class PlayerUIContent : MonoBehaviour
         _woodResourceContainer.Initialise(ResourceType.Wood);
         _marbleResourceContainer.Initialise(ResourceType.Marble);
         _graniteResourceContainer.Initialise(ResourceType.Granite);
+
+        _uiMonumentContainer.GenerateItems();
     }
 
     public void UpdatePlayerUIContent(UIPlayerData uiPlayerData)
@@ -63,6 +72,8 @@ public class PlayerUIContent : MonoBehaviour
         SetGoldUI(_player.Gold);
         SetResourcesUI(_player.Resources);
         SetStockpileMaximumUI(_player.StockpileMaximum);
+
+        _uiMonumentContainer.UpdateUIForItems();
     }
 
     public void SetReputationUI(int newReputation)
