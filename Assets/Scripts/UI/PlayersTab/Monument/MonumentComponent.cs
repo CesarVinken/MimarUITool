@@ -5,6 +5,8 @@ using UnityEngine;
 public class MonumentComponent
 {
     public bool Complete { get; private set; } = false;
+    public string Name { get; private set; }
+    public MonumentComponentType MonumentComponentType { get; private set; }
 
     private MonumentComponentBlueprint _monumentComponentBlueprint;
     private int _remainingLabourTime;
@@ -13,6 +15,9 @@ public class MonumentComponent
     {
         _monumentComponentBlueprint = monumentComponentBlueprint;
         _remainingLabourTime = _monumentComponentBlueprint.LabourTime;
+
+        Name = _monumentComponentBlueprint.Name;
+        MonumentComponentType = _monumentComponentBlueprint.MonumentComponentType;
     }
 
     public void SetComplete(bool isComplete)

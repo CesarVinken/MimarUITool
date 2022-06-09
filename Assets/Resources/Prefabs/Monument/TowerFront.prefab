@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2933452140015133702}
   - component: {fileID: 2241223304872012707}
   - component: {fileID: 4106891370926038889}
+  - component: {fileID: 6062553463498741852}
   m_Layer: 0
   m_Name: TowerFront
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6062553463498741852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2593624241199283900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867092d857826334bbdcd857c2b384fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 292564587848046456}
   - component: {fileID: 3720182629090564317}
   - component: {fileID: 1460372640565128215}
+  - component: {fileID: 882028898231505585}
   m_Layer: 0
   m_Name: Dome
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &882028898231505585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100203623616007618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867092d857826334bbdcd857c2b384fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6085818722858547983}
   - component: {fileID: 7195327749130073258}
   - component: {fileID: 4917375809418182752}
+  - component: {fileID: 6628361591749294365}
   m_Layer: 0
   m_Name: GroundPlane
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6628361591749294365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863199198844019125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867092d857826334bbdcd857c2b384fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

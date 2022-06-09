@@ -13,6 +13,7 @@ public class Player
     public int StockpileMaximum { get; private set; }
     public Dictionary<ResourceType, IResource> Resources { get; private set; } = new Dictionary<ResourceType, IResource>();
 
+    public Monument Monument { get; private set; }
 
     public List<IWorker> HiredWorkers { get; private set; }
 
@@ -24,6 +25,8 @@ public class Player
         Reputation = 15;
         StockpileMaximum = 80;
         Name = playerName;
+        Monument = new Monument(playerNumber);
+
         InitialiseResources();
         InitialisePlayerColour();
     }
@@ -105,5 +108,16 @@ public class Player
     public void SetStockpileMaximum(int maximum)
     {
         StockpileMaximum = maximum;
+    }
+
+    public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
+    {
+        MonumentComponent monumentComponent = Monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
+        Monument.SetMonumentComponentCompletion(monumentComponentBlueprint.MonumentComponentType, !monumentComponent.Complete);
+        // update monument visuals
+        // update workers
+        // update component remaining labour time
+        return monumentComponent.Complete;
+
     }
 }

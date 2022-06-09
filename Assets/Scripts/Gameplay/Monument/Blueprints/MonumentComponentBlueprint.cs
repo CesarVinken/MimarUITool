@@ -6,7 +6,9 @@ public abstract class MonumentComponentBlueprint
     // TODO For each component, add list of Prerequisite blueprints: the components that should have been completed before this model is available
     public abstract int LabourTime { get; }
     public abstract string Name { get; }
+    public abstract MonumentComponentType MonumentComponentType { get; }
 
     public abstract MonumentComponentBlueprint WithLabourTime(int labourTime);
     public abstract MonumentComponentBlueprint WithName(string name);
+    public abstract MonumentComponentBlueprint WithMonumentComponentType(MonumentComponentType monumentComponentType);
 }

@@ -6,6 +6,8 @@ public class UIMonumentContainer : MonoBehaviour
 {
     [SerializeField] private GameObject _monumentComponentListItemPrefab;
     [SerializeField] private Transform _monumentComponentListContainer;
+    private PlayerUIContent _playerUIContentContainer;
+    private PlayersTabContainer _playersTabContainer;
 
     List<MonumentComponentListItem> MonumentComponentListItems = new List<MonumentComponentListItem>();
 
@@ -21,6 +23,12 @@ public class UIMonumentContainer : MonoBehaviour
         }
     }
 
+    public void Initialise(PlayerUIContent playerUIContentContainer, PlayersTabContainer playersTabContainer)
+    {
+        _playerUIContentContainer = playerUIContentContainer;
+        _playersTabContainer = playersTabContainer;
+    }
+
     // Items are generated only the first time we run the game. After that we use the list of the generated items and turn them on and off as needed using UpdateUIForItems()
     public void GenerateItems()
     {
@@ -31,7 +39,7 @@ public class UIMonumentContainer : MonoBehaviour
             GameObject listItemGO = GameObject.Instantiate(_monumentComponentListItemPrefab, _monumentComponentListContainer);
             MonumentComponentListItem monumentComponentListItem = listItemGO.GetComponent<MonumentComponentListItem>();
 
-            monumentComponentListItem.Initialise(monumentComponentBlueprints[i]);
+            monumentComponentListItem.Initialise(monumentComponentBlueprints[i], _playersTabContainer);
             MonumentComponentListItems.Add(monumentComponentListItem);
         }
     }

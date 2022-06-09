@@ -37,7 +37,7 @@ public class PlayersTabContainer : UITabContainer
 
     public void Initialise()
     {
-        _playerUIContentContainer.Initialise();
+        _playerUIContentContainer.Initialise(this);
         _player1SelectionButton.Initialise(PlayerNumber.Player1);
         _player2SelectionButton.Initialise(PlayerNumber.Player2);
         _player3SelectionButton.Initialise(PlayerNumber.Player3);
@@ -67,6 +67,33 @@ public class PlayersTabContainer : UITabContainer
     public void FillInPlayerContent(UIPlayerData playerData)
     {
         _playerUIContentContainer.UpdatePlayerUIContent(playerData);
+    }
+
+    public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
+    {
+        Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
+        //bool isCompleted = currentPlayer.HandleMonumentComponentCompletion(monumentComponentBlueprint);
+        Monument monument = currentPlayer.Monument;
+
+        MonumentComponent monumentComponent = monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
+        monument.SetMonumentComponentCompletion(monumentComponentBlueprint.MonumentComponentType, !monumentComponent.Complete);
+
+        bool componentIsComplete = monumentComponent.Complete;
+
+        if (componentIsComplete)
+        {
+            _monumentsDisplayContainer.ShowMonumentComponent(CurrentPlayerTab.PlayerNumber, monumentComponent);
+        }
+        else
+        {
+            _monumentsDisplayContainer.HideMonumentComponent(CurrentPlayerTab.PlayerNumber, monumentComponent);
+        }
+
+        // update monument visuals
+        // update workers
+        // update component remaining labour time
+        return componentIsComplete;
+
     }
 
     public void UpdateMonumentDisplay()

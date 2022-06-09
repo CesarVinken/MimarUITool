@@ -13,6 +13,7 @@ public class PlayerUIContent : MonoBehaviour
     [SerializeField] private PlayerResourceUIContainer _marbleResourceContainer;
     [SerializeField] private PlayerResourceUIContainer _graniteResourceContainer;
 
+    [SerializeField] private PlayersTabContainer _playersTabContainer;
     [SerializeField] private UIMonumentContainer _uiMonumentContainer;
 
     private Player _player;
@@ -55,12 +56,15 @@ public class PlayerUIContent : MonoBehaviour
         }
     }
 
-    public void Initialise()
+    public void Initialise(PlayersTabContainer playersTabContainer)
     {
+        _playersTabContainer = playersTabContainer;
+
         _woodResourceContainer.Initialise(ResourceType.Wood);
         _marbleResourceContainer.Initialise(ResourceType.Marble);
         _graniteResourceContainer.Initialise(ResourceType.Granite);
 
+        _uiMonumentContainer.Initialise(this, playersTabContainer);
         _uiMonumentContainer.GenerateItems();
     }
 

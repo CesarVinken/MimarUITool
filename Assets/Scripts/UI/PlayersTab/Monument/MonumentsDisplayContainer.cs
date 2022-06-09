@@ -36,6 +36,11 @@ public class MonumentsDisplayContainer : MonoBehaviour
         _player1Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player1]);
         _player2Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player2]);
         _player3Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player3]);
+
+        foreach (KeyValuePair< PlayerNumber, MonumentDisplay> item in _monumentsByPlayerNumber)
+        {
+            item.Value.CreateMonumentComponents();
+        }
     }
 
     public void ShowMonument(PlayerNumber playerNumber)
@@ -52,5 +57,17 @@ public class MonumentsDisplayContainer : MonoBehaviour
 
         _monumentsByPlayerNumber[playerNumber].gameObject.SetActive(true);
         _currentlyShownMonument = _monumentsByPlayerNumber[playerNumber];
+    }
+
+    public void ShowMonumentComponent(PlayerNumber playerNumber, MonumentComponent monumentComponent)
+    {
+        MonumentDisplay monumentDisplay = _monumentsByPlayerNumber[playerNumber];
+        monumentDisplay.ShowComponent(monumentComponent);
+    }
+
+    public void HideMonumentComponent(PlayerNumber playerNumber, MonumentComponent monumentComponent)
+    {
+        MonumentDisplay monumentDisplay = _monumentsByPlayerNumber[playerNumber];
+        monumentDisplay.HideComponent(monumentComponent);
     }
 }
