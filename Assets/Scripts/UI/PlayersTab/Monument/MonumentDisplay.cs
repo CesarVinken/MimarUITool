@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +10,16 @@ public class MonumentDisplay : MonoBehaviour
 
     public void CreateMonumentComponents()
     {
-        CreateMonumentComponent(MonumentComponentType.FirstFloor);
+        CreateMonumentComponent(MonumentComponentType.FloorFirst);
+        CreateMonumentComponent(MonumentComponentType.FloorSecond);
+        CreateMonumentComponent(MonumentComponentType.FloorThird);
+        CreateMonumentComponent(MonumentComponentType.Arches);
+        CreateMonumentComponent(MonumentComponentType.Dome);
+        CreateMonumentComponent(MonumentComponentType.GroundPlane);
+        CreateMonumentComponent(MonumentComponentType.OuterWalls);
+        CreateMonumentComponent(MonumentComponentType.TowersBack);
+        CreateMonumentComponent(MonumentComponentType.TowersFront);
+        CreateMonumentComponent(MonumentComponentType.TowersMiddle);
     }
 
     private void CreateMonumentComponent(MonumentComponentType monumentComponentType)
@@ -36,7 +44,6 @@ public class MonumentDisplay : MonoBehaviour
 
     public void AddToMonumentDisplayComponents(MonumentDisplayComponent monumentDisplayComponent)
     {
-        Debug.Log($"added monumentDisplayComponent of type {monumentDisplayComponent.MonumentComponentType} for {Player.PlayerNumber}");
         MonumentDisplayComponents.Add(monumentDisplayComponent);
     }
 
@@ -47,7 +54,6 @@ public class MonumentDisplay : MonoBehaviour
         // go over all components and check if the component is completed for the player
         for (int i = 0; i < monumentComponents.Count; i++)
         {
-            Debug.Log($"Check component visibility for {monumentComponents[i].Name}.");
             if (monumentComponents[i].Complete)
             {
                 ShowComponent(monumentComponents[i]);

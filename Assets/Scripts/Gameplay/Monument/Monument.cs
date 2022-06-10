@@ -11,8 +11,16 @@ public class Monument
     {
         List<MonumentComponentBlueprint> defaultMonumentComponentBlueprints = new List<MonumentComponentBlueprint>();
 
-        defaultMonumentComponentBlueprints.Add(FirstFloorMonumentComponentBlueprint.GetBlueprint());
-
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.Arches));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.Dome));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorFirst));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorSecond));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorThird));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.GroundPlane));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.OuterWalls));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersBack));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersFront));
+        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersMiddle));
 
         return defaultMonumentComponentBlueprints;
     }
@@ -27,7 +35,12 @@ public class Monument
     // The new, initialised monument contains all the monument component but set to Complete = false;
     private void InitialiseMonumentComponents()
     {
-        _monumentComponents.Add(new MonumentComponent(FirstFloorMonumentComponentBlueprint.GetBlueprint()));
+        List<MonumentComponentBlueprint> defaultMonumentBlueprints = GetDefaultMonumentBlueprints();
+
+        for (int i = 0; i < defaultMonumentBlueprints.Count; i++)
+        {
+            _monumentComponents.Add(new MonumentComponent(MonumentComponentBlueprint.Get(defaultMonumentBlueprints[i].MonumentComponentType)));
+        }
     }
 
     public List<MonumentComponent> GetMonumentComponents()

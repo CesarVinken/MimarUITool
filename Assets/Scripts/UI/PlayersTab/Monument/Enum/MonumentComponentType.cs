@@ -1,13 +1,13 @@
 public enum MonumentComponentType
 {
-    FirstFloor,
-    SecondFloor,
-    ThirdFloor,
+    FloorFirst,
+    FloorSecond,
+    FloorThird,
     Arches,
     Dome,
     GroundPlane,
     OuterWalls,
-    TowerFront,
+    TowersFront,
     TowersBack,
     TowersMiddle
 }

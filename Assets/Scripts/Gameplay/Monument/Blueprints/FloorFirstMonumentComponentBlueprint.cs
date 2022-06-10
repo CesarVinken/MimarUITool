@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class FirstFloorMonumentComponentBlueprint : MonumentComponentBlueprint
+
+public class FloorFirstMonumentComponentBlueprint : MonumentComponentBlueprint
 {
     public override int LabourTime { get { return _labourTime; } }
     public override string Name { get { return _name; } }
@@ -12,14 +10,14 @@ public class FirstFloorMonumentComponentBlueprint : MonumentComponentBlueprint
     private string _name;
     private MonumentComponentType _monumentComponentType;
 
-    public static FirstFloorMonumentComponentBlueprint GetBlueprint()
+    public static FloorFirstMonumentComponentBlueprint Get()
     {
-        MonumentComponentBlueprint blueprint = new FirstFloorMonumentComponentBlueprint()
-            .WithMonumentComponentType(MonumentComponentType.FirstFloor)
+        MonumentComponentBlueprint blueprint = new FloorFirstMonumentComponentBlueprint()
+            .WithMonumentComponentType(MonumentComponentType.FloorFirst)
             .WithLabourTime(3)
             .WithName("1st Floor");
 
-        return blueprint as FirstFloorMonumentComponentBlueprint;
+        return blueprint as FloorFirstMonumentComponentBlueprint;
     }
 
     public override MonumentComponentBlueprint WithLabourTime(int labourTime)
