@@ -7,23 +7,20 @@ public class MonumentDisplayComponent : MonoBehaviour
 
     public MonumentComponentType MonumentComponentType { get; private set; }
 
-    private void Awake()
+    public void Initialise()
     {
-        if(_monumentContainer == null)
+        if (_monumentContainer == null)
         {
             _monumentContainer = transform.parent;
         }
 
         _monumentDisplay = _monumentContainer.GetComponent<MonumentDisplay>();
 
-        if(_monumentDisplay == null)
+        if (_monumentDisplay == null)
         {
             Debug.LogError($"Could not find a MonumentDisplay component on the parent of {gameObject.name}");
         }
-    }
 
-    private void Start()
-    {
         _monumentDisplay.AddToMonumentDisplayComponents(this);
     }
 

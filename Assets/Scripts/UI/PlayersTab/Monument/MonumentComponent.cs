@@ -17,6 +17,7 @@ public class MonumentComponent
         _remainingLabourTime = _monumentComponentBlueprint.LabourTime;
 
         Name = _monumentComponentBlueprint.Name;
+
         MonumentComponentType = _monumentComponentBlueprint.MonumentComponentType;
     }
 

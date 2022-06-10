@@ -14,7 +14,7 @@ public class PlayerUIContent : MonoBehaviour
     [SerializeField] private PlayerResourceUIContainer _graniteResourceContainer;
 
     [SerializeField] private PlayersTabContainer _playersTabContainer;
-    [SerializeField] private UIMonumentContainer _uiMonumentContainer;
+    [SerializeField] private MonumentUIContainer _uiMonumentContainer;
 
     private Player _player;
 
@@ -77,7 +77,7 @@ public class PlayerUIContent : MonoBehaviour
         SetResourcesUI(_player.Resources);
         SetStockpileMaximumUI(_player.StockpileMaximum);
 
-        _uiMonumentContainer.UpdateUIForItems();
+        //_uiMonumentContainer.UpdateUIForItems();
     }
 
     public void SetReputationUI(int newReputation)

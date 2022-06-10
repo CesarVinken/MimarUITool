@@ -110,14 +110,5 @@ public class Player
         StockpileMaximum = maximum;
     }
 
-    public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
-    {
-        MonumentComponent monumentComponent = Monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
-        Monument.SetMonumentComponentCompletion(monumentComponentBlueprint.MonumentComponentType, !monumentComponent.Complete);
-        // update monument visuals
-        // update workers
-        // update component remaining labour time
-        return monumentComponent.Complete;
 
-    }
 }

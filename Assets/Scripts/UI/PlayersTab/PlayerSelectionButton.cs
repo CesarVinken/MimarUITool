@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,13 +33,14 @@ public class PlayerSelectionButton : MonoBehaviour
 	public void Activate()
 	{
 		_image.color = ColourUtility.GetColour(ColourType.SelectedBackground);
-		UpdatePlayerData();
+		UpdatePlayerDataDisplay();
 	}
 
-	public void UpdatePlayerData()
+	public void UpdatePlayerDataDisplay()
     {
 		UIPlayerData playerData = PlayerManager.Instance.GetPlayerData(PlayerNumber);
 		_playersTab.FillInPlayerContent(playerData);
+		_playersTab.UpdateMonumentUI(); // The UI of the monument (component buttons) should be strictly separated from the display of the monument (the 3d model)
 		_playersTab.UpdateMonumentDisplay();
 	}
 

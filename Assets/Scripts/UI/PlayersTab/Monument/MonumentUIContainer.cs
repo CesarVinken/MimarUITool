@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMonumentContainer : MonoBehaviour
+public class MonumentUIContainer : MonoBehaviour
 {
     [SerializeField] private GameObject _monumentComponentListItemPrefab;
     [SerializeField] private Transform _monumentComponentListContainer;
@@ -44,8 +43,12 @@ public class UIMonumentContainer : MonoBehaviour
         }
     }
 
-    public void UpdateUIForItems()
+    // When we select a player, we need to update to show the correct button state for all the items so that it fits that player
+    public void UpdateUIForItems(Monument monument)
     {
-        Debug.Log($"Update ui for monument components list");
+        for (int i = 0; i < MonumentComponentListItems.Count; i++)
+        {
+            MonumentComponentListItems[i].UpdateUIForButtonState(monument);
+        }
     }
 }

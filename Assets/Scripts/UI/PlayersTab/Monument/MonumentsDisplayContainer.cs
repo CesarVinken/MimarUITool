@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,13 +30,14 @@ public class MonumentsDisplayContainer : MonoBehaviour
         _monumentsByPlayerNumber.Add(PlayerNumber.Player3, _player3Monument);
     }
 
-    private void Start()
+
+    public void Initialise()
     {
         _player1Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player1]);
         _player2Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player2]);
         _player3Monument.SetPlayer(PlayerManager.Instance.Players[PlayerNumber.Player3]);
 
-        foreach (KeyValuePair< PlayerNumber, MonumentDisplay> item in _monumentsByPlayerNumber)
+        foreach (KeyValuePair<PlayerNumber, MonumentDisplay> item in _monumentsByPlayerNumber)
         {
             item.Value.CreateMonumentComponents();
         }
@@ -54,6 +54,8 @@ public class MonumentsDisplayContainer : MonoBehaviour
 
             _currentlyShownMonument.gameObject.SetActive(false);
         }
+
+        _monumentsByPlayerNumber[playerNumber].UpdateComponentsVisibility();
 
         _monumentsByPlayerNumber[playerNumber].gameObject.SetActive(true);
         _currentlyShownMonument = _monumentsByPlayerNumber[playerNumber];

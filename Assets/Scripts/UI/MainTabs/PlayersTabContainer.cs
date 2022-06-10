@@ -8,6 +8,7 @@ public class PlayersTabContainer : UITabContainer
 
     [SerializeField] private PlayerUIContent _playerUIContentContainer;
     [SerializeField] private MonumentsDisplayContainer _monumentsDisplayContainer;
+    [SerializeField] private MonumentUIContainer _monumentUIContainer;
     public PlayerSelectionButton CurrentPlayerTab { get; private set; } = null;
 
     private void Awake()
@@ -33,6 +34,10 @@ public class PlayersTabContainer : UITabContainer
         {
             Debug.LogError($"Cannot find _monumentsDisplayContainer on {gameObject.name}");
         }
+        if (_monumentUIContainer == null)
+        {
+            Debug.LogError($"Cannot find _monumentUIContainer on {gameObject.name}");
+        }
     }
 
     public void Initialise()
@@ -41,6 +46,8 @@ public class PlayersTabContainer : UITabContainer
         _player1SelectionButton.Initialise(PlayerNumber.Player1);
         _player2SelectionButton.Initialise(PlayerNumber.Player2);
         _player3SelectionButton.Initialise(PlayerNumber.Player3);
+
+        _monumentsDisplayContainer.Initialise();
         SetPlayerTab(_player1SelectionButton);
     }
 
@@ -55,7 +62,7 @@ public class PlayersTabContainer : UITabContainer
 
         if (CurrentPlayerTab == newTab)
         {
-            CurrentPlayerTab.UpdatePlayerData();
+            CurrentPlayerTab.UpdatePlayerDataDisplay();
             return;
         }
 
@@ -72,7 +79,6 @@ public class PlayersTabContainer : UITabContainer
     public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
     {
         Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
-        //bool isCompleted = currentPlayer.HandleMonumentComponentCompletion(monumentComponentBlueprint);
         Monument monument = currentPlayer.Monument;
 
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
@@ -96,6 +102,14 @@ public class PlayersTabContainer : UITabContainer
 
     }
 
+    public void UpdateMonumentUI()
+    {
+        Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
+        Monument monument = currentPlayer.Monument;
+
+        _monumentUIContainer.UpdateUIForItems(monument);
+    }
+
     public void UpdateMonumentDisplay()
     {
         _monumentsDisplayContainer.ShowMonument(CurrentPlayerTab.PlayerNumber);
@@ -103,7 +117,7 @@ public class PlayersTabContainer : UITabContainer
 
     public override void Activate()
     {
-        CurrentPlayerTab.UpdatePlayerData();
+        CurrentPlayerTab.UpdatePlayerDataDisplay();
         gameObject.SetActive(true);
     }
 }

@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class MonumentDisplay : MonoBehaviour
 {
+    public Monument Monument { get; private set; }
     public Player Player { get; private set; }
     List<MonumentDisplayComponent> MonumentDisplayComponents = new List<MonumentDisplayComponent>();
-
-    private void Awake()
-    {
-        MonumentDisplayComponents.Clear();
-    }
 
     public void CreateMonumentComponents()
     {
@@ -23,38 +19,43 @@ public class MonumentDisplay : MonoBehaviour
         GameObject prefab = AssetManager.Instance.GetMonumentComponentPrefab(monumentComponentType);
         GameObject componentGO = GameObject.Instantiate(prefab, transform);
         MonumentDisplayComponent monumentDisplayComponent = componentGO.GetComponent<MonumentDisplayComponent>();
+        monumentDisplayComponent.Initialise();
         monumentDisplayComponent.SetMonumentComponentType(monumentComponentType);
     }
 
     public void SetPlayer(Player player)
     {
         Player = player;
+        SetMonument(player);
+    }
+
+    private void SetMonument(Player player)
+    {
+        Monument = player.Monument;
     }
 
     public void AddToMonumentDisplayComponents(MonumentDisplayComponent monumentDisplayComponent)
     {
-
-        Debug.Log($"added monumentDisplayComponent of type {monumentDisplayComponent.MonumentComponentType}");
+        Debug.Log($"added monumentDisplayComponent of type {monumentDisplayComponent.MonumentComponentType} for {Player.PlayerNumber}");
         MonumentDisplayComponents.Add(monumentDisplayComponent);
     }
 
-    public void UpdateComponentVisibility()
+    public void UpdateComponentsVisibility()
     {
         List<MonumentComponent> monumentComponents = Player.Monument.GetMonumentComponents();
 
         // go over all components and check if the component is completed for the player
         for (int i = 0; i < monumentComponents.Count; i++)
         {
-
             Debug.Log($"Check component visibility for {monumentComponents[i].Name}.");
-            //if (monumentComponents[i].Complete)
-            //{
-            //    ShowComponent();
-            //}
-            //else
-            //{
-            //    HideComponent();
-            //}
+            if (monumentComponents[i].Complete)
+            {
+                ShowComponent(monumentComponents[i]);
+            }
+            else
+            {
+                HideComponent(monumentComponents[i]);
+            }
         }
     }
 
