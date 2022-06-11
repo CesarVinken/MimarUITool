@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine;
 public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance;
+
+    public event EventHandler<MonumentComponentCompletionEvent> MonumentComponentCompletionEvent;
+    //public event Action OnBla;
 
     private void Awake()
     {
@@ -23,5 +27,10 @@ public class GameFlowManager : MonoBehaviour
         PlayerManager.Instance.PayIncomes();
         PlayerManager.Instance.CollectResources();
         PlayerManager.Instance.DistractWorkerServiceLength();
+    }
+
+    public void ExecuteMonumentComponentCompletionEvent(PlayerNumber affectedPlayer, MonumentComponent affectedComponent, bool isCompleted)
+    {
+        MonumentComponentCompletionEvent?.Invoke(this, new MonumentComponentCompletionEvent(affectedPlayer, affectedComponent, isCompleted));
     }
 }

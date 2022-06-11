@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayersTabContainer : UITabContainer
@@ -95,6 +96,18 @@ public class PlayersTabContainer : UITabContainer
             _monumentsDisplayContainer.HideMonumentComponent(CurrentPlayerTab.PlayerNumber, monumentComponent);
         }
 
+        // Send out an event that a monument component completion has changed. This will affect
+        // Workers and dropdowns in CityWorkerTile
+        // The visibility of the component in the MonumentsDisplayContainer 
+
+        GameFlowManager.Instance.ExecuteMonumentComponentCompletionEvent(currentPlayer.PlayerNumber, monumentComponent, componentIsComplete);
+        //EventHandler handler = GameFlowManager.Instance.MonumentComponentCompletionEvent;
+        //if (handler != null)
+        //{
+        //    handler(this, e);
+        //}
+        //GameFlowManager.Instance.MonumentComponentCompletionEvent(this, new MonumentComponentCompletionEvent());
+        //MonumentComponentCompletionEvent e = new MonumentComponentCompletionEvent();
         // update monument visuals
         // update workers
         // update component remaining labour time

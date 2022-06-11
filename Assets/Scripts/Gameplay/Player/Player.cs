@@ -102,13 +102,10 @@ public class Player
         }
 
         Resources[resourceType].AddAmount(amount);
-
     }
 
     public void SetStockpileMaximum(int maximum)
     {
         StockpileMaximum = maximum;
     }
-
-
 }

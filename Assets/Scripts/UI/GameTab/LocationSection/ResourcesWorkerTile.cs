@@ -103,4 +103,14 @@ public class ResourcesWorkerTile : WorkerTile
             _workerIcon.color = ColourUtility.GetColour(ColourType.Empty);
         }
     }
+
+    public override void Destroy()
+    {
+        if (Worker.Employer != PlayerNumber.None)
+        {
+            PlayerManager.Instance.Players[Worker.Employer].RemoveWorker(Worker);
+        }
+
+        Destroy(gameObject);
+    }
 }

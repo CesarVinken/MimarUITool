@@ -57,13 +57,5 @@ public abstract class WorkerTile : MonoBehaviour
 
     public abstract void SetEmployer(PlayerNumber newEmployer);
 
-    public void Destroy()
-    {
-        if(Worker.Employer != PlayerNumber.None)
-        {
-            PlayerManager.Instance.Players[Worker.Employer].RemoveWorker(Worker);
-        }
-
-        Destroy(gameObject);
-    }
+    public abstract void Destroy();
 }
