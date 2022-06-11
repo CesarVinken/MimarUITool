@@ -1,17 +1,27 @@
+using TMPro;
 using UnityEngine;
 
 public class CityWorkerTile : WorkerTile
 {
+    [SerializeField] private TMP_Dropdown _dropdown;
     private void Awake()
     {
         if (_tileBackground == null)
         {
             Debug.LogError($"Could not find _tileBackground");
         }
-        if (_statusText == null)
+        if (_workerIcon == null)
         {
-            Debug.LogError($"Could not find _statusText");
+            Debug.LogError($"Could not find _workerIcon");
         }
+        if (_dropdown == null)
+        {
+            Debug.LogError($"Could not find _workerIcon");
+        }
+        //if (_statusText == null)
+        //{
+        //    Debug.LogError($"Could not find _statusText");
+        //}
         if (_serviceLengthInputField == null)
         {
             Debug.LogError($"Could not find _serviceLengthInputField");
@@ -26,7 +36,6 @@ public class CityWorkerTile : WorkerTile
 
         Worker = worker;
         Worker.SetUIWorkerTile(this);
-        UpdateServiceLength(3);
 
         switch (_locationType)
         {
@@ -43,19 +52,45 @@ public class CityWorkerTile : WorkerTile
                 SetEmployer(PlayerNumber.None);
                 break;
         }
+        Debug.Log($"Worker.Employer {Worker.Employer}");
 
-        SetTileColour(Worker.Employer);
+        SetIconColour(Worker.Employer);
+        if(Worker.Employer == PlayerNumber.None)
+        {
+            return;
+        }
+
+        UpdateServiceLength(3);
+
     }
 
-    public void SetTileColour(PlayerNumber playerNumber)
+    public override void SetEmployer(PlayerNumber newEmployer)
     {
-        if (PlayerManager.Instance.Players.TryGetValue(playerNumber, out Player player))
+        if (newEmployer == PlayerNumber.None)
         {
-            _tileBackground.color = player.PlayerColour;
+            //_statusText.gameObject.SetActive(false);
+            _dropdown.gameObject.SetActive(false);
+            _serviceLengthInputField.gameObject.SetActive(false);
         }
         else
         {
-            _tileBackground.color = ColourUtility.GetColour(ColourType.Empty);
+            //_statusText.gameObject.SetActive(true);
+            _dropdown.gameObject.SetActive(true);
+            _serviceLengthInputField.gameObject.SetActive(true);
+        }
+        Worker.SetEmployer(newEmployer);
+    }
+
+
+    public void SetIconColour(PlayerNumber playerNumber)
+    {
+        if (PlayerManager.Instance.Players.TryGetValue(playerNumber, out Player player))
+        {
+            _workerIcon.color = player.PlayerColour;
+        }
+        else
+        {
+            _workerIcon.color = ColourUtility.GetColour(ColourType.Empty);
         }
     }
 

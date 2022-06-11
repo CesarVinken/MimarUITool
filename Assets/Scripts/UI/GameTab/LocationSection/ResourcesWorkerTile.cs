@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class ResourcesWorkerTile : WorkerTile
 {
     [SerializeField] private Button _employerButton;
-    [SerializeField] private Image _employerButtonImage;
 
     private void Awake()
     {
@@ -12,18 +11,18 @@ public class ResourcesWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _employerButton");
         }
-        if (_employerButtonImage == null)
-        {
-            Debug.LogError($"Could not find _employerButtonImage");
-        }
         if (_tileBackground == null)
         {
             Debug.LogError($"Could not find _tileBackground");
         }
-        if (_statusText == null)
+        if (_workerIcon == null)
         {
-            Debug.LogError($"Could not find _statusText");
+            Debug.LogError($"Could not find _workerIcon");
         }
+        //if (_statusText == null)
+        //{
+        //    Debug.LogError($"Could not find _statusText");
+        //}
         if (_serviceLengthInputField == null)
         {
             Debug.LogError($"Could not find _serviceLengthInputField");
@@ -46,6 +45,21 @@ public class ResourcesWorkerTile : WorkerTile
         Worker.SetUIWorkerTile(this);
 
         SetEmployer(PlayerNumber.None);
+    }
+
+    public override void SetEmployer(PlayerNumber newEmployer)
+    {
+        if (newEmployer == PlayerNumber.None)
+        {
+            //_statusText.gameObject.SetActive(false);
+            _serviceLengthInputField.gameObject.SetActive(false);
+        }
+        else
+        {
+            //_statusText.gameObject.SetActive(true);
+            _serviceLengthInputField.gameObject.SetActive(true);
+        }
+        Worker.SetEmployer(newEmployer);
     }
 
     public void SetNextEmployer()
@@ -82,13 +96,11 @@ public class ResourcesWorkerTile : WorkerTile
     {
         if (PlayerManager.Instance.Players.TryGetValue(playerNumber, out Player player))
         {
-            _employerButtonImage.color = player.PlayerColour;
-            _tileBackground.color = player.PlayerColour;
+            _workerIcon.color = player.PlayerColour;
         }
         else
         {
-            _employerButtonImage.color = ColourUtility.GetColour(ColourType.Empty);
-            _tileBackground.color = ColourUtility.GetColour(ColourType.Empty);
+            _workerIcon.color = ColourUtility.GetColour(ColourType.Empty);
         }
     }
 }

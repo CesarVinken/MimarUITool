@@ -8,7 +8,8 @@ public abstract class WorkerTile : MonoBehaviour
     protected LocationType _locationType = LocationType.Constantinople;
 
     [SerializeField] protected Image _tileBackground;
-    [SerializeField] protected TextMeshProUGUI _statusText;
+    [SerializeField] protected Image _workerIcon;
+    //[SerializeField] protected TextMeshProUGUI _statusText;
     [SerializeField] protected TMP_InputField _serviceLengthInputField;
 
     // called when changing the input field
@@ -54,20 +55,7 @@ public abstract class WorkerTile : MonoBehaviour
 
     public abstract void Initialise(LocationType locationType, IWorker worker);
 
-    public void SetEmployer(PlayerNumber newEmployer)
-    {
-        if(newEmployer == PlayerNumber.None)
-        {
-            _statusText.gameObject.SetActive(false);
-            _serviceLengthInputField.gameObject.SetActive(false);
-        }
-        else
-        {
-            _statusText.gameObject.SetActive(true);
-            _serviceLengthInputField.gameObject.SetActive(true);
-        }
-        Worker.SetEmployer(newEmployer);
-    }
+    public abstract void SetEmployer(PlayerNumber newEmployer);
 
     public void Destroy()
     {
