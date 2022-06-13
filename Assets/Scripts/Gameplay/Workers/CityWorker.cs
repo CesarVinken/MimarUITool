@@ -7,6 +7,8 @@ public class CityWorker : IWorker
     public int ServiceLength { get; private set; } = 0;
     public ILocation Location { get; private set; }
     public WorkerTile UIWorkerTile { get; private set; }
+    public MonumentComponent CurrentBuildingTask { get; private set; } = null;
+    public float BaseProductionPower { get; private set; } = 1;
 
     public CityWorker(ILocation location)
     {
@@ -41,5 +43,22 @@ public class CityWorker : IWorker
     public void SetServiceLength(int newValue)
     {
         ServiceLength = newValue;
+    }
+
+    public void SetCurrentBuildingTask(MonumentComponent monumentComponent)
+    {
+        CurrentBuildingTask = monumentComponent;
+    }
+
+    public void Build()
+    {
+        Debug.Log($"build");
+
+        CurrentBuildingTask.UpdateRemainingLabourTime(-BaseProductionPower);
+
+        if (CurrentBuildingTask.IsComplete)
+        {
+            GameFlowManager.Instance.ExecuteMonumentComponentCompletionEvent(Employer, CurrentBuildingTask, true);
+        }
     }
 }

@@ -54,7 +54,7 @@ public class MonumentDisplay : MonoBehaviour
         // go over all components and check if the component is completed for the player
         for (int i = 0; i < monumentComponents.Count; i++)
         {
-            if (monumentComponents[i].Complete)
+            if (monumentComponents[i].IsComplete)
             {
                 ShowComponent(monumentComponents[i]);
             }

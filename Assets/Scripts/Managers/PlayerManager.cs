@@ -129,4 +129,23 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    public void PerformBuildingTasks()
+    {
+        Debug.Log($"build on monument");
+        foreach (KeyValuePair<PlayerNumber, Player> playerItem in PlayerManager.Instance.Players)
+        {
+            Player player = playerItem.Value;
+
+            for (int i = 0; i < player.HiredWorkers.Count; i++)
+            {
+                CityWorker worker = player.HiredWorkers[i] as CityWorker;
+
+                if (worker == null) continue;
+                if (worker.CurrentBuildingTask == null) continue;
+
+                worker.Build();
+            }
+        }
+    }
 }

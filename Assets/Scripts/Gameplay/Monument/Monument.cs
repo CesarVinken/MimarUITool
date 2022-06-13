@@ -68,6 +68,6 @@ public class Monument
 
     public void SetMonumentComponentCompletion(MonumentComponent monumentComponent, bool isComplete)
     {
-        monumentComponent.SetComplete(isComplete);
+        monumentComponent.SetMonumentComponentCompletion(isComplete);
     }
 }

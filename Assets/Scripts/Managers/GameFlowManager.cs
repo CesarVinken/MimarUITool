@@ -8,7 +8,7 @@ public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance;
 
-    public event EventHandler<MonumentComponentCompletionEvent> MonumentComponentCompletionEvent;
+    public event EventHandler<MonumentComponentCompletionStateChangeEvent> MonumentComponentCompletionStateChangeEvent;
     //public event Action OnBla;
 
     private void Awake()
@@ -26,11 +26,12 @@ public class GameFlowManager : MonoBehaviour
     {
         PlayerManager.Instance.PayIncomes();
         PlayerManager.Instance.CollectResources();
+        PlayerManager.Instance.PerformBuildingTasks();
         PlayerManager.Instance.DistractWorkerServiceLength();
     }
 
     public void ExecuteMonumentComponentCompletionEvent(PlayerNumber affectedPlayer, MonumentComponent affectedComponent, bool isCompleted)
     {
-        MonumentComponentCompletionEvent?.Invoke(this, new MonumentComponentCompletionEvent(affectedPlayer, affectedComponent, isCompleted));
+        MonumentComponentCompletionStateChangeEvent?.Invoke(this, new MonumentComponentCompletionStateChangeEvent(affectedPlayer, affectedComponent, isCompleted));
     }
 }

@@ -8,7 +8,7 @@ using static TMPro.TMP_Dropdown;
 public class CityWorkerTile : WorkerTile
 {
     [SerializeField] private TMP_Dropdown _dropdown;
-    private MonumentComponent _currentBuildingTask;
+    private List<MonumentComponent> _dropdownOptions = new List<MonumentComponent>();
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class CityWorkerTile : WorkerTile
 
     private void Start()
     {
-        GameFlowManager.Instance.MonumentComponentCompletionEvent += OnMonumentComponentCompletionChange;
+        GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent += OnMonumentComponentCompletionChange;
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)
@@ -63,7 +63,6 @@ public class CityWorkerTile : WorkerTile
                 SetEmployer(PlayerNumber.None);
                 break;
         }
-        Debug.Log($"Worker.Employer {Worker.Employer}");
 
         SetIconColour(Worker.Employer);
         if(Worker.Employer == PlayerNumber.None)
@@ -105,10 +104,11 @@ public class CityWorkerTile : WorkerTile
     public void UpdateDropdownComponentList()
     {
         _dropdown.ClearOptions();
+        _dropdownOptions.Clear();
 
         Player player = PlayerManager.Instance.Players[Worker.Employer];
 
-        List<MonumentComponent> unfinishedMonumentComponents = player.Monument.GetMonumentComponents().Where(c => c.Complete == false).ToList();
+        List<MonumentComponent> unfinishedMonumentComponents = player.Monument.GetMonumentComponents().Where(c => c.IsComplete == false).ToList();
         List<OptionData> options = new List<OptionData>();
 
         options.Add(new OptionData("Unassigned"));
@@ -116,21 +116,30 @@ public class CityWorkerTile : WorkerTile
         for (int i = 0; i < unfinishedMonumentComponents.Count; i++)
         {
             options.Add(new OptionData(unfinishedMonumentComponents[i].Name));
+            _dropdownOptions.Add(unfinishedMonumentComponents[i]);
         }
         _dropdown.AddOptions(options);
     }
 
     private void DropdownValueChanged(TMP_Dropdown change)
     {
-        //if (EditorManager.SelectedTileMainModifierCategoryIndex == change.value) return;
+        int dropdownIndex = change.value;
 
-        //EditorTileMainModifierCategory mainModifierCategory = EditorTileMainModifierCategories[change.value];
-        //Logger.Warning("New Dropdown Value : " + mainModifierCategory.Name);
-        Debug.LogWarning("New Dropdown Value : ");
+        CityWorker worker = Worker as CityWorker;
 
-        //EditorManager.SelectedTileMainModifierCategoryIndex = change.value;
+        if(worker == null)
+        {
+            Debug.LogError($"Cannot find city worker");
+            return;
+        }
 
-        //EditorCanvasUI.Instance.SelectedTileModifierContainer.SetCurrentlyAvailableModifierCategories(mainModifierCategory);
+        if (dropdownIndex == 0) // dropdownIndex 0 == UNASSIGNED
+        {
+            worker.SetCurrentBuildingTask(null);
+            return;
+        }
+
+        worker.SetCurrentBuildingTask(_dropdownOptions[dropdownIndex - 1]);
     }
 
     public void SetIconColour(PlayerNumber playerNumber)
@@ -153,14 +162,14 @@ public class CityWorkerTile : WorkerTile
     }
 
 
-    public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionEvent e)
+    public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {
         if (e.AffectedPlayer != Worker.Employer) return;
 
-        if (_currentBuildingTask?.MonumentComponentType == e.AffectedComponent.MonumentComponentType)
+        CityWorker worker = Worker as CityWorker;
+        if (worker.CurrentBuildingTask?.MonumentComponentType == e.AffectedComponent.MonumentComponentType)
         {
-            Debug.Log($"unassign properly from current job");
-            // TODO Unassign worker from current job
+            worker.SetCurrentBuildingTask(null); // Unassign worker from current job
         }
 
         UpdateDropdownComponentList();
@@ -173,7 +182,7 @@ public class CityWorkerTile : WorkerTile
             PlayerManager.Instance.Players[Worker.Employer].RemoveWorker(Worker);
         }
 
-        GameFlowManager.Instance.MonumentComponentCompletionEvent -= OnMonumentComponentCompletionChange;
+        GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent -= OnMonumentComponentCompletionChange;
         Destroy(gameObject);
     }
 }

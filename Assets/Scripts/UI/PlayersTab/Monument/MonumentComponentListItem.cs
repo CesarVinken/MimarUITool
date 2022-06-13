@@ -74,7 +74,7 @@ public class MonumentComponentListItem : MonoBehaviour
     public void UpdateUIForButtonState(Monument monument)
     {
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(_monumentComponentBlueprint.MonumentComponentType);
-        bool componentIsComplete = monumentComponent.Complete;
+        bool componentIsComplete = monumentComponent.IsComplete;
 
         if (componentIsComplete)
         {

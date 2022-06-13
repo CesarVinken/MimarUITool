@@ -5,6 +5,7 @@ public class ResourcesWorker : IWorker
     public int ServiceLength { get; private set; }
     public ILocation Location { get; private set; }
     public WorkerTile UIWorkerTile { get; private set; }
+    public float BaseProductionPower { get; private set; } = 1;
 
     public ResourcesWorker(ILocation location)
     {
