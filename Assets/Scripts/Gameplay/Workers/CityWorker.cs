@@ -58,6 +58,14 @@ public class CityWorker : IWorker
 
         if (CurrentBuildingTask.IsComplete)
         {
+            PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;
+            Debug.Log($"CurrentPlayerTab {playersTabContainer.CurrentPlayerTab.PlayerNumber}");
+            if (playersTabContainer.CurrentPlayerTab.PlayerNumber == Employer)
+            {
+
+                Debug.Log($"Update display for {Employer}");
+                playersTabContainer.UpdateMonumentDisplay();
+            }
             GameFlowManager.Instance.ExecuteMonumentComponentCompletionEvent(Employer, CurrentBuildingTask, true);
         }
     }

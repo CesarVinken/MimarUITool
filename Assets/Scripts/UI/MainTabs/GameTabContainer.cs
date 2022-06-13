@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameTabContainer : UITabContainer
 {
     [SerializeField] private PlayerPriorityContainer _playerPriorityContainer;
+    public override MainTabType MainTabType { get; } = MainTabType.GameTab;
 
     private void Awake()
     {

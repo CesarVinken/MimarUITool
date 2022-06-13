@@ -112,16 +112,21 @@ public class NavigationManager : MonoBehaviour {
 
     private void Start()
     {
-        _playersTabButton.Deactivate();
-        _statsTabButton.Deactivate();
-        _optionsTabButton.Deactivate();
-        
-        SetTab(_gameTabButton);
+        _gameTabButton.Initialise(_gameTabContainer);
+        _playersTabButton.Initialise(_playersTabContainer);
+        _statsTabButton.Initialise(_statsTabContainer);
+        _optionsTabButton.Initialise(_optionsTabContainer);
 
         _gameTabContainer.Initialise();
         _playersTabContainer.Initialise();
         _statsTabContainer.Initialise();
         _optionsTabContainer.Initialise();
+
+        _playersTabButton.Deactivate();
+        _statsTabButton.Deactivate();
+        _optionsTabButton.Deactivate();
+        
+        SetTab(_gameTabButton);
     }
 
     public void SetTab(UITabButton newTab)
@@ -171,5 +176,23 @@ public class NavigationManager : MonoBehaviour {
 
         Debug.LogError($"Could not find constructionSiteContainer for location type {locationType}");
         return null;
+    }
+
+    public UITabContainer GetMainTabContainer(MainTabType mainTabType)
+    {
+        switch (mainTabType)
+        {
+            case MainTabType.GameTab:
+                return _gameTabContainer;
+            case MainTabType.PlayersTab:
+                return _playersTabContainer;
+            case MainTabType.StatsTab:
+                return _statsTabContainer;
+            case MainTabType.OptionsTab:
+                return _optionsTabContainer;
+            default:
+                Debug.LogError($"Unknown main tab type {mainTabType}");
+                return null;
+        }
     }
 }

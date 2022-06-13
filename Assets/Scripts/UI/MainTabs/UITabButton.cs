@@ -5,7 +5,7 @@ public class UITabButton : MonoBehaviour
 {
 	[SerializeField] protected Image _image;
 	[SerializeField] protected MainTabButtonContainer _mainTabButtonContainer;
-	[SerializeField] protected UITabContainer _tabContainer;
+	[SerializeField] public UITabContainer TabContainer { get; private set; }
 
 	private void Awake()
 	{
@@ -14,15 +14,15 @@ public class UITabButton : MonoBehaviour
 			Debug.LogError($"Cannot find image on {gameObject.name}");
 		}
 
-		if (_tabContainer == null)
-		{
-			Debug.LogError($"Cannot find tabContainer on {gameObject.name}");
-		}
-
 		if (_mainTabButtonContainer == null)
 		{
 			Debug.LogError($"Cannot find mainTabButtonContainer on {gameObject.name}");
 		}
+	}
+
+	public void Initialise(UITabContainer uiTabContainer)
+    {
+		TabContainer = uiTabContainer;
 	}
 
 	public void OnClick()
@@ -38,12 +38,13 @@ public class UITabButton : MonoBehaviour
 	public void Activate()
 	{
 		_image.color = ColourUtility.GetColour(ColourType.SelectedBackground);
-		_tabContainer.Activate();
+		TabContainer.Activate();
 	}
 
 	public void Deactivate()
 	{
 		_image.color = ColourUtility.GetColour(ColourType.Empty);
-		_tabContainer.Deactivate();
+		TabContainer.Deactivate();
 	}
+
 }

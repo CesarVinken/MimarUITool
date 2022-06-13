@@ -47,7 +47,7 @@ public class MonumentsDisplayContainer : MonoBehaviour
     {
         if(_currentlyShownMonument != null)
         {
-            if(_currentlyShownMonument.Player.PlayerNumber == playerNumber)
+            if(NavigationManager.Instance.CurrentTab.TabContainer.MainTabType == MainTabType.PlayersTab && _currentlyShownMonument.Player.PlayerNumber == playerNumber)
             {
                 return;
             }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayersTabContainer : UITabContainer
 {
+    public override MainTabType MainTabType { get; } = MainTabType.PlayersTab;
+
     [SerializeField] private PlayerSelectionButton _player1SelectionButton;
     [SerializeField] private PlayerSelectionButton _player2SelectionButton;
     [SerializeField] private PlayerSelectionButton _player3SelectionButton;
