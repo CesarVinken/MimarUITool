@@ -40,8 +40,6 @@ public class MonumentComponentListItem : MonoBehaviour
         _monumentComponentBlueprint = blueprint;
         _playersTabContainer = playersTabContainer;
         SetName(blueprint.Name);
-
-        Debug.Log($"Initialise item");
     }
 
     private void SetName(string itemName)

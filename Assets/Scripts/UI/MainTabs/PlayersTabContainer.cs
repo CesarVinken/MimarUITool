@@ -45,10 +45,10 @@ public class PlayersTabContainer : UITabContainer
 
     public void Initialise()
     {
-        _playerUIContentContainer.Initialise(this);
         _player1SelectionButton.Initialise(PlayerNumber.Player1);
         _player2SelectionButton.Initialise(PlayerNumber.Player2);
         _player3SelectionButton.Initialise(PlayerNumber.Player3);
+        _playerUIContentContainer.Initialise(this);
 
         _monumentsDisplayContainer.Initialise();
         SetPlayerTab(_player1SelectionButton);

@@ -4,7 +4,7 @@ public class StatCalculator : MonoBehaviour
 {
     public static int CalculateGoldIncome(Player player)
     {
-        int reputation = player.Reputation;
+        int reputation = player.Reputation.Amount;
 
         int baseIncome = 0;
         if (reputation <= -1)

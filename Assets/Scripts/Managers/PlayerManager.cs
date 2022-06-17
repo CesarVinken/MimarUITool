@@ -69,12 +69,12 @@ public class PlayerManager : MonoBehaviour
         int priorityPosition = 1;
         for (int n = 0; n < newPriorityList.Count; n++)
         {
-            if (newPriorityList[n].Reputation > updatedPlayer.Reputation)
+            if (newPriorityList[n].Reputation.Amount > updatedPlayer.Reputation.Amount)
             {
                 priorityPosition++;
             }
-            else if(newPriorityList[n].Reputation == updatedPlayer.Reputation &&
-                oldReputation > newPriorityList[n].Reputation)
+            else if(newPriorityList[n].Reputation.Amount == updatedPlayer.Reputation.Amount &&
+                oldReputation > newPriorityList[n].Reputation.Amount)
             {
                 priorityPosition++;
             }
@@ -97,8 +97,7 @@ public class PlayerManager : MonoBehaviour
             Player player = item.Value;
 
             // TODO: If we do not have enough gold, force fire workers
-            player.SetGold(player.Gold + StatCalculator.CalculateGoldIncome(player));
-
+            player.SetGold(player.Gold.Amount + StatCalculator.CalculateGoldIncome(player));
         }
     }
 
@@ -132,7 +131,6 @@ public class PlayerManager : MonoBehaviour
 
     public void PerformBuildingTasks()
     {
-        Debug.Log($"build on monument");
         foreach (KeyValuePair<PlayerNumber, Player> playerItem in PlayerManager.Instance.Players)
         {
             Player player = playerItem.Value;

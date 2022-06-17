@@ -1,7 +1,4 @@
-public interface IResource
+public interface IResource : IPlayerStat
 {
-    int Amount { get; }
-
-    void SetAmount(int newAmount);
-    void AddAmount(int amount);
+    public ResourceType GetResourceType();
 }

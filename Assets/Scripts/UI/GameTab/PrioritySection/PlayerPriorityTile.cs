@@ -52,7 +52,7 @@ public class PlayerPriorityTile : MonoBehaviour
         }
 
         _playerNameTextField.text = $"{rankingNumber}. {player.Name}";
-        _playerInfoTextField.text = $"Rep: {player.Reputation} Gold: {player.Gold}";
+        _playerInfoTextField.text = $"Rep: {player.Reputation.Amount} Gold: {player.Gold.Amount}";
     }
 
     private void SetColour(PlayerNumber playerNumber)

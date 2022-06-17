@@ -1,14 +1,14 @@
-public class Marble : IResource
+public class StockpileMaximum : IPlayerStat
 {
     public Player Player { get; private set; }
     public int Amount { get; private set; }
+    private int _amountCap = 999;
 
-
-    public Marble(int amount, Player player)
+    public StockpileMaximum(Player player)
     {
-        Amount = amount;
         Player = player;
     }
+
     public void SetAmount(int newAmount)
     {
         Amount = newAmount;
@@ -19,13 +19,8 @@ public class Marble : IResource
         Amount += amount;
     }
 
-    public ResourceType GetResourceType()
-    {
-        return ResourceType.Marble;
-    }
-
     public int GetAmountCap()
     {
-        return Player.StockpileMaximum.Amount;
+        return _amountCap;
     }
 }
