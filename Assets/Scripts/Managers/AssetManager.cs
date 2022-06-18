@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class AssetManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private GameObject _towersBackMonumentPrefab;
     [SerializeField] private GameObject _towersMiddleMonumentPrefab;
     [SerializeField] private GameObject _towersFrontMonumentPrefab;
+
     public void Awake()
     {
         if (ResourcesWorkerPrefab == null)
@@ -102,5 +104,30 @@ public class AssetManager : MonoBehaviour
                 Debug.LogError($"No prefab was implemented for monumentComponentType {monumentComponentType}");
                 return null;
         }
+    }
+
+    public string GetPlayerStatInlineIcon(IPlayerStat playerStat)
+    {
+        if (playerStat is Gold)
+        {
+            return "<sprite=\"Placeholder\" index=1>";
+        }
+        if (playerStat is Reputation)
+        {
+            return "<sprite=\"Placeholder\" index=2>";
+        }
+        if (playerStat is Wood)
+        {
+            return "<sprite=\"Placeholder\" index=3>";
+        }
+        if (playerStat is Granite)
+        {
+            return "<sprite=\"Placeholder\" index=4>";
+        }
+        if (playerStat is Marble)
+        {
+            return "<sprite=\"Placeholder\" index=5>";
+        }
+        return "UNKNOWN ICON";
     }
 }
