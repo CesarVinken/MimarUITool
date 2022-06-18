@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class AssetManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class AssetManager : MonoBehaviour
     public GameObject CityWorkerPrefab;
 
     [Header("Monument component prefabs")]
+
+    [SerializeField] private List<AssetReference> _monumentComponentPrefabs;
 
     [SerializeField] private GameObject _floorFirstMonumentPrefab;// TODO: Use different way of resource loading such as addressables
     [SerializeField] private GameObject _floorSecondMonumentPrefab;
