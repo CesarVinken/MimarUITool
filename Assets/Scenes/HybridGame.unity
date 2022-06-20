@@ -6304,26 +6304,61 @@ MonoBehaviour:
     type: 3}
   CityWorkerPrefab: {fileID: 6280046340400448928, guid: a2403d97690dde048bbd71402dbab45f,
     type: 3}
-  _floorFirstMonumentPrefab: {fileID: 1657175114300558829, guid: 2c790e20d49cf6e448697c42bcf77ba5,
-    type: 3}
-  _floorSecondMonumentPrefab: {fileID: 5402651374078261232, guid: 2734ed0e2b98f38428afef9920dcaca8,
-    type: 3}
-  _floorThirdMonumentPrefab: {fileID: 5609842195377784691, guid: 07b518e9722ae3a41a3a5a3c9b507634,
-    type: 3}
-  _archesMonumentPrefab: {fileID: 800377034561226359, guid: 77122ce9c319dc644921c48cdc795c18,
-    type: 3}
-  _domeMonumentPrefab: {fileID: 1100203623616007618, guid: 898903a016e1266498d516b54fcf769c,
-    type: 3}
-  _groundPlaneMonumentPrefab: {fileID: 6863199198844019125, guid: 29865a2af8a89f34bb783bc5a2d3dd8e,
-    type: 3}
-  _outerWallsMonumentPrefab: {fileID: 7355316960476437585, guid: 451027b8d88fd384780f8f7b933acbce,
-    type: 3}
-  _towersBackMonumentPrefab: {fileID: 7110680137579547956, guid: f503a06b0a9382245adea02b452d79f8,
-    type: 3}
-  _towersMiddleMonumentPrefab: {fileID: 1020609674202951319, guid: 78f85eea542f9cc42a70847e5323f957,
-    type: 3}
-  _towersFrontMonumentPrefab: {fileID: 2593624241199283900, guid: 5dc069971a286774099ee31414666854,
-    type: 3}
+  _monumentComponentPrefabs:
+  - m_AssetGUID: 5dc069971a286774099ee31414666854
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _floorFirstMonumentPrefab:
+    m_AssetGUID: 2c790e20d49cf6e448697c42bcf77ba5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _floorSecondMonumentPrefab:
+    m_AssetGUID: 2734ed0e2b98f38428afef9920dcaca8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _floorThirdMonumentPrefab:
+    m_AssetGUID: 07b518e9722ae3a41a3a5a3c9b507634
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _archesMonumentPrefab:
+    m_AssetGUID: 77122ce9c319dc644921c48cdc795c18
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _domeMonumentPrefab:
+    m_AssetGUID: 898903a016e1266498d516b54fcf769c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _groundPlaneMonumentPrefab:
+    m_AssetGUID: 29865a2af8a89f34bb783bc5a2d3dd8e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _outerWallsMonumentPrefab:
+    m_AssetGUID: 451027b8d88fd384780f8f7b933acbce
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _towersBackMonumentPrefab:
+    m_AssetGUID: f503a06b0a9382245adea02b452d79f8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _towersMiddleMonumentPrefab:
+    m_AssetGUID: 78f85eea542f9cc42a70847e5323f957
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _towersFrontMonumentPrefab:
+    m_AssetGUID: 5dc069971a286774099ee31414666854
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &715871862
 MonoBehaviour:
   m_ObjectHideFlags: 0

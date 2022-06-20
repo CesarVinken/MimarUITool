@@ -47,9 +47,7 @@ public class MonumentComponent
 
     public void UpdateRemainingLabourTime(float value)
     {
-        Debug.Log($"_remainingLabourTime before {_remainingLabourTime}");
         _remainingLabourTime = _remainingLabourTime + value;
-        Debug.Log($"_remainingLabourTime after {_remainingLabourTime}");
 
         if (_remainingLabourTime <= 0)
         {

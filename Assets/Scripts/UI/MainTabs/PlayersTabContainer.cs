@@ -50,7 +50,13 @@ public class PlayersTabContainer : UITabContainer
         _player3SelectionButton.Initialise(PlayerNumber.Player3);
         _playerUIContentContainer.Initialise(this);
 
-        _monumentsDisplayContainer.Initialise();
+        _monumentsDisplayContainer.Initialise(); // initialise all the 3d models for the monument (async)
+        //SetPlayerTab(_player1SelectionButton);
+    }
+
+    public void OnInitialisationFinished()
+    {
+        Debug.Log($"finished initialising MonumentsDisplayContainer");
         SetPlayerTab(_player1SelectionButton);
     }
 
