@@ -4,6 +4,11 @@ public class Marble : IResource
     public int Amount { get; private set; }
 
 
+    public Marble(int amount)
+    {
+        Amount = amount;
+    }
+
     public Marble(int amount, Player player)
     {
         Amount = amount;

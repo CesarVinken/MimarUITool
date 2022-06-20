@@ -9,6 +9,12 @@ public class Wood : IResource
         Amount = amount;
         Player = player;
     }
+
+    public Wood(int amount)
+    {
+        Amount = amount;
+    }
+
     public void SetAmount(int newAmount)
     {
         Amount = newAmount;

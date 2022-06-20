@@ -4,6 +4,11 @@ public class Granite : IResource, IPlayerStat
     public int Amount { get; private set; }
 
 
+    public Granite(int amount)
+    {
+        Amount = amount;
+    }
+
     public Granite(int amount, Player player)
     {
         Amount = amount;
