@@ -7,6 +7,7 @@ public class MonumentDisplay : MonoBehaviour
     public Monument Monument { get; private set; }
     public Player Player { get; private set; }
     List<MonumentDisplayComponent> MonumentDisplayComponents = new List<MonumentDisplayComponent>();
+    private int _componentsToInitialise = 0;
 
     public void CreateMonumentComponents()
     {
@@ -24,11 +25,19 @@ public class MonumentDisplay : MonoBehaviour
 
     private void CreateMonumentComponent(MonumentComponentType monumentComponentType)
     {
-        GameObject prefab = AssetManager.Instance.GetMonumentComponentPrefab(monumentComponentType);
-        GameObject componentGO = GameObject.Instantiate(prefab, transform);
-        MonumentDisplayComponent monumentDisplayComponent = componentGO.GetComponent<MonumentDisplayComponent>();
-        monumentDisplayComponent.Initialise();
-        monumentDisplayComponent.SetMonumentComponentType(monumentComponentType);
+        _componentsToInitialise++;
+        AssetManager.Instance.InstantiateMonumentComponent(this, monumentComponentType);
+    }
+
+    public void OnMonumentComponentAssetLoaded()
+    {
+        _componentsToInitialise--;
+
+        if(_componentsToInitialise == 0)
+        {
+            PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;
+            playersTabContainer.OnInitialisationFinished();
+        }
     }
 
     public void SetPlayer(Player player)

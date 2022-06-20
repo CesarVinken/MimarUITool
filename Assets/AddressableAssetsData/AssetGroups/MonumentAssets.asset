@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MonumentAssets
+  m_EditorClassIdentifier: 
+  m_GroupName: New Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9618a7517ac4e294cb146740d6b289bd
+  m_SerializeEntries:
+  - m_GUID: 5dc069971a286774099ee31414666854
+    m_Address: Assets/Prefabs/Monument/TowersFront.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 77122ce9c319dc644921c48cdc795c18
+    m_Address: Assets/Prefabs/Monument/Arches.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 29865a2af8a89f34bb783bc5a2d3dd8e
+    m_Address: Assets/Prefabs/Monument/GroundPlane.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 898903a016e1266498d516b54fcf769c
+    m_Address: Assets/Prefabs/Monument/Dome.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 78f85eea542f9cc42a70847e5323f957
+    m_Address: Assets/Prefabs/Monument/TowersMiddle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 07b518e9722ae3a41a3a5a3c9b507634
+    m_Address: Assets/Prefabs/Monument/FloorThird.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 451027b8d88fd384780f8f7b933acbce
+    m_Address: Assets/Prefabs/Monument/OuterWalls.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c790e20d49cf6e448697c42bcf77ba5
+    m_Address: Assets/Prefabs/Monument/FloorFirst.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2734ed0e2b98f38428afef9920dcaca8
+    m_Address: Assets/Prefabs/Monument/FloorSecond.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f503a06b0a9382245adea02b452d79f8
+    m_Address: Assets/Prefabs/Monument/TowersBack.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2039fd879e82c34438a5e396415a1231, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a9d6042cf1107eb4fa30b3a0d701d8bc, type: 2}
+    - {fileID: 11400000, guid: ad9aefab44ac95148a003a7f9a52d2a5, type: 2}

@@ -14,16 +14,16 @@ public class AssetManager : MonoBehaviour
 
     [SerializeField] private List<AssetReference> _monumentComponentPrefabs;
 
-    [SerializeField] private GameObject _floorFirstMonumentPrefab;// TODO: Use different way of resource loading such as addressables
-    [SerializeField] private GameObject _floorSecondMonumentPrefab;
-    [SerializeField] private GameObject _floorThirdMonumentPrefab;
-    [SerializeField] private GameObject _archesMonumentPrefab;
-    [SerializeField] private GameObject _domeMonumentPrefab;
-    [SerializeField] private GameObject _groundPlaneMonumentPrefab;
-    [SerializeField] private GameObject _outerWallsMonumentPrefab;
-    [SerializeField] private GameObject _towersBackMonumentPrefab;
-    [SerializeField] private GameObject _towersMiddleMonumentPrefab;
-    [SerializeField] private GameObject _towersFrontMonumentPrefab;
+    [SerializeField] private AssetReference _floorFirstMonumentPrefab;// TODO: Use different way of resource loading such as addressables
+    [SerializeField] private AssetReference _floorSecondMonumentPrefab;
+    [SerializeField] private AssetReference _floorThirdMonumentPrefab;
+    [SerializeField] private AssetReference _archesMonumentPrefab;
+    [SerializeField] private AssetReference _domeMonumentPrefab;
+    [SerializeField] private AssetReference _groundPlaneMonumentPrefab;
+    [SerializeField] private AssetReference _outerWallsMonumentPrefab;
+    [SerializeField] private AssetReference _towersBackMonumentPrefab;
+    [SerializeField] private AssetReference _towersMiddleMonumentPrefab;
+    [SerializeField] private AssetReference _towersFrontMonumentPrefab;
 
     public void Awake()
     {
@@ -80,7 +80,7 @@ public class AssetManager : MonoBehaviour
         Instance = this;
     }
 
-    public GameObject GetMonumentComponentPrefab(MonumentComponentType monumentComponentType)
+    private AssetReference GetMonumentComponentPrefab(MonumentComponentType monumentComponentType)
     {
         switch (monumentComponentType)
         {
@@ -134,4 +134,16 @@ public class AssetManager : MonoBehaviour
         }
         return "UNKNOWN ICON";
     }
+
+    public void InstantiateMonumentComponent(MonumentDisplay monumentDisplay, MonumentComponentType monumentComponentType)
+    {
+        AssetReference prefab = GetMonumentComponentPrefab(monumentComponentType);
+        MonumentComponentLoader monumentComponentLoader = new MonumentComponentLoader(
+            monumentComponentType)
+            .WithPrefab(prefab)
+            .WithParent(monumentDisplay.transform)
+            .WithMonumentDisplay(monumentDisplay);
+        monumentComponentLoader.InstantiateComponent();
+    }
 }
+
