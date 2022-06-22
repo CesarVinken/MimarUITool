@@ -16,6 +16,7 @@ public class MonumentComponentDisplayButtonLockedState : MonumentComponentDispla
 
     protected override void SetIcon(MonumentComponentListItem item)
     {
+        item.SetIcon(AssetManager.Instance.GetMonumentComponentListItemIcon(this));
         item.GetLockGameObject().SetActive(true);
     }
 }

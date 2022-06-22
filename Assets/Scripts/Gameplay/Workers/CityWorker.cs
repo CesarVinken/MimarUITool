@@ -58,6 +58,9 @@ public class CityWorker : IWorker
 
         if (CurrentBuildingTask.State == MonumentComponentState.Complete)
         {
+            Player player = PlayerManager.Instance.Players[Employer];
+            player.Monument.UpdateDependencies();
+
             PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;
             if (playersTabContainer.CurrentPlayerTab.PlayerNumber == Employer)
             {

@@ -25,6 +25,11 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private AssetReference _towersMiddleMonumentPrefab;
     [SerializeField] private AssetReference _towersFrontMonumentPrefab;
 
+    [Header("Icons")]
+
+    [SerializeField] private Sprite _lockIcon;
+    [SerializeField] private Sprite _cogIcon;
+
     public void Setup()
     {
         if (ResourcesWorkerPrefab == null)
@@ -108,6 +113,19 @@ public class AssetManager : MonoBehaviour
                 Debug.LogError($"No prefab was implemented for monumentComponentType {monumentComponentType}");
                 return null;
         }
+    }
+    
+    public Sprite GetMonumentComponentListItemIcon(MonumentComponentDisplayButtonState monumentComponentDisplayButtonState)
+    {
+        if(monumentComponentDisplayButtonState is MonumentComponentDisplayButtonLockedState)
+        {
+            return _lockIcon;
+        }
+        if(monumentComponentDisplayButtonState is MonumentComponentDisplayButtonInProgressState)
+        {
+            return _cogIcon;
+        }
+        return null;
     }
 
     public string GetPlayerStatInlineIcon(IPlayerStat playerStat)

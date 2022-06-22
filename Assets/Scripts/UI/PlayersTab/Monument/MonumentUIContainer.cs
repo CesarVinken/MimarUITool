@@ -46,7 +46,8 @@ public class MonumentUIContainer : MonoBehaviour
     // When we select a player, we need to update to show the correct button state for all the items so that it fits that player
     public void UpdateUIForItems(Monument monument)
     {
-        Debug.Log($"UpdateUIForItems");
+        Debug.Log($"possibly we need to update ui button for new states here");
+
         for (int i = 0; i < MonumentComponentListItems.Count; i++)
         {
             MonumentComponentListItems[i].UpdateUIForButtonState(monument);

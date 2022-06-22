@@ -140,6 +140,7 @@ MonoBehaviour:
   _button: {fileID: 5932118491163687280}
   _buttonBackground: {fileID: 4034757037511049673}
   _stateIconGO: {fileID: 2075881258219415379}
+  _stateIconImage: {fileID: 6592890630084669154}
   _componentNameLabel: {fileID: 6734264310651292009}
   _componentSubLabel: {fileID: 4247428994199777636}
 --- !u!1 &2075881258219415379
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bcbe012f6f1a6584f8f70fa1891530fb, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

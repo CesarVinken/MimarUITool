@@ -50,6 +50,7 @@ public class MonumentComponent
 
     private void SetState(MonumentComponentState newState)
     {
+        Debug.Log($"SET STATE TO {newState}");
         State = newState;
     }
 
@@ -59,6 +60,7 @@ public class MonumentComponent
 
         if(State == MonumentComponentState.Complete)
         {
+            Debug.Log($"reevaluate dependencies?");
             ResetRemainingLabourTime();
         }
 

@@ -61,6 +61,34 @@ public class MonumentsDisplayContainer : MonoBehaviour
         _currentlyShownMonument = _monumentsByPlayerNumber[playerNumber];
     }
 
+    public void UpdateVisibilityForComponents(Monument monument)
+    {
+        List<MonumentComponent> monumentComponents = monument.GetMonumentComponents();
+
+        for (int i = 0; i < monumentComponents.Count; i++)
+        {
+            MonumentComponent monumentComponent = monumentComponents[i];
+            UpdateVisibilityForComponent(monumentComponent);
+        }
+    }
+
+    public void UpdateVisibilityForComponent(MonumentComponent monumentComponent)
+    {
+        MonumentComponentState state = monumentComponent.State;
+        if (state == MonumentComponentState.Complete)
+        {
+            SetMonumentComponentVisibility(monumentComponent.PlayerNumber, monumentComponent, MonumentComponentVisibility.Complete);
+        }
+        else if (state == MonumentComponentState.InProgress)
+        {
+            SetMonumentComponentVisibility(monumentComponent.PlayerNumber, monumentComponent, MonumentComponentVisibility.InProgress);
+        }
+        else
+        {
+            SetMonumentComponentVisibility(monumentComponent.PlayerNumber, monumentComponent, MonumentComponentVisibility.Hidden);
+        }
+    }
+
     public void SetMonumentComponentVisibility(PlayerNumber playerNumber, MonumentComponent monumentComponent, MonumentComponentVisibility monumentComponentVisibility)
     {
         MonumentDisplay monumentDisplay = _monumentsByPlayerNumber[playerNumber];

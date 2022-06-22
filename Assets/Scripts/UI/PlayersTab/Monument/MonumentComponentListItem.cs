@@ -10,6 +10,7 @@ public class MonumentComponentListItem : MonoBehaviour
     [SerializeField] private Button _button;
     [SerializeField] private Image _buttonBackground;
     [SerializeField] private GameObject _stateIconGO;
+    [SerializeField] private Image _stateIconImage;
 
     [SerializeField] private TextMeshProUGUI _componentNameLabel;
     [SerializeField] private TextMeshProUGUI _componentSubLabel;
@@ -29,6 +30,10 @@ public class MonumentComponentListItem : MonoBehaviour
         if (_stateIconGO == null)
         {
             Debug.LogError($"could not find _stateIconGO on {gameObject.name}");
+        }
+        if (_stateIconImage == null)
+        {
+            Debug.LogError($"could not find _stateIconImage on {gameObject.name}");
         }
         if (_componentNameLabel == null)
         {
@@ -94,6 +99,7 @@ public class MonumentComponentListItem : MonoBehaviour
 
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
     }
+
 
     public void UpdateUIForButtonState(Monument monument)
     {
@@ -167,6 +173,11 @@ public class MonumentComponentListItem : MonoBehaviour
     public GameObject GetLockGameObject()
     {
         return _stateIconGO;
+    }
+
+    public void SetIcon(Sprite icon)
+    {
+        _stateIconImage.sprite = icon;
     }
 }
 

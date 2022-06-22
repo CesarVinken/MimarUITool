@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MonumentComponentDisplayButtonInProgressState : MonumentComponentDisplayButtonState
@@ -15,6 +16,7 @@ public class MonumentComponentDisplayButtonInProgressState : MonumentComponentDi
 
     protected override void SetIcon(MonumentComponentListItem item)
     {
-        item.GetLockGameObject().SetActive(false);
+        item.SetIcon(AssetManager.Instance.GetMonumentComponentListItemIcon(this));
+        item.GetLockGameObject().SetActive(true);
     }
 }

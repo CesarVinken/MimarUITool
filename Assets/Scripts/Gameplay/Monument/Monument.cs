@@ -32,14 +32,11 @@ public class Monument
     public Monument(PlayerNumber playerNumber)
     {
         _playerNumber = playerNumber;
-
-        InitialiseMonumentComponents();
     }
 
     // The new, initialised monument contains all the monument component but set to Complete = false;
-    private void InitialiseMonumentComponents()
+    public void InitialiseMonumentComponents()
     {
-        Debug.LogWarning($"InitialiseMonumentComponents for {_playerNumber}");
         List<MonumentComponentBlueprint> defaultMonumentBlueprints = DefaultMonumentBlueprints;
 
         for (int i = 0; i < defaultMonumentBlueprints.Count; i++)
@@ -62,18 +59,39 @@ public class Monument
             _monumentComponents[j].InitialiseDependencies(_monumentComponents);
         }
 
-        for (int k = 0; k < _monumentComponents.Count; k++)
+        // components that have no more requirements become buildable/unaffordable, those that still have dependencies stay locked
+        UpdateDependencies();
+    }
+
+    public void UpdateDependencies()
+    {
+        Debug.LogWarning($"update dependencies");
+        for (int i = 0; i < _monumentComponents.Count; i++)
         {
 
-            //Debug.Log($"Here {_monumentComponents[k].Name} has {_monumentComponents[k].Dependencies.Count} dependencies");
-            MonumentComponent monumentComponent = _monumentComponents[k];
-            for (int l = 0; l < monumentComponent.Dependencies.Count; l++)
+            MonumentComponent monumentComponent = _monumentComponents[i];
+            for (int j = 0; j < monumentComponent.Dependencies.Count; j++)
             {
-                MonumentComponent neededComponent = monumentComponent.Dependencies[l];
+                MonumentComponent neededComponent = monumentComponent.Dependencies[j];
+                Debug.Log($"going over {monumentComponent.MonumentComponentType} with the state {monumentComponent.State}. It has a dependency {neededComponent.MonumentComponentType} with the state {neededComponent.State}");
                 if (neededComponent.State == MonumentComponentState.Complete)
                 {
-                    //Debug.LogWarning($"complee???");
-                    monumentComponent.UpdateMonumentComponentState(MonumentComponentState.Buildable);
+                    if (monumentComponent.State != MonumentComponentState.Locked) continue;
+
+                    Player player = PlayerManager.Instance.Players[_playerNumber];
+                    bool canAffordCost = PlayerUtility.CanAffordCost(
+                        monumentComponent.MonumentComponentBlueprint.ResourceCosts,
+                        player.Resources
+                        );
+                    MonumentComponentState buildableState = canAffordCost ? MonumentComponentState.Buildable : MonumentComponentState.Unaffordable;
+                    monumentComponent.UpdateMonumentComponentState(buildableState);
+                }
+                else // this would only happen if a already finished component is forced to be "unfinished". That would force other dependent components to be locked again too.
+                {
+                    if(monumentComponent.State != MonumentComponentState.Locked)
+                    {
+                        monumentComponent.UpdateMonumentComponentState(MonumentComponentState.Locked);
+                    }
                 }
             }
         }

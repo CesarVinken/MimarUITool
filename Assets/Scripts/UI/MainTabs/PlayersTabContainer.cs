@@ -87,22 +87,23 @@ public class PlayersTabContainer : UITabContainer
         Monument monument = currentPlayer.Monument;
 
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
+        MonumentComponentState oldState = monumentComponent.State;
         MonumentComponentState newState = GetNextMonumentComponentStateForClick(monumentComponent.State, monumentComponent);
 
-
+        Debug.Log($"The new state is {newState}");
         monument.SetMonumentComponentState(monumentComponentBlueprint.MonumentComponentType, newState);
 
-        if (newState == MonumentComponentState.Complete)
+        // things might update with dependencies, update UI items and 3d model visibility
+        if (newState == MonumentComponentState.Complete ||
+            oldState == MonumentComponentState.Complete)
         {
-            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.Complete);
-        }
-        else if(newState == MonumentComponentState.InProgress)
-        {
-            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.InProgress);
+            monument.UpdateDependencies();
+            _monumentUIContainer.UpdateUIForItems(monument);
+            _monumentsDisplayContainer.UpdateVisibilityForComponents(monument);
         }
         else
         {
-            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.Hidden);
+            _monumentsDisplayContainer.UpdateVisibilityForComponent(monumentComponent);
         }
 
         GameFlowManager.Instance.ExecuteMonumentComponentStateChangeEvent(currentPlayer.PlayerNumber, monumentComponent, newState);
@@ -113,12 +114,14 @@ public class PlayersTabContainer : UITabContainer
 
     private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState, MonumentComponent monumentComponent)
     {
+        Debug.Log($"REEVALUATE. CURRENT STATE IS {currentState}");
         if (currentState == MonumentComponentState.InProgress)
         {
             return MonumentComponentState.Complete;
         }
         else if (currentState == MonumentComponentState.Complete)
         {
+            Debug.Log($"alREADY COMPLETE");
             return GetBuildableMonumentComponentState(monumentComponent);
         }
 
@@ -132,6 +135,7 @@ public class PlayersTabContainer : UITabContainer
             monumentComponent.MonumentComponentBlueprint.ResourceCosts,
             player.Resources
             );
+        Debug.Log($"aASDASD");
 
         if (canAffordCost)
         {
@@ -146,6 +150,7 @@ public class PlayersTabContainer : UITabContainer
         _playerUIContentContainer.UpdatePlayerUIContent(playerData);
     }
 
+    // Update the list items
     public void UpdateMonumentUI()
     {
         Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
@@ -154,6 +159,7 @@ public class PlayersTabContainer : UITabContainer
         _monumentUIContainer.UpdateUIForItems(monument);
     }
 
+    // Update the 3d model of the monument
     public void UpdateMonumentDisplay()
     {
         _monumentsDisplayContainer.ShowMonument(CurrentPlayerTab.PlayerNumber);

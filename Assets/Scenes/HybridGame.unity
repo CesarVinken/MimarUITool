@@ -6360,6 +6360,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  _lockIcon: {fileID: 21300000, guid: bcbe012f6f1a6584f8f70fa1891530fb, type: 3}
+  _cogIcon: {fileID: 21300000, guid: bf6c681d4fc1eef46847d7a1cb288300, type: 3}
 --- !u!114 &715871862
 MonoBehaviour:
   m_ObjectHideFlags: 0
