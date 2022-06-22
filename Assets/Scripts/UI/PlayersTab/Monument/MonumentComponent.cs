@@ -8,18 +8,20 @@ public class MonumentComponent
 {
     public MonumentComponentState State { get; private set; } = MonumentComponentState.Locked;
     public string Name { get; private set; }
+    public PlayerNumber PlayerNumber { get; private set; }
     public MonumentComponentType MonumentComponentType { get; private set; }
     public MonumentComponentBlueprint MonumentComponentBlueprint { get; private set; }
     public List<MonumentComponent> Dependencies { get; private set; }
 
     public float RemainingLabourTime { get; private set; }
 
-    public MonumentComponent(MonumentComponentBlueprint monumentComponentBlueprint)
+    public MonumentComponent(MonumentComponentBlueprint monumentComponentBlueprint, PlayerNumber playerNumber)
     {
         MonumentComponentBlueprint = monumentComponentBlueprint;
         RemainingLabourTime = MonumentComponentBlueprint.LabourTime;
 
         Name = MonumentComponentBlueprint.Name;
+        PlayerNumber = playerNumber;
 
         MonumentComponentType = MonumentComponentBlueprint.MonumentComponentType;
     }

@@ -87,7 +87,7 @@ public class PlayersTabContainer : UITabContainer
         Monument monument = currentPlayer.Monument;
 
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
-        MonumentComponentState newState = GetNextMonumentComponentStateForClick(monumentComponent.State);
+        MonumentComponentState newState = GetNextMonumentComponentStateForClick(monumentComponent.State, monumentComponent);
 
 
         monument.SetMonumentComponentState(monumentComponentBlueprint.MonumentComponentType, newState);
@@ -111,7 +111,7 @@ public class PlayersTabContainer : UITabContainer
 
     }
 
-    private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState)
+    private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState, MonumentComponent monumentComponent)
     {
         if (currentState == MonumentComponentState.InProgress)
         {
@@ -119,10 +119,26 @@ public class PlayersTabContainer : UITabContainer
         }
         else if (currentState == MonumentComponentState.Complete)
         {
-            return MonumentComponentState.Buildable; //MAYBE we need to check here if is should be buildable/unaffordable/locked
+            return GetBuildableMonumentComponentState(monumentComponent);
         }
 
         return MonumentComponentState.InProgress;
+    }
+
+    public MonumentComponentState GetBuildableMonumentComponentState(MonumentComponent monumentComponent)
+    {
+        Player player = PlayerManager.Instance.Players[monumentComponent.PlayerNumber];
+        bool canAffordCost = PlayerUtility.CanAffordCost(
+            monumentComponent.MonumentComponentBlueprint.ResourceCosts,
+            player.Resources
+            );
+
+        if (canAffordCost)
+        {
+            return MonumentComponentState.Buildable;
+        }
+
+        return MonumentComponentState.Unaffordable;
     }
 
     public void UpdatePlayerStatUIContent(UIPlayerData playerData)

@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,6 +88,10 @@ public class MonumentComponentListItem : MonoBehaviour
                 break;
         }
 
+        Player player = PlayerManager.Instance.Players[_playersTabContainer.CurrentPlayerTab.PlayerNumber];
+        MonumentComponent monumentComponent = player.Monument.GetMonumentComponentByType(_monumentComponentBlueprint.MonumentComponentType);
+        UpdateSublabelForMonumentComponentState(monumentComponentState, monumentComponent);
+
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
     }
 
@@ -117,7 +122,46 @@ public class MonumentComponentListItem : MonoBehaviour
                 break;
         }
 
+        UpdateSublabelForMonumentComponentState(monumentComponentState, monumentComponent);
+
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
+    }
+
+    private void UpdateSublabelForMonumentComponentState(MonumentComponentState monumentComponentState, MonumentComponent monumentComponent)
+    {
+        Player player = PlayerManager.Instance.Players[_playersTabContainer.CurrentPlayerTab.PlayerNumber];
+        List<IResource> resourceCosts = monumentComponent.MonumentComponentBlueprint.ResourceCosts;
+
+        if (monumentComponentState == MonumentComponentState.Unaffordable ||
+            monumentComponentState == MonumentComponentState.Buildable)
+        {
+            string subLabelText = "";
+
+            _componentSubLabel.enabled = true;
+
+            for (int i = 0; i < resourceCosts.Count; i++)
+            {
+                IPlayerStat playerStat = resourceCosts[i] as IPlayerStat;
+
+                ResourceType resourceType = resourceCosts[i].GetResourceType();
+                bool canAffordResource = player.Resources[resourceType].Amount >= resourceCosts[i].Amount;
+
+                if (canAffordResource)
+                {
+                    subLabelText += $"{AssetManager.Instance.GetPlayerStatInlineIcon(playerStat)} {resourceCosts[i].Amount}    ";
+                }
+                else
+                {
+                    subLabelText += $"{AssetManager.Instance.GetPlayerStatInlineIcon(playerStat)} <color={ColourUtility.GetHexadecimalColour(ColourType.ErrorRed)}>{resourceCosts[i].Amount}</color>    ";
+                }
+            }
+
+            _componentSubLabel.text = subLabelText;
+        }
+        else
+        {
+            _componentSubLabel.enabled = false;
+        }
     }
 
     public GameObject GetLockGameObject()

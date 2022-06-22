@@ -37,4 +37,19 @@ public class PlayerUtility : MonoBehaviour
                 return -1;
         }
     }
+
+    public static bool CanAffordCost(List<IResource> resourceCosts, Dictionary<ResourceType, IResource> playerResources)
+    {
+        for (int i = 0; i < resourceCosts.Count; i++)
+        {
+            ResourceType resourceType = resourceCosts[i].GetResourceType();
+
+            if (playerResources[resourceType].Amount < resourceCosts[i].Amount)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

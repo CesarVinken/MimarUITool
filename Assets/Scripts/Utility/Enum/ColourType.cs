@@ -1,6 +1,7 @@
 public enum ColourType
 {
     Empty,
+    ErrorRed,
     GrayedOut,
     SelectedBackground,
     Player1,

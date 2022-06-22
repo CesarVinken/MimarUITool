@@ -44,7 +44,7 @@ public class Monument
 
         for (int i = 0; i < defaultMonumentBlueprints.Count; i++)
         {
-            _monumentComponents.Add(new MonumentComponent(defaultMonumentBlueprints[i]));
+            _monumentComponents.Add(new MonumentComponent(defaultMonumentBlueprints[i], _playerNumber));
         }
 
         MonumentComponent groundPlane = _monumentComponents.FirstOrDefault(m => m.MonumentComponentType == MonumentComponentType.GroundPlane);

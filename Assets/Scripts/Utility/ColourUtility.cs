@@ -8,6 +8,8 @@ public static class ColourUtility
         {
             case ColourType.Empty:
                 return Color.white;
+            case ColourType.ErrorRed:
+                return new Color(200f / 255f, 0, 0);
             case ColourType.GrayedOut:
                 return new Color(94f / 255f, 94f / 255f, 94f / 255f); // dark gray
             case ColourType.SelectedBackground:
@@ -33,6 +35,8 @@ public static class ColourUtility
         {
             case ColourType.Empty:
                 return "#FFFFFF";
+            case ColourType.ErrorRed:
+                return "#C60000";
             case ColourType.SelectedBackground:
                 return "#69FDFF";
             default:
