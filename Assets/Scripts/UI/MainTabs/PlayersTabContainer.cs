@@ -81,11 +81,6 @@ public class PlayersTabContainer : UITabContainer
         CurrentPlayerTab.Activate();
     }
 
-    public void FillInPlayerContent(UIPlayerData playerData)
-    {
-        _playerUIContentContainer.UpdatePlayerUIContent(playerData);
-    }
-
     public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
     {
         Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
@@ -112,6 +107,11 @@ public class PlayersTabContainer : UITabContainer
         // update component remaining labour time
         return componentIsComplete;
 
+    }
+
+    public void UpdatePlayerStatUIContent(UIPlayerData playerData)
+    {
+        _playerUIContentContainer.UpdatePlayerUIContent(playerData);
     }
 
     public void UpdateMonumentUI()

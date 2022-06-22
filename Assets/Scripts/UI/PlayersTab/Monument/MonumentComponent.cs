@@ -5,18 +5,18 @@ public class MonumentComponent
     public bool IsComplete { get; private set; } = false;
     public string Name { get; private set; }
     public MonumentComponentType MonumentComponentType { get; private set; }
+    public MonumentComponentBlueprint MonumentComponentBlueprint { get; private set; }
 
-    private MonumentComponentBlueprint _monumentComponentBlueprint;
     private float _remainingLabourTime;
 
     public MonumentComponent(MonumentComponentBlueprint monumentComponentBlueprint)
     {
-        _monumentComponentBlueprint = monumentComponentBlueprint;
-        _remainingLabourTime = _monumentComponentBlueprint.LabourTime;
+        MonumentComponentBlueprint = monumentComponentBlueprint;
+        _remainingLabourTime = MonumentComponentBlueprint.LabourTime;
 
-        Name = _monumentComponentBlueprint.Name;
+        Name = MonumentComponentBlueprint.Name;
 
-        MonumentComponentType = _monumentComponentBlueprint.MonumentComponentType;
+        MonumentComponentType = MonumentComponentBlueprint.MonumentComponentType;
     }
 
     private void SetCompleteStatus(bool isComplete)
@@ -35,14 +35,14 @@ public class MonumentComponent
         }
         else
         {
-            UpdateRemainingLabourTime(-_monumentComponentBlueprint.LabourTime);
+            UpdateRemainingLabourTime(-MonumentComponentBlueprint.LabourTime);
             SetCompleteStatus(true);
         }
     }
 
     public void ResetRemainingLabourTime()
     {
-        _remainingLabourTime = _monumentComponentBlueprint.LabourTime;
+        _remainingLabourTime = MonumentComponentBlueprint.LabourTime;
     }
 
     public void UpdateRemainingLabourTime(float value)

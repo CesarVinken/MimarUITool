@@ -161,7 +161,7 @@ public class CityWorkerTile : WorkerTile
         constructionSiteContainer.RemoveWorkerFromSite(this);
     }
 
-
+    // A player completes a monument component
     public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {
         if (e.AffectedPlayer != Worker.Employer) return;

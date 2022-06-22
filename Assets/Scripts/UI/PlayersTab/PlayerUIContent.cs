@@ -102,6 +102,7 @@ public class PlayerUIContent : MonoBehaviour
 
         CalculateIncomeProjectionLabel(_goldContainer, _player.Gold);
     }
+
     public void SetPlayerStatInputFieldValue(TMP_InputField inputField, IPlayerStat playerStat)
     {
         if(playerStat is Reputation)

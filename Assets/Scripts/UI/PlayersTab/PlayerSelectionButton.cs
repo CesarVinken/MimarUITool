@@ -39,7 +39,7 @@ public class PlayerSelectionButton : MonoBehaviour
 	public void UpdatePlayerDataDisplay()
     {
 		UIPlayerData playerData = PlayerManager.Instance.GetPlayerData(PlayerNumber);
-		_playersTab.FillInPlayerContent(playerData);
+		_playersTab.UpdatePlayerStatUIContent(playerData);
 		_playersTab.UpdateMonumentUI(); // The UI of the monument (component buttons) should be strictly separated from the display of the monument (the 3d model)
 		_playersTab.UpdateMonumentDisplay();
 	}

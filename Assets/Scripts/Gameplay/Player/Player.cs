@@ -134,6 +134,8 @@ public class Player
     {
         if (e.AffectedPlayer != PlayerNumber) return;
 
+        if (!e.IsCompleted) return;
+
         int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
         int oldReputation = Reputation.Amount;
 
@@ -141,6 +143,13 @@ public class Player
 
         SetReputation(newReputation);
 
-        Debug.Log($"The reputation of {PlayerNumber} is now {Reputation.Amount}");
+        UpdatePlayerStatUIContent();
+    }
+
+    private void UpdatePlayerStatUIContent()
+    {
+        PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;
+        UIPlayerData playerData = PlayerManager.Instance.GetPlayerData(PlayerNumber);
+        playersTabContainer.UpdatePlayerStatUIContent(playerData);
     }
 }
