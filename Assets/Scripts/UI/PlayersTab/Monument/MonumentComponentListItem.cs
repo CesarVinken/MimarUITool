@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +8,10 @@ public class MonumentComponentListItem : MonoBehaviour
     private MonumentComponentBlueprint _monumentComponentBlueprint;
     [SerializeField] private Button _button;
     [SerializeField] private Image _buttonBackground;
-    [SerializeField] private GameObject _lockImageGO;
+    [SerializeField] private GameObject _stateIconGO;
 
     [SerializeField] private TextMeshProUGUI _componentNameLabel;
+    [SerializeField] private TextMeshProUGUI _componentSubLabel;
     private PlayersTabContainer _playersTabContainer;
     private MonumentComponentDisplayButtonState _buttonState;
 
@@ -25,9 +25,17 @@ public class MonumentComponentListItem : MonoBehaviour
         {
             Debug.LogError($"could not find _buttonBackground on {gameObject.name}");
         }
-        if (_lockImageGO == null)
+        if (_stateIconGO == null)
         {
-            Debug.LogError($"could not find _lockImageGO on {gameObject.name}");
+            Debug.LogError($"could not find _stateIconGO on {gameObject.name}");
+        }
+        if (_componentNameLabel == null)
+        {
+            Debug.LogError($"could not find _componentNameLabel on {gameObject.name}");
+        }
+        if (_componentSubLabel == null)
+        {
+            Debug.LogError($"could not find _componentSubLabel on {gameObject.name}");
         }
     }
 
@@ -45,6 +53,7 @@ public class MonumentComponentListItem : MonoBehaviour
     private void SetName(string itemName)
     {
         _componentNameLabel.text = itemName;
+        gameObject.name = itemName;
     }
 
     // force-update the completion status of a monument component
@@ -59,11 +68,11 @@ public class MonumentComponentListItem : MonoBehaviour
 
         if (isCompleted)
         {
-            _buttonState = new MonumentComponentDisplayButtonSelectedState();
+            _buttonState = new MonumentComponentDisplayButtonCompletedState();
         }
         else
         {
-            _buttonState = new MonumentComponentDisplayButtonSelectableState();
+            _buttonState = new MonumentComponentDisplayButtonAvailableState();
         }
 
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
@@ -76,11 +85,11 @@ public class MonumentComponentListItem : MonoBehaviour
 
         if (componentIsComplete)
         {
-            _buttonState = new MonumentComponentDisplayButtonSelectedState();
+            _buttonState = new MonumentComponentDisplayButtonCompletedState();
         }
         else
         {
-            _buttonState = new MonumentComponentDisplayButtonSelectableState();
+            _buttonState = new MonumentComponentDisplayButtonAvailableState();
         }
 
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
@@ -88,7 +97,7 @@ public class MonumentComponentListItem : MonoBehaviour
 
     public GameObject GetLockGameObject()
     {
-        return _lockImageGO;
+        return _stateIconGO;
     }
 }
 

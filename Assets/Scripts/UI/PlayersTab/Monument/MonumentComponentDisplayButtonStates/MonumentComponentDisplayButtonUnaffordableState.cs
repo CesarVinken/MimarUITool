@@ -1,11 +1,11 @@
 using UnityEngine.UI;
 
-public class MonumentComponentDisplayButtonSelectableState : MonumentComponentDisplayButtonState
+public class MonumentComponentDisplayButtonUnaffordableState : MonumentComponentDisplayButtonState
 {
     public override void UpdateUIForButtonState(MonumentComponentListItem item, Image buttonBackground)
     {
         SetButtonColour(ColourType.Empty, buttonBackground);
-        SetLockImage(item);
+        SetIcon(item);
     }
 
     protected override void SetButtonColour(ColourType colourType, Image buttonBackground)
@@ -13,7 +13,7 @@ public class MonumentComponentDisplayButtonSelectableState : MonumentComponentDi
         buttonBackground.color = ColourUtility.GetColour(colourType);
     }
 
-    protected override void SetLockImage(MonumentComponentListItem item)
+    protected override void SetIcon(MonumentComponentListItem item)
     {
         item.GetLockGameObject().SetActive(false);
     }

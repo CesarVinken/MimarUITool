@@ -1,11 +1,11 @@
 using UnityEngine.UI;
 
 
-public class MonumentComponentDisplayButtonLockedState : MonumentComponentDisplayButtonState
+public class MonumentComponentDisplayButtonCompletedState : MonumentComponentDisplayButtonState
 {
     public override void UpdateUIForButtonState(MonumentComponentListItem item, Image buttonBackground)
     {
-        SetButtonColour(ColourType.GrayedOut, buttonBackground);
+        SetButtonColour(ColourType.SelectedBackground, buttonBackground);
         SetIcon(item);
     }
 
@@ -16,7 +16,6 @@ public class MonumentComponentDisplayButtonLockedState : MonumentComponentDispla
 
     protected override void SetIcon(MonumentComponentListItem item)
     {
-        item.GetLockGameObject().SetActive(true);
+        item.GetLockGameObject().SetActive(false);
     }
 }
-
