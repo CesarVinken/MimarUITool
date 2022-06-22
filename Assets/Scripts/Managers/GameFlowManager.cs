@@ -28,8 +28,8 @@ public class GameFlowManager : MonoBehaviour
         PlayerManager.Instance.DistractWorkerServiceLength();
     }
 
-    public void ExecuteMonumentComponentCompletionEvent(PlayerNumber affectedPlayer, MonumentComponent affectedComponent, bool isCompleted)
+    public void ExecuteMonumentComponentStateChangeEvent(PlayerNumber affectedPlayer, MonumentComponent affectedComponent, MonumentComponentState state)
     {
-        MonumentComponentCompletionStateChangeEvent?.Invoke(this, new MonumentComponentCompletionStateChangeEvent(affectedPlayer, affectedComponent, isCompleted));
+        MonumentComponentCompletionStateChangeEvent?.Invoke(this, new MonumentComponentCompletionStateChangeEvent(affectedPlayer, affectedComponent, state));
     }
 }

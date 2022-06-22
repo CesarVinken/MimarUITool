@@ -81,32 +81,48 @@ public class PlayersTabContainer : UITabContainer
         CurrentPlayerTab.Activate();
     }
 
-    public bool HandleMonumentComponentCompletion(MonumentComponentBlueprint monumentComponentBlueprint)
+    public MonumentComponentState HandleMonumentComponentState(MonumentComponentBlueprint monumentComponentBlueprint)
     {
         Player currentPlayer = PlayerManager.Instance.Players[CurrentPlayerTab.PlayerNumber];
         Monument monument = currentPlayer.Monument;
 
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(monumentComponentBlueprint.MonumentComponentType);
-        monument.SetMonumentComponentCompletion(monumentComponentBlueprint.MonumentComponentType, !monumentComponent.IsComplete);
+        MonumentComponentState newState = GetNextMonumentComponentStateForClick(monumentComponent.State);
 
-        bool componentIsComplete = monumentComponent.IsComplete;
 
-        if (componentIsComplete)
+        monument.SetMonumentComponentState(monumentComponentBlueprint.MonumentComponentType, newState);
+
+        if (newState == MonumentComponentState.Complete)
         {
-            _monumentsDisplayContainer.ShowMonumentComponent(CurrentPlayerTab.PlayerNumber, monumentComponent);
+            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.Complete);
+        }
+        else if(newState == MonumentComponentState.InProgress)
+        {
+            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.InProgress);
         }
         else
         {
-            _monumentsDisplayContainer.HideMonumentComponent(CurrentPlayerTab.PlayerNumber, monumentComponent);
+            _monumentsDisplayContainer.SetMonumentComponentVisibility(CurrentPlayerTab.PlayerNumber, monumentComponent, MonumentComponentVisibility.Hidden);
         }
 
-        GameFlowManager.Instance.ExecuteMonumentComponentCompletionEvent(currentPlayer.PlayerNumber, monumentComponent, componentIsComplete);
+        GameFlowManager.Instance.ExecuteMonumentComponentStateChangeEvent(currentPlayer.PlayerNumber, monumentComponent, newState);
 
-        // update monument visuals
-        // update workers
-        // update component remaining labour time
-        return componentIsComplete;
+        return newState;
 
+    }
+
+    private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState)
+    {
+        if (currentState == MonumentComponentState.InProgress)
+        {
+            return MonumentComponentState.Complete;
+        }
+        else if (currentState == MonumentComponentState.Complete)
+        {
+            return MonumentComponentState.Buildable; //MAYBE we need to check here if is should be buildable/unaffordable/locked
+        }
+
+        return MonumentComponentState.InProgress;
     }
 
     public void UpdatePlayerStatUIContent(UIPlayerData playerData)

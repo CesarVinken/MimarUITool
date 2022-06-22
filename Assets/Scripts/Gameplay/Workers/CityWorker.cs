@@ -54,16 +54,16 @@ public class CityWorker : IWorker
     {
         Debug.Log($"build");
 
-        CurrentBuildingTask.UpdateRemainingLabourTime(-BaseProductionPower);
+        CurrentBuildingTask.SetRemainingLabourTime(CurrentBuildingTask.RemainingLabourTime - BaseProductionPower);
 
-        if (CurrentBuildingTask.IsComplete)
+        if (CurrentBuildingTask.State == MonumentComponentState.Complete)
         {
             PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;
             if (playersTabContainer.CurrentPlayerTab.PlayerNumber == Employer)
             {
                 playersTabContainer.UpdateMonumentDisplay();
             }
-            GameFlowManager.Instance.ExecuteMonumentComponentCompletionEvent(Employer, CurrentBuildingTask, true);
+            GameFlowManager.Instance.ExecuteMonumentComponentStateChangeEvent(Employer, CurrentBuildingTask, MonumentComponentState.Complete);
         }
     }
 }

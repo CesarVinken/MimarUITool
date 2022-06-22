@@ -19,9 +19,9 @@ public class ResourcesWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _workerIcon");
         }
-        //if (_statusText == null)
+        //if (_stateText == null)
         //{
-        //    Debug.LogError($"Could not find _statusText");
+        //    Debug.LogError($"Could not find _stateText");
         //}
         if (_serviceLengthInputField == null)
         {
@@ -51,12 +51,10 @@ public class ResourcesWorkerTile : WorkerTile
     {
         if (newEmployer == PlayerNumber.None)
         {
-            //_statusText.gameObject.SetActive(false);
             _serviceLengthInputField.gameObject.SetActive(false);
         }
         else
         {
-            //_statusText.gameObject.SetActive(true);
             _serviceLengthInputField.gameObject.SetActive(true);
         }
         Worker.SetEmployer(newEmployer);

@@ -24,9 +24,9 @@ public class CityWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _workerIcon");
         }
-        //if (_statusText == null)
+        //if (_stateText == null)
         //{
-        //    Debug.LogError($"Could not find _statusText");
+        //    Debug.LogError($"Could not find _stateText");
         //}
         if (_serviceLengthInputField == null)
         {
@@ -78,13 +78,13 @@ public class CityWorkerTile : WorkerTile
     {
         if (newEmployer == PlayerNumber.None)
         {
-            //_statusText.gameObject.SetActive(false);
+            //_stateText.gameObject.SetActive(false);
             _dropdown.gameObject.SetActive(false);
             _serviceLengthInputField.gameObject.SetActive(false);
         }
         else
         {
-            //_statusText.gameObject.SetActive(true);
+            //_stateText.gameObject.SetActive(true);
             _dropdown.gameObject.SetActive(true);
             _serviceLengthInputField.gameObject.SetActive(true);
         }
@@ -108,7 +108,17 @@ public class CityWorkerTile : WorkerTile
 
         Player player = PlayerManager.Instance.Players[Worker.Employer];
 
-        List<MonumentComponent> unfinishedMonumentComponents = player.Monument.GetMonumentComponents().Where(c => c.IsComplete == false).ToList();
+        List<MonumentComponent> unfinishedMonumentComponents = new List<MonumentComponent>();
+        List<MonumentComponent> allMonumentComponents = player.Monument.GetMonumentComponents();
+
+        Debug.Log($"update list in a different way here");
+        for (int i = 0; i < allMonumentComponents.Count; i++)
+        {
+            MonumentComponent component = allMonumentComponents[i];
+            if (component.State == MonumentComponentState.Complete) continue;
+            unfinishedMonumentComponents.Add(component);
+        }
+
         List<OptionData> options = new List<OptionData>();
 
         options.Add(new OptionData("Unassigned"));

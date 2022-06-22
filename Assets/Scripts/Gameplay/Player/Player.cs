@@ -49,7 +49,7 @@ public class Player
 
             Debug.Log($"asdaksjaks");
         }
-        GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent += OnMonumentComponentCompletionChange;
+        GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent += OnMonumentComponentStateChange;
     }
 
     private void InitialisePlayerColour()
@@ -130,11 +130,11 @@ public class Player
         StockpileMaximum.SetAmount(maximum);
     }
 
-    public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
+    public void OnMonumentComponentStateChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {
         if (e.AffectedPlayer != PlayerNumber) return;
 
-        if (!e.IsCompleted) return;
+        if (e.State != MonumentComponentState.Complete) return;
 
         int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
         int oldReputation = Reputation.Amount;

@@ -31,7 +31,7 @@ public class MonumentUIContainer : MonoBehaviour
     // Items are generated only the first time we run the game. After that we use the list of the generated items and turn them on and off as needed using UpdateUIForItems()
     public void GenerateItems()
     {
-        List<MonumentComponentBlueprint> monumentComponentBlueprints = Monument.GetDefaultMonumentBlueprints();
+        List<MonumentComponentBlueprint> monumentComponentBlueprints = Monument.DefaultMonumentBlueprints;
 
         for (int i = 0; i < monumentComponentBlueprints.Count; i++)
         {
@@ -46,6 +46,7 @@ public class MonumentUIContainer : MonoBehaviour
     // When we select a player, we need to update to show the correct button state for all the items so that it fits that player
     public void UpdateUIForItems(Monument monument)
     {
+        Debug.Log($"UpdateUIForItems");
         for (int i = 0; i < MonumentComponentListItems.Count; i++)
         {
             MonumentComponentListItems[i].UpdateUIForButtonState(monument);

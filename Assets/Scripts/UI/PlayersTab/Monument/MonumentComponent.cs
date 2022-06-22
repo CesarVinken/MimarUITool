@@ -1,58 +1,97 @@
 
+using System.Collections.Generic;
 using UnityEngine;
+
+
+
 public class MonumentComponent
 {
-    public bool IsComplete { get; private set; } = false;
+    public MonumentComponentState State { get; private set; } = MonumentComponentState.Locked;
     public string Name { get; private set; }
     public MonumentComponentType MonumentComponentType { get; private set; }
     public MonumentComponentBlueprint MonumentComponentBlueprint { get; private set; }
+    public List<MonumentComponent> Dependencies { get; private set; }
 
-    private float _remainingLabourTime;
+    public float RemainingLabourTime { get; private set; }
 
     public MonumentComponent(MonumentComponentBlueprint monumentComponentBlueprint)
     {
         MonumentComponentBlueprint = monumentComponentBlueprint;
-        _remainingLabourTime = MonumentComponentBlueprint.LabourTime;
+        RemainingLabourTime = MonumentComponentBlueprint.LabourTime;
 
         Name = MonumentComponentBlueprint.Name;
 
         MonumentComponentType = MonumentComponentBlueprint.MonumentComponentType;
     }
 
-    private void SetCompleteStatus(bool isComplete)
+    public void InitialiseDependencies(List<MonumentComponent> monumentComponents)
     {
-        IsComplete = isComplete;
+        Dependencies = new List<MonumentComponent>();
+
+        for (int i = 0; i < monumentComponents.Count; i++)
+        {
+            MonumentComponent otherMonumentComponent = monumentComponents[i];
+
+            if (otherMonumentComponent == this) continue;
+
+            for (int j = 0; j < MonumentComponentBlueprint.Dependencies.Count; j++)
+            {
+                MonumentComponentType dependencyType = MonumentComponentBlueprint.Dependencies[j];
+
+                if (otherMonumentComponent.MonumentComponentType == dependencyType)
+                {
+                    Dependencies.Add(otherMonumentComponent);
+                }
+            }
+        }
     }
 
-    public void SetMonumentComponentCompletion(bool isComplete)
+    private void SetState(MonumentComponentState newState)
     {
-        if (IsComplete == isComplete) return;
+        State = newState;
+    }
 
-        if (!isComplete)
+    public void UpdateMonumentComponentState(MonumentComponentState newState)
+    {
+        if (State == newState) return;
+
+        if(State == MonumentComponentState.Complete)
         {
             ResetRemainingLabourTime();
-            SetCompleteStatus(false);
         }
-        else
+
+        switch (newState)
         {
-            UpdateRemainingLabourTime(-MonumentComponentBlueprint.LabourTime);
-            SetCompleteStatus(true);
+            case MonumentComponentState.Locked:
+                break;
+            case MonumentComponentState.Unaffordable:
+                break;
+            case MonumentComponentState.Buildable:
+                break;
+            case MonumentComponentState.InProgress:
+                break;
+            case MonumentComponentState.Complete:
+                SetRemainingLabourTime(0);
+                break;
+            default:
+                break;
         }
+        SetState(newState);
     }
 
     public void ResetRemainingLabourTime()
     {
-        _remainingLabourTime = MonumentComponentBlueprint.LabourTime;
+        RemainingLabourTime = MonumentComponentBlueprint.LabourTime;
     }
 
-    public void UpdateRemainingLabourTime(float value)
+    public void SetRemainingLabourTime(float value)
     {
-        _remainingLabourTime = _remainingLabourTime + value;
+        RemainingLabourTime = value;
 
-        if (_remainingLabourTime <= 0)
+        if (RemainingLabourTime <= 0)
         {
-            _remainingLabourTime = 0;
-            SetCompleteStatus(true);
+            RemainingLabourTime = 0;
+            SetState(MonumentComponentState.Complete);
         }
     }
 }

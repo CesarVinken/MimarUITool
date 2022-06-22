@@ -63,27 +63,41 @@ public class MonumentDisplay : MonoBehaviour
         // go over all components and check if the component is completed for the player
         for (int i = 0; i < monumentComponents.Count; i++)
         {
-            if (monumentComponents[i].IsComplete)
+            if (monumentComponents[i].State == MonumentComponentState.Complete)
             {
-                ShowComponent(monumentComponents[i]);
+                SetComponentVisibility(monumentComponents[i], MonumentComponentVisibility.Complete);
+            }
+            else if(monumentComponents[i].State == MonumentComponentState.InProgress)
+            {
+                SetComponentVisibility(monumentComponents[i], MonumentComponentVisibility.InProgress);
             }
             else
             {
-                HideComponent(monumentComponents[i]);
+                SetComponentVisibility(monumentComponents[i], MonumentComponentVisibility.Hidden);
             }
         }
     }
 
-    public void ShowComponent(MonumentComponent monumentComponent)
+    public void SetComponentVisibility(MonumentComponent monumentComponent, MonumentComponentVisibility visibility)
     {
         MonumentDisplayComponent monumentDisplayComponent = GetMonumentDisplayComponent(monumentComponent);
-        monumentDisplayComponent.gameObject.SetActive(true);
-    }
 
-    public void HideComponent(MonumentComponent monumentComponent)
-    {
-        MonumentDisplayComponent monumentDisplayComponent = GetMonumentDisplayComponent(monumentComponent);
-        monumentDisplayComponent.gameObject.SetActive(false);
+        switch (visibility)
+        {
+            case MonumentComponentVisibility.Hidden:
+                monumentDisplayComponent.gameObject.SetActive(false);
+                break;
+            case MonumentComponentVisibility.InProgress:
+
+                Debug.Log($"Todo: set different material");
+                monumentDisplayComponent.gameObject.SetActive(true);
+                break;
+            case MonumentComponentVisibility.Complete:
+                monumentDisplayComponent.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 
     private MonumentDisplayComponent GetMonumentDisplayComponent(MonumentComponent monumentComponent)

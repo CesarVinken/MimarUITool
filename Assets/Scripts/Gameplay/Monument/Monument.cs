@@ -7,27 +7,26 @@ public class Monument
     private PlayerNumber _playerNumber;
     private List<MonumentComponent> _monumentComponents = new List<MonumentComponent>();
 
-    public static List<MonumentComponentBlueprint> GetDefaultMonumentBlueprints()
+    public static List<MonumentComponentBlueprint> DefaultMonumentBlueprints = new List<MonumentComponentBlueprint>()
     {
-        List<MonumentComponentBlueprint> defaultMonumentComponentBlueprints = new List<MonumentComponentBlueprint>();
+        MonumentComponentBlueprint.Get(MonumentComponentType.Arches),
+        MonumentComponentBlueprint.Get(MonumentComponentType.Dome),
+        MonumentComponentBlueprint.Get(MonumentComponentType.FloorFirst),
+        MonumentComponentBlueprint.Get(MonumentComponentType.FloorSecond),
+        MonumentComponentBlueprint.Get(MonumentComponentType.FloorThird),
+        MonumentComponentBlueprint.Get(MonumentComponentType.GroundPlane),
+        MonumentComponentBlueprint.Get(MonumentComponentType.OuterWalls),
+        MonumentComponentBlueprint.Get(MonumentComponentType.TowersBack),
+        MonumentComponentBlueprint.Get(MonumentComponentType.TowersFront),
+        MonumentComponentBlueprint.Get(MonumentComponentType.TowersMiddle)
+    };
 
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.Arches));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.Dome));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorFirst));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorSecond));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.FloorThird));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.GroundPlane));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.OuterWalls));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersBack));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersFront));
-        defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersMiddle));
-
-        for (int i = 0; i < defaultMonumentComponentBlueprints.Count; i++)
+    public static void InitialiseDefaultMonumentBlueprints()
+    {
+        for (int i = 0; i < DefaultMonumentBlueprints.Count; i++)
         {
-            defaultMonumentComponentBlueprints[i].AddDependencies();
+            DefaultMonumentBlueprints[i].AddDependencies();
         }
-
-        return defaultMonumentComponentBlueprints;
     }
 
     public Monument(PlayerNumber playerNumber)
@@ -40,11 +39,43 @@ public class Monument
     // The new, initialised monument contains all the monument component but set to Complete = false;
     private void InitialiseMonumentComponents()
     {
-        List<MonumentComponentBlueprint> defaultMonumentBlueprints = GetDefaultMonumentBlueprints();
+        Debug.LogWarning($"InitialiseMonumentComponents for {_playerNumber}");
+        List<MonumentComponentBlueprint> defaultMonumentBlueprints = DefaultMonumentBlueprints;
 
         for (int i = 0; i < defaultMonumentBlueprints.Count; i++)
         {
-            _monumentComponents.Add(new MonumentComponent(MonumentComponentBlueprint.Get(defaultMonumentBlueprints[i].MonumentComponentType)));
+            _monumentComponents.Add(new MonumentComponent(defaultMonumentBlueprints[i]));
+        }
+
+        MonumentComponent groundPlane = _monumentComponents.FirstOrDefault(m => m.MonumentComponentType == MonumentComponentType.GroundPlane);
+        
+        if(groundPlane == null)
+        {
+            Debug.LogError($"Could not find ground plane on monument");
+        }
+
+        groundPlane.UpdateMonumentComponentState(MonumentComponentState.Complete);
+
+        // connect components to their dependencies
+        for (int j = 0; j < _monumentComponents.Count; j++)
+        {
+            _monumentComponents[j].InitialiseDependencies(_monumentComponents);
+        }
+
+        for (int k = 0; k < _monumentComponents.Count; k++)
+        {
+
+            //Debug.Log($"Here {_monumentComponents[k].Name} has {_monumentComponents[k].Dependencies.Count} dependencies");
+            MonumentComponent monumentComponent = _monumentComponents[k];
+            for (int l = 0; l < monumentComponent.Dependencies.Count; l++)
+            {
+                MonumentComponent neededComponent = monumentComponent.Dependencies[l];
+                if (neededComponent.State == MonumentComponentState.Complete)
+                {
+                    //Debug.LogWarning($"complee???");
+                    monumentComponent.UpdateMonumentComponentState(MonumentComponentState.Buildable);
+                }
+            }
         }
     }
 
@@ -65,14 +96,14 @@ public class Monument
         return monumentComponent;
     }
 
-    public void SetMonumentComponentCompletion(MonumentComponentType monumentComponentType, bool isComplete)
+    public void SetMonumentComponentState(MonumentComponentType monumentComponentType, MonumentComponentState newState)
     {
         MonumentComponent monumentComponent = GetMonumentComponentByType(monumentComponentType);
-        SetMonumentComponentCompletion(monumentComponent, isComplete);
+        SetMonumentComponentState(monumentComponent, newState);
     }
 
-    public void SetMonumentComponentCompletion(MonumentComponent monumentComponent, bool isComplete)
+    public void SetMonumentComponentState(MonumentComponent monumentComponent, MonumentComponentState newState)
     {
-        monumentComponent.SetMonumentComponentCompletion(isComplete);
+        monumentComponent.UpdateMonumentComponentState(newState);
     }
 }

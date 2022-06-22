@@ -9,7 +9,7 @@ public abstract class WorkerTile : MonoBehaviour
 
     [SerializeField] protected Image _tileBackground;
     [SerializeField] protected Image _workerIcon;
-    //[SerializeField] protected TextMeshProUGUI _statusText;
+
     [SerializeField] protected TMP_InputField _serviceLengthInputField;
 
     // called when changing the input field

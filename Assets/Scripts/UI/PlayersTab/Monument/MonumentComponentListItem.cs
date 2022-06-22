@@ -56,23 +56,35 @@ public class MonumentComponentListItem : MonoBehaviour
         gameObject.name = itemName;
     }
 
-    // force-update the completion status of a monument component
+    // force-update the completion state of a monument component
     private void OnClickItem()
     {
-        if(_buttonState is MonumentComponentDisplayButtonLockedState)
+        if (_buttonState is MonumentComponentDisplayButtonLockedState)
         {
             return;
         }
 
-        bool isCompleted = _playersTabContainer.HandleMonumentComponentCompletion(_monumentComponentBlueprint);
+        MonumentComponentState monumentComponentState = _playersTabContainer.HandleMonumentComponentState(_monumentComponentBlueprint);
 
-        if (isCompleted)
+        switch (monumentComponentState)
         {
-            _buttonState = new MonumentComponentDisplayButtonCompletedState();
-        }
-        else
-        {
-            _buttonState = new MonumentComponentDisplayButtonAvailableState();
+            case MonumentComponentState.Locked:
+                break;
+            case MonumentComponentState.Unaffordable:
+                _buttonState = new MonumentComponentDisplayButtonUnaffordableState();
+                break;
+            case MonumentComponentState.Buildable:
+                _buttonState = new MonumentComponentDisplayButtonAvailableState();
+                break;
+            case MonumentComponentState.InProgress:
+                _buttonState = new MonumentComponentDisplayButtonInProgressState();
+                break;
+            case MonumentComponentState.Complete:
+                _buttonState = new MonumentComponentDisplayButtonCompletedState();
+                break;
+            default:
+                Debug.LogError($"Unknown state {monumentComponentState}");
+                break;
         }
 
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
@@ -81,15 +93,28 @@ public class MonumentComponentListItem : MonoBehaviour
     public void UpdateUIForButtonState(Monument monument)
     {
         MonumentComponent monumentComponent = monument.GetMonumentComponentByType(_monumentComponentBlueprint.MonumentComponentType);
-        bool componentIsComplete = monumentComponent.IsComplete;
+        MonumentComponentState monumentComponentState = monumentComponent.State;
 
-        if (componentIsComplete)
+        switch (monumentComponentState)
         {
-            _buttonState = new MonumentComponentDisplayButtonCompletedState();
-        }
-        else
-        {
-            _buttonState = new MonumentComponentDisplayButtonAvailableState();
+            case MonumentComponentState.Locked:
+                _buttonState = new MonumentComponentDisplayButtonLockedState();
+                break;
+            case MonumentComponentState.Unaffordable:
+                _buttonState = new MonumentComponentDisplayButtonUnaffordableState();
+                break;
+            case MonumentComponentState.Buildable:
+                _buttonState = new MonumentComponentDisplayButtonAvailableState();
+                break;
+            case MonumentComponentState.InProgress:
+                _buttonState = new MonumentComponentDisplayButtonInProgressState();
+                break;
+            case MonumentComponentState.Complete:
+                _buttonState = new MonumentComponentDisplayButtonCompletedState();
+                break;
+            default:
+                Debug.LogError($"Unknown state {monumentComponentState}");
+                break;
         }
 
         _buttonState.UpdateUIForButtonState(this, _buttonBackground);
