@@ -13,6 +13,7 @@ public abstract class MonumentComponentBlueprint
     public abstract int ReputationGain { get; }
     public abstract MonumentComponentType MonumentComponentType { get; }
     public abstract List<IResource> ResourceCosts { get; }
+    public abstract List<MonumentComponentType> Dependencies { get; }
 
 
     public abstract MonumentComponentBlueprint WithName(string name);
@@ -21,6 +22,7 @@ public abstract class MonumentComponentBlueprint
     public abstract MonumentComponentBlueprint WithMaterialCost(params IResource[] resources);
 
     public abstract MonumentComponentBlueprint WithMonumentComponentType(MonumentComponentType monumentComponentType);
+    public abstract void AddDependencies();
 
     public static MonumentComponentBlueprint Get(MonumentComponentType monumentComponentType)
     {

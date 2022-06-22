@@ -7,12 +7,14 @@ public class TowersBackMonumentComponentBlueprint : MonumentComponentBlueprint
     public override int ReputationGain { get { return _reputationGain; } }
     public override List<IResource> ResourceCosts { get { return _resourceCosts; } }
     public override MonumentComponentType MonumentComponentType { get { return _monumentComponentType; } }
+    public override List<MonumentComponentType> Dependencies { get { return _dependencies; } }
 
     private string _name;
     private int _labourTime;
     private int _reputationGain;
     private List<IResource> _resourceCosts = new List<IResource>();
     private MonumentComponentType _monumentComponentType;
+    private List<MonumentComponentType> _dependencies = new List<MonumentComponentType>();
 
     public static TowersBackMonumentComponentBlueprint Get()
     {
@@ -59,5 +61,10 @@ public class TowersBackMonumentComponentBlueprint : MonumentComponentBlueprint
     {
         _monumentComponentType = monumentComponentType;
         return this;
+    }
+
+    public override void AddDependencies()
+    {
+        _dependencies.Add(MonumentComponentType.OuterWalls);
     }
 }

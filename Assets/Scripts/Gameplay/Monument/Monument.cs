@@ -22,6 +22,11 @@ public class Monument
         defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersFront));
         defaultMonumentComponentBlueprints.Add(MonumentComponentBlueprint.Get(MonumentComponentType.TowersMiddle));
 
+        for (int i = 0; i < defaultMonumentComponentBlueprints.Count; i++)
+        {
+            defaultMonumentComponentBlueprints[i].AddDependencies();
+        }
+
         return defaultMonumentComponentBlueprints;
     }
 
