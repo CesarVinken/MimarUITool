@@ -12,7 +12,7 @@ public class LocationManager : MonoBehaviour
     private ConstructionSite _constructionSite2;
     private ConstructionSite _constructionSite3;
 
-    public void Awake()
+    public void Setup()
     {
         Instance = this;
 

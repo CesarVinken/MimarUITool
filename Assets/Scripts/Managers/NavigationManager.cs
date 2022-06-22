@@ -30,7 +30,7 @@ public class NavigationManager : MonoBehaviour {
 
     private Dictionary<LocationType, MonumentLocationUIContainer> _constructionSiteContainersByLocationType = new Dictionary<LocationType, MonumentLocationUIContainer>();
 
-    public void Awake()
+    public void Setup()
     {
         Instance = this;
 
@@ -108,24 +108,40 @@ public class NavigationManager : MonoBehaviour {
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite1, _constructionSite1Container);
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite2, _constructionSite2Container);
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite3, _constructionSite3Container);
+
+        SetupTabContainers();
     }
 
-    private void Start()
+    public void InitialiseTabButtons()
     {
         _gameTabButton.Initialise(_gameTabContainer);
         _playersTabButton.Initialise(_playersTabContainer);
         _statsTabButton.Initialise(_statsTabContainer);
         _optionsTabButton.Initialise(_optionsTabContainer);
 
+        _playersTabButton.Deactivate();
+        _statsTabButton.Deactivate();
+        _optionsTabButton.Deactivate();
+    }
+
+    public void SetupTabContainers()
+    {
+        _gameTabContainer.Setup();
+        _playersTabContainer.Setup();
+        _statsTabContainer.Setup();
+        _optionsTabContainer.Setup();
+    }
+
+    public void InitialiseTabContainers()
+    {
         _gameTabContainer.Initialise();
         _playersTabContainer.Initialise();
         _statsTabContainer.Initialise();
         _optionsTabContainer.Initialise();
+    }
 
-        _playersTabButton.Deactivate();
-        _statsTabButton.Deactivate();
-        _optionsTabButton.Deactivate();
-        
+    private void Start()
+    {
         SetTab(_gameTabButton);
     }
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerPriorityContainer : MonoBehaviour
@@ -28,7 +27,6 @@ public class PlayerPriorityContainer : MonoBehaviour
 
     public void Initialise()
     {
-        Player player = PlayerManager.Instance.Players[PlayerNumber.Player1];
         _playerPriority1.Initialise(PriorityNumber.Priority1);
         _playerPriority2.Initialise(PriorityNumber.Priority2);
         _playerPriority3.Initialise(PriorityNumber.Priority3);

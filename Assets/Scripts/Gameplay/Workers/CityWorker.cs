@@ -62,7 +62,6 @@ public class CityWorker : IWorker
             Debug.Log($"CurrentPlayerTab {playersTabContainer.CurrentPlayerTab.PlayerNumber}");
             if (playersTabContainer.CurrentPlayerTab.PlayerNumber == Employer)
             {
-
                 Debug.Log($"Update display for {Employer}");
                 playersTabContainer.UpdateMonumentDisplay();
             }

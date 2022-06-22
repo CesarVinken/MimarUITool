@@ -25,7 +25,7 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private AssetReference _towersMiddleMonumentPrefab;
     [SerializeField] private AssetReference _towersFrontMonumentPrefab;
 
-    public void Awake()
+    public void Setup()
     {
         if (ResourcesWorkerPrefab == null)
         {

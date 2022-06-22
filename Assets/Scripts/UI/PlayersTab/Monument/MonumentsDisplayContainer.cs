@@ -10,7 +10,7 @@ public class MonumentsDisplayContainer : MonoBehaviour
     private Dictionary<PlayerNumber, MonumentDisplay> _monumentsByPlayerNumber = new Dictionary<PlayerNumber, MonumentDisplay>();
     private MonumentDisplay _currentlyShownMonument = null;
 
-    private void Awake()
+    public void Setup()
     {
         if (_player1Monument == null)
         {

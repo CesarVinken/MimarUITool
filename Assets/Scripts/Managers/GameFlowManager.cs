@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 // Responsible for arranging the next turn and text move procedures. Responsible for managing player actions, triggering random events etc.
@@ -9,9 +8,8 @@ public class GameFlowManager : MonoBehaviour
     public static GameFlowManager Instance;
 
     public event EventHandler<MonumentComponentCompletionStateChangeEvent> MonumentComponentCompletionStateChangeEvent;
-    //public event Action OnBla;
 
-    private void Awake()
+    public void Setup()
     {
         Instance = this;
     }

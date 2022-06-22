@@ -10,19 +10,21 @@ public class PlayerManager : MonoBehaviour
     public Dictionary<PlayerNumber, Player> Players = new Dictionary<PlayerNumber, Player>();
     public List<Player> PlayersByPriority = new List<Player>();
 
-    private void Awake()
+    public void Setup()
     {
         Instance = this;
 
         Players.Add(PlayerNumber.Player1, new Player(PlayerNumber.Player1, "Cesar"));
         Players.Add(PlayerNumber.Player2, new Player(PlayerNumber.Player2, "Yigit"));
         Players.Add(PlayerNumber.Player3, new Player(PlayerNumber.Player3, "Ayhan"));
-
-        InitialisePlayerPriority();
     }
 
-    private void Start()
+    public void InitialisePlayers()
     {
+        foreach (KeyValuePair<PlayerNumber, Player> item in Players)
+        {
+            item.Value.InitialisePlayer();
+        }
     }
 
     public UIPlayerData GetPlayerData(PlayerNumber playerNumber)

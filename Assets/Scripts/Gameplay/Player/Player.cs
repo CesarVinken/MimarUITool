@@ -31,8 +31,25 @@ public class Player
         StockpileMaximum.SetAmount(80);
         Monument = new Monument(playerNumber);
 
+
+    }
+
+    public void InitialisePlayer()
+    {
         InitialiseResources();
         InitialisePlayerColour();
+
+        InitialiseEventListeners();
+    }
+
+    private void InitialiseEventListeners()
+    {
+        if(GameFlowManager.Instance == null)
+        {
+
+            Debug.Log($"asdaksjaks");
+        }
+        GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent += OnMonumentComponentCompletionChange;
     }
 
     private void InitialisePlayerColour()
@@ -111,5 +128,19 @@ public class Player
     public void SetStockpileMaximum(int maximum)
     {
         StockpileMaximum.SetAmount(maximum);
+    }
+
+    public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
+    {
+        if (e.AffectedPlayer != PlayerNumber) return;
+
+        int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
+        int oldReputation = Reputation.Amount;
+
+        int newReputation = oldReputation + gainedReputation;
+
+        SetReputation(newReputation);
+
+        Debug.Log($"The reputation of {PlayerNumber} is now {Reputation.Amount}");
     }
 }
