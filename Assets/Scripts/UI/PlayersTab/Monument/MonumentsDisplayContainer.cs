@@ -98,7 +98,6 @@ public class MonumentsDisplayContainer : MonoBehaviour
         }
         else if(monumentComponentVisibility == MonumentComponentVisibility.InProgress)
         {
-            Debug.Log($"have different visibility here");
             monumentDisplay.SetComponentVisibility(monumentComponent, MonumentComponentVisibility.InProgress);
         }
         else

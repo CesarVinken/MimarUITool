@@ -50,7 +50,6 @@ public class MonumentComponent
 
     private void SetState(MonumentComponentState newState)
     {
-        Debug.Log($"SET STATE TO {newState}");
         State = newState;
     }
 
@@ -58,11 +57,12 @@ public class MonumentComponent
     {
         if (State == newState) return;
 
-        if(State == MonumentComponentState.Complete)
+        if (State == MonumentComponentState.Complete)
         {
-            Debug.Log($"reevaluate dependencies?");
             ResetRemainingLabourTime();
         }
+
+        SetState(newState);
 
         switch (newState)
         {
@@ -73,6 +73,8 @@ public class MonumentComponent
             case MonumentComponentState.Buildable:
                 break;
             case MonumentComponentState.InProgress:
+                Debug.Log($"distract.");
+                DistractMaterialCosts();
                 break;
             case MonumentComponentState.Complete:
                 SetRemainingLabourTime(0);
@@ -80,7 +82,18 @@ public class MonumentComponent
             default:
                 break;
         }
-        SetState(newState);
+    }
+
+    private void DistractMaterialCosts()
+    {
+        Player player = PlayerManager.Instance.Players[PlayerNumber];
+        List<IResource> resourceCosts = MonumentComponentBlueprint.ResourceCosts;
+
+        for (int i = 0; i < resourceCosts.Count; i++)
+        {
+            player.AddResource(resourceCosts[i].GetResourceType(), -resourceCosts[i].Amount);
+
+        }
     }
 
     public void ResetRemainingLabourTime()

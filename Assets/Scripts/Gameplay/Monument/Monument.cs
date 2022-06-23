@@ -65,7 +65,6 @@ public class Monument
 
     public void UpdateDependencies()
     {
-        Debug.LogWarning($"update dependencies");
         for (int i = 0; i < _monumentComponents.Count; i++)
         {
 

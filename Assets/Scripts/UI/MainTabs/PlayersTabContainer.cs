@@ -112,14 +112,12 @@ public class PlayersTabContainer : UITabContainer
 
     private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState, MonumentComponent monumentComponent)
     {
-        Debug.Log($"REEVALUATE. CURRENT STATE IS {currentState}");
         if (currentState == MonumentComponentState.InProgress)
         {
             return MonumentComponentState.Complete;
         }
         else if (currentState == MonumentComponentState.Complete)
         {
-            Debug.Log($"alREADY COMPLETE");
             return GetBuildableMonumentComponentState(monumentComponent);
         }
 
@@ -133,7 +131,6 @@ public class PlayersTabContainer : UITabContainer
             monumentComponent.MonumentComponentBlueprint.ResourceCosts,
             player.Resources
             );
-        Debug.Log($"aASDASD");
 
         if (canAffordCost)
         {
@@ -143,6 +140,7 @@ public class PlayersTabContainer : UITabContainer
         return MonumentComponentState.Unaffordable;
     }
 
+    // Update the display of the player's reputation, gold etc.
     public void UpdatePlayerStatUIContent(UIPlayerData playerData)
     {
         _playerUIContentContainer.UpdatePlayerUIContent(playerData);

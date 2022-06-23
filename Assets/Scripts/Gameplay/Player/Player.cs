@@ -118,6 +118,11 @@ public class Player
             Resources[resourceType].SetAmount(StockpileMaximum.Amount);
             return;
         }
+        if(amount < 0 && Resources[resourceType].Amount + amount < 0)
+        {
+            Resources[resourceType].SetAmount(0);
+            return;
+        }
 
         Resources[resourceType].AddAmount(amount);
     }
@@ -131,15 +136,20 @@ public class Player
     {
         if (e.AffectedPlayer != PlayerNumber) return;
 
-        if (e.State != MonumentComponentState.Complete) return;
+        if (e.State == MonumentComponentState.Complete)
+        {
+            int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
+            int oldReputation = Reputation.Amount;
+            int newReputation = oldReputation + gainedReputation;
 
-        int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
-        int oldReputation = Reputation.Amount;
-        int newReputation = oldReputation + gainedReputation;
+            SetReputation(newReputation);
 
-        SetReputation(newReputation);
-
-        UpdatePlayerStatUIContent();
+            UpdatePlayerStatUIContent();
+        }
+        else if (e.State == MonumentComponentState.InProgress) // we subtracted material costs and now we need to display this as well
+        {
+            UpdatePlayerStatUIContent();
+        }
     }
 
     private void UpdatePlayerStatUIContent()
