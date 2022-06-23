@@ -99,4 +99,4 @@ MonoBehaviour:
   _monumentComponentMeshRenderer: {fileID: 5907296356423849509}
   _monumentContainer: {fileID: 0}
   _monumentDisplay: {fileID: 0}
-  _texturedMaterial: {fileID: 2100000, guid: 272e851d638fdb941ad2abb8fbfe5800, type: 2}
+  _texturedMaterial: {fileID: 2100000, guid: 410e64bd7608586418e3a85d1f8e6718, type: 2}

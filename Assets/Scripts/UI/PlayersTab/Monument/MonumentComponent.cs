@@ -73,7 +73,6 @@ public class MonumentComponent
             case MonumentComponentState.Buildable:
                 break;
             case MonumentComponentState.InProgress:
-                Debug.Log($"distract.");
                 DistractMaterialCosts();
                 break;
             case MonumentComponentState.Complete:

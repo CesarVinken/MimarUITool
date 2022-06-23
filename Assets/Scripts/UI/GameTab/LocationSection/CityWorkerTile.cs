@@ -111,7 +111,6 @@ public class CityWorkerTile : WorkerTile
         List<MonumentComponent> unfinishedMonumentComponents = new List<MonumentComponent>();
         List<MonumentComponent> allMonumentComponents = player.Monument.GetMonumentComponents();
 
-        Debug.Log($"update list in a different way here");
         for (int i = 0; i < allMonumentComponents.Count; i++)
         {
             MonumentComponent component = allMonumentComponents[i];

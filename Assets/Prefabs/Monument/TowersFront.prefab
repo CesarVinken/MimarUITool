@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2593624241199283900}
-  m_Mesh: {fileID: -2232952877369940510, guid: 514b09d86c4a24d4383a98d685752b0c, type: 3}
+  m_Mesh: {fileID: -2232952877369940510, guid: 2e8c84452c77a1545bdf576c5b0dc0fa, type: 3}
 --- !u!23 &4106891370926038889
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -99,4 +99,4 @@ MonoBehaviour:
   _monumentComponentMeshRenderer: {fileID: 4106891370926038889}
   _monumentContainer: {fileID: 0}
   _monumentDisplay: {fileID: 0}
-  _texturedMaterial: {fileID: 2100000, guid: 272e851d638fdb941ad2abb8fbfe5800, type: 2}
+  _texturedMaterial: {fileID: 2100000, guid: 972a7ef599bed854f8944653dd49db12, type: 2}
