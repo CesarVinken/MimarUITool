@@ -8,7 +8,7 @@ public class CityWorker : IWorker
     public ILocation Location { get; private set; }
     public WorkerTile UIWorkerTile { get; private set; }
     public MonumentComponent CurrentBuildingTask { get; private set; } = null;
-    public float BaseProductionPower { get; private set; } = 1;
+    public float BaseProductionPower { get; private set; } = 10;
 
     public CityWorker(ILocation location)
     {
@@ -58,6 +58,7 @@ public class CityWorker : IWorker
 
         if (CurrentBuildingTask.State == MonumentComponentState.Complete)
         {
+            Debug.Log($"building complete");
             Player player = PlayerManager.Instance.Players[Employer];
             player.Monument.UpdateDependencies();
 

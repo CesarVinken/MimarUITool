@@ -96,3 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867092d857826334bbdcd857c2b384fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monumentComponentMeshRenderer: {fileID: 1160660813036955554}
+  _monumentContainer: {fileID: 0}
+  _monumentDisplay: {fileID: 0}
+  _texturedMaterial: {fileID: 2100000, guid: 272e851d638fdb941ad2abb8fbfe5800, type: 2}

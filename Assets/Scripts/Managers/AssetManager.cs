@@ -3,16 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public enum InlineIconType
-{
-    Gold,
-    Wood,
-    Marble,
-    Granite,
-    Reputation,
-    LabourTime
-}
-
 public class AssetManager : MonoBehaviour
 {
     public static AssetManager Instance;
@@ -40,6 +30,10 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private Sprite _lockIcon;
     [SerializeField] private Sprite _cogIcon;
     [SerializeField] private Sprite _labourTimeIcon;
+
+    [Header("Materials")]
+
+    [SerializeField] private Material _emptyMaterial;
 
     public void Setup()
     {
@@ -93,6 +87,11 @@ public class AssetManager : MonoBehaviour
             Debug.LogError($"Could not find _towersFrontMonumentPrefab");
         }
 
+        if (_emptyMaterial == null)
+        {
+            Debug.LogError($"Could not find _emptyMaterial");
+        }
+
         Instance = this;
     }
 
@@ -137,6 +136,12 @@ public class AssetManager : MonoBehaviour
             return _cogIcon;
         }
         return null;
+    }
+
+
+    public Material GetEmptyMaterial()
+    {
+        return _emptyMaterial;
     }
 
     public string GetInlineIcon(InlineIconType inlineIconType)

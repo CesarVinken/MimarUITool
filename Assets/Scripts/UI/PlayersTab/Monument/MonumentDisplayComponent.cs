@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class MonumentDisplayComponent : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer _monumentComponentMeshRenderer;
     [SerializeField] private Transform _monumentContainer;
     [SerializeField] private MonumentDisplay _monumentDisplay;
+    [SerializeField] private Material _texturedMaterial;
 
     public MonumentComponentType MonumentComponentType { get; private set; }
 
     public void Initialise()
     {
+        if(_texturedMaterial == null)
+        {
+            Debug.LogError($"Could not find the textured material for the Monument Display Component {gameObject.name}");
+        }
+
         if (_monumentContainer == null)
         {
             _monumentContainer = transform.parent;
@@ -29,4 +36,22 @@ public class MonumentDisplayComponent : MonoBehaviour
         MonumentComponentType = monumentComponentType;
     }
 
+    public void SetMaterial(MonumentComponentVisibility visibility)
+    {
+        switch (visibility)
+        {
+            case MonumentComponentVisibility.Hidden:
+                _monumentComponentMeshRenderer.material = AssetManager.Instance.GetEmptyMaterial();
+                break;
+            case MonumentComponentVisibility.InProgress:
+                _monumentComponentMeshRenderer.material = AssetManager.Instance.GetEmptyMaterial();
+                break;
+            case MonumentComponentVisibility.Complete:
+                _monumentComponentMeshRenderer.material = _texturedMaterial;
+                break;
+            default:
+                Debug.LogError($"Unknown visibility state {visibility}");
+                break;
+        }
+    }
 }

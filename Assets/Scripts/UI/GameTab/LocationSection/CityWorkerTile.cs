@@ -115,7 +115,8 @@ public class CityWorkerTile : WorkerTile
         for (int i = 0; i < allMonumentComponents.Count; i++)
         {
             MonumentComponent component = allMonumentComponents[i];
-            if (component.State == MonumentComponentState.Complete) continue;
+            if (component.State != MonumentComponentState.InProgress) continue;
+
             unfinishedMonumentComponents.Add(component);
         }
 

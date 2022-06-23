@@ -73,7 +73,7 @@ public class Monument
             for (int j = 0; j < monumentComponent.Dependencies.Count; j++)
             {
                 MonumentComponent neededComponent = monumentComponent.Dependencies[j];
-                Debug.Log($"going over {monumentComponent.MonumentComponentType} with the state {monumentComponent.State}. It has a dependency {neededComponent.MonumentComponentType} with the state {neededComponent.State}");
+                //Debug.Log($"going over {monumentComponent.MonumentComponentType} with the state {monumentComponent.State}. It has a dependency {neededComponent.MonumentComponentType} with the state {neededComponent.State}");
                 if (neededComponent.State == MonumentComponentState.Complete)
                 {
                     if (monumentComponent.State != MonumentComponentState.Locked) continue;

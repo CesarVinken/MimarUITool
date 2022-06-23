@@ -88,11 +88,11 @@ public class MonumentDisplay : MonoBehaviour
                 monumentDisplayComponent.gameObject.SetActive(false);
                 break;
             case MonumentComponentVisibility.InProgress:
-
-                Debug.Log($"Todo: set different material");
+                monumentDisplayComponent.SetMaterial(visibility);
                 monumentDisplayComponent.gameObject.SetActive(true);
                 break;
             case MonumentComponentVisibility.Complete:
+                monumentDisplayComponent.SetMaterial(visibility);
                 monumentDisplayComponent.gameObject.SetActive(true);
                 break;
             default:

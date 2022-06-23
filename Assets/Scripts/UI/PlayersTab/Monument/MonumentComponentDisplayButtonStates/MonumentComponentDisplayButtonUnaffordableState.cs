@@ -34,7 +34,6 @@ public class MonumentComponentDisplayButtonUnaffordableState : MonumentComponent
 
         string subLabelText = "";
 
-
         for (int i = 0; i < resourceCosts.Count; i++)
         {
             InlineIconType inlineIconType = resourceCosts[i].GetInlineIconType();
