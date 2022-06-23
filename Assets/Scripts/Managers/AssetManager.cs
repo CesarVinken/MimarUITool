@@ -3,6 +3,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+public enum InlineIconType
+{
+    Gold,
+    Wood,
+    Marble,
+    Granite,
+    Reputation,
+    LabourTime
+}
+
 public class AssetManager : MonoBehaviour
 {
     public static AssetManager Instance;
@@ -29,6 +39,7 @@ public class AssetManager : MonoBehaviour
 
     [SerializeField] private Sprite _lockIcon;
     [SerializeField] private Sprite _cogIcon;
+    [SerializeField] private Sprite _labourTimeIcon;
 
     public void Setup()
     {
@@ -121,37 +132,58 @@ public class AssetManager : MonoBehaviour
         {
             return _lockIcon;
         }
-        if(monumentComponentDisplayButtonState is MonumentComponentDisplayButtonInProgressState)
+        if (monumentComponentDisplayButtonState is MonumentComponentDisplayButtonInProgressState)
         {
             return _cogIcon;
         }
         return null;
     }
 
-    public string GetPlayerStatInlineIcon(IPlayerStat playerStat)
+    public string GetInlineIcon(InlineIconType inlineIconType)
     {
-        if (playerStat is Gold)
+        switch (inlineIconType)
         {
-            return "<sprite=\"Placeholder\" index=1>";
+            case InlineIconType.Gold:
+                return "<sprite=\"Placeholder\" index=0>";
+            case InlineIconType.Wood:
+                return "<sprite=\"Placeholder\" index=1>";
+            case InlineIconType.Marble:
+                return "<sprite=\"Placeholder\" index=2>";
+            case InlineIconType.Granite:
+                return "<sprite=\"Placeholder\" index=3>";
+            case InlineIconType.Reputation:
+                return "<sprite=\"Placeholder\" index=4>";
+            case InlineIconType.LabourTime:
+                return "<sprite=\"Placeholder\" index=5>";
+            default:
+                return "UNKNOWN ICON"; 
         }
-        if (playerStat is Reputation)
-        {
-            return "<sprite=\"Placeholder\" index=2>";
-        }
-        if (playerStat is Wood)
-        {
-            return "<sprite=\"Placeholder\" index=3>";
-        }
-        if (playerStat is Granite)
-        {
-            return "<sprite=\"Placeholder\" index=4>";
-        }
-        if (playerStat is Marble)
-        {
-            return "<sprite=\"Placeholder\" index=5>";
-        }
-        return "UNKNOWN ICON";
     }
+
+    //public string GetPlayerStatInlineIcon(IPlayerStat playerStat)
+    //{
+    //    if (playerStat is Gold)
+    //    {
+    //        return "<sprite=\"Placeholder\" index=1>";
+    //    }
+    //    if (playerStat is Reputation)
+    //    {
+    //        return "<sprite=\"Placeholder\" index=2>";
+    //    }
+    //    if (playerStat is Wood)
+    //    {
+    //        return "<sprite=\"Placeholder\" index=3>";
+    //    }
+    //    if (playerStat is Granite)
+    //    {
+    //        return "<sprite=\"Placeholder\" index=4>";
+    //    }
+    //    if (playerStat is Marble)
+    //    {
+    //        return "<sprite=\"Placeholder\" index=5>";
+    //    }
+    //    return "UNKNOWN ICON";
+    //}
 
     public void InstantiateMonumentComponent(MonumentDisplay monumentDisplay, MonumentComponentType monumentComponentType)
     {

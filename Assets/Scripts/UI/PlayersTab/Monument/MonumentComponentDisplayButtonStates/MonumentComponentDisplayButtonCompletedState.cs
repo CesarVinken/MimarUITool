@@ -1,10 +1,17 @@
+using TMPro;
 using UnityEngine.UI;
 
 
 public class MonumentComponentDisplayButtonCompletedState : MonumentComponentDisplayButtonState
 {
-    public override void UpdateUIForButtonState(MonumentComponentListItem item, Image buttonBackground)
+    public override void UpdateUIForButtonState(
+        MonumentComponentListItem item,
+        Image buttonBackground,
+        TextMeshProUGUI subLabel,
+        MonumentComponent monumentComponent,
+        PlayersTabContainer playersTabContainer)
     {
+        SetSubLabel(subLabel, monumentComponent, playersTabContainer);
         SetButtonColour(ColourType.SelectedBackground, buttonBackground);
         SetIcon(item);
     }
@@ -17,5 +24,10 @@ public class MonumentComponentDisplayButtonCompletedState : MonumentComponentDis
     protected override void SetIcon(MonumentComponentListItem item)
     {
         item.GetLockGameObject().SetActive(false);
+    }
+
+    protected override void SetSubLabel(TextMeshProUGUI subLabel, MonumentComponent monumentComponent, PlayersTabContainer playersTabContainer)
+    {
+        subLabel.enabled = false;
     }
 }

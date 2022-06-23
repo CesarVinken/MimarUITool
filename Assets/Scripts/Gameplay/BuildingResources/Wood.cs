@@ -34,4 +34,9 @@ public class Wood : IResource
     {
         return Player.StockpileMaximum.Amount;
     }
+
+    public InlineIconType GetInlineIconType()
+    {
+        return InlineIconType.Wood;
+    }
 }

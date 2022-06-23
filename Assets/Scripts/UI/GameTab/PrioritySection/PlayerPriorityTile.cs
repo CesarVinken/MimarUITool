@@ -51,7 +51,7 @@ public class PlayerPriorityTile : MonoBehaviour
         }
 
         _playerNameTextField.text = $"{rankingNumber}. {player.Name}";
-        _playerInfoTextField.text = $"{AssetManager.Instance.GetPlayerStatInlineIcon(player.Reputation)}: {player.Reputation.Amount} {AssetManager.Instance.GetPlayerStatInlineIcon(player.Gold)}: {player.Gold.Amount}";
+        _playerInfoTextField.text = $"{AssetManager.Instance.GetInlineIcon(InlineIconType.Reputation)}: {player.Reputation.Amount} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}: {player.Gold.Amount}";
     }
 
     private void SetColour(PlayerNumber playerNumber)

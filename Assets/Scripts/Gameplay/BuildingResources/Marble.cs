@@ -33,4 +33,9 @@ public class Marble : IResource
     {
         return Player.StockpileMaximum.Amount;
     }
+
+    public InlineIconType GetInlineIconType()
+    {
+        return InlineIconType.Marble;
+    }
 }

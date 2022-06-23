@@ -43,7 +43,6 @@ public class PlayersTabContainer : UITabContainer
         }
 
         _monumentsDisplayContainer.Setup();
-
     }
 
     public void Initialise()
@@ -109,7 +108,6 @@ public class PlayersTabContainer : UITabContainer
         GameFlowManager.Instance.ExecuteMonumentComponentStateChangeEvent(currentPlayer.PlayerNumber, monumentComponent, newState);
 
         return newState;
-
     }
 
     private MonumentComponentState GetNextMonumentComponentStateForClick(MonumentComponentState currentState, MonumentComponent monumentComponent)

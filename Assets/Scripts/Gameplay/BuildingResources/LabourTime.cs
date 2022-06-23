@@ -1,15 +1,15 @@
-public class Granite : IResource, IPlayerStat
+using UnityEngine;
+
+public class LabourTime : IResource
 {
     public Player Player { get; private set; }
     public int Amount { get; private set; }
 
-
-    public Granite(int amount)
+    public LabourTime(int amount)
     {
         Amount = amount;
     }
-
-    public Granite(int amount, Player player)
+    public LabourTime(int amount, Player player)
     {
         Amount = amount;
         Player = player;
@@ -27,16 +27,16 @@ public class Granite : IResource, IPlayerStat
 
     public ResourceType GetResourceType()
     {
-        return ResourceType.Granite;
+        return ResourceType.LabourTime;
     }
 
     public int GetAmountCap()
     {
-        return Player.StockpileMaximum.Amount;
+        return 999;
     }
 
     public InlineIconType GetInlineIconType()
     {
-        return InlineIconType.Granite;
+        return InlineIconType.LabourTime;
     }
 }
