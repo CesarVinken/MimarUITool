@@ -12,8 +12,6 @@ public class AssetManager : MonoBehaviour
 
     [Header("Monument component prefabs")]
 
-    [SerializeField] private List<AssetReference> _monumentComponentPrefabs;
-
     [SerializeField] private AssetReference _floorFirstMonumentPrefab;// TODO: Use different way of resource loading such as addressables
     [SerializeField] private AssetReference _floorSecondMonumentPrefab;
     [SerializeField] private AssetReference _floorThirdMonumentPrefab;
