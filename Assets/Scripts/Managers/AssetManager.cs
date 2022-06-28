@@ -31,9 +31,18 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private Sprite _cogIcon;
     [SerializeField] private Sprite _labourTimeIcon;
 
+    [Header("Avatars")]
+
+    [SerializeField] private Sprite _cesarAvatar;
+    [SerializeField] private Sprite _yigitAvatar;
+    [SerializeField] private Sprite _mustafaAvatar;
+    [SerializeField] private Sprite _guestAvatar;
+
     [Header("Materials")]
 
     [SerializeField] private Material _emptyMaterial;
+
+
 
     public void Setup()
     {
@@ -124,6 +133,21 @@ public class AssetManager : MonoBehaviour
                 return null;
         }
     }
+
+    public Sprite GetAvatar(string playerName)
+    {
+        switch (playerName)
+        {
+            case "Cesar":
+                return _cesarAvatar;
+            case "Yigit":
+                return _yigitAvatar;
+            case "Mustafa":
+                return _mustafaAvatar;
+            default:
+                return _guestAvatar;
+        }
+    }
     
     public Sprite GetMonumentComponentListItemIcon(MonumentComponentDisplayButtonState monumentComponentDisplayButtonState)
     {
@@ -149,17 +173,17 @@ public class AssetManager : MonoBehaviour
         switch (inlineIconType)
         {
             case InlineIconType.Gold:
-                return "<sprite=\"Placeholder\" index=0>";
+                return "<sprite=\"Icons\" index=0>";
             case InlineIconType.Wood:
-                return "<sprite=\"Placeholder\" index=1>";
+                return "<sprite=\"Icons\" index=1>";
             case InlineIconType.Marble:
-                return "<sprite=\"Placeholder\" index=2>";
+                return "<sprite=\"Icons\" index=2>";
             case InlineIconType.Granite:
-                return "<sprite=\"Placeholder\" index=3>";
+                return "<sprite=\"Icons\" index=3>";
             case InlineIconType.Reputation:
-                return "<sprite=\"Placeholder\" index=4>";
+                return "<sprite=\"Icons\" index=4>";
             case InlineIconType.LabourTime:
-                return "<sprite=\"Placeholder\" index=5>";
+                return "<sprite=\"Icons\" index=5>";
             default:
                 return "UNKNOWN ICON"; 
         }

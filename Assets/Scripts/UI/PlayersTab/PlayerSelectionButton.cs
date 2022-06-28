@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerSelectionButton : MonoBehaviour
 {
-    [SerializeField] private Image _image;
+	[SerializeField] private Image _image;
+	[SerializeField] private TextMeshProUGUI _buttonText;
 	[SerializeField] private PlayersTabContainer _playersTab;
 	public PlayerNumber PlayerNumber { get; private set; } = PlayerNumber.None;
 
@@ -12,6 +14,11 @@ public class PlayerSelectionButton : MonoBehaviour
 		if (_image == null)
 		{
 			Debug.LogError($"Cannot find image on {gameObject.name}");
+		}
+
+		if (_buttonText == null)
+		{
+			Debug.LogError($"Cannot find text on {gameObject.name}");
 		}
 
 		if (_playersTab == null)
@@ -23,6 +30,8 @@ public class PlayerSelectionButton : MonoBehaviour
 	public void Initialise(PlayerNumber playerNumber)
     {
 		PlayerNumber = playerNumber;
+		Player player = PlayerManager.Instance.Players[PlayerNumber];
+		_buttonText.text = player.Name;
 	}
 
 	public void OnClick()

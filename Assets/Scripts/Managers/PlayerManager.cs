@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
         Players.Add(PlayerNumber.Player1, new Player(PlayerNumber.Player1, "Cesar"));
         Players.Add(PlayerNumber.Player2, new Player(PlayerNumber.Player2, "Yigit"));
-        Players.Add(PlayerNumber.Player3, new Player(PlayerNumber.Player3, "Ayhan"));
+        Players.Add(PlayerNumber.Player3, new Player(PlayerNumber.Player3, "Mustafa"));
     }
 
     public void InitialisePlayers()
