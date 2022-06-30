@@ -29,7 +29,7 @@ public class Player
         HiredWorkers = new List<IWorker>();
         Gold.SetAmount(0);
         Reputation.SetAmount(15);
-        StockpileMaximum.SetAmount(80);
+        StockpileMaximum.SetAmount(60);
         Monument = new Monument(playerNumber);
     }
 

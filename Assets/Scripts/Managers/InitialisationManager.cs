@@ -44,6 +44,7 @@ public class InitialisationManager : MonoBehaviour
         // Initialise the UI components once all the data (player data, etc) is in place and ready to be represented.
         _navigationManager.InitialiseTabButtons();
         _navigationManager.InitialiseTabContainers();
+        _navigationManager.InitialiseLabourPools();
 
     }
 
