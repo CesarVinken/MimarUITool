@@ -30,6 +30,11 @@ public class NavigationManager : MonoBehaviour {
 
     private Dictionary<LocationType, MonumentLocationUIContainer> _constructionSiteContainersByLocationType = new Dictionary<LocationType, MonumentLocationUIContainer>();
 
+    private static int _initialForestLabourPoolSize = 6;
+    private static int _initialGraniteLabourpoolSize = 5;
+    private static int _initialMarbleLabourPoolSize = 4;
+    private static int _initialCityLabourPoolSize = 8;
+
     public void Setup()
     {
         Instance = this;
@@ -110,6 +115,27 @@ public class NavigationManager : MonoBehaviour {
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite3, _constructionSite3Container);
 
         SetupTabContainers();
+    }
+
+    public void InitialiseLabourPools()
+    {
+        for (int i = 0; i < _initialForestLabourPoolSize; i++)
+        {
+            _forestContainer.GrowLabourPool();
+        }
+        for (int j = 0; j < _initialGraniteLabourpoolSize; j++)
+        {
+            _graniteQuarryContainer.GrowLabourPool();
+        }
+        for (int k = 0; k < _initialMarbleLabourPoolSize; k++)
+        {
+            _marbleQuarryContainer.GrowLabourPool();
+        }
+        for (int l = 0; l < _initialCityLabourPoolSize; l++)
+        {
+            _constantinopleContainer.GrowLabourPool();
+        }
+
     }
 
     public void InitialiseTabButtons()

@@ -7,6 +7,7 @@ public class Player
     public PlayerNumber PlayerNumber { get; private set; }
     public PriorityNumber Priority { get; private set; }
     public string Name { get; private set; }
+    public Sprite Avatar { get; private set; }
     public Color PlayerColour { get;  private set; }
     public Reputation Reputation { get; private set; }
     public Gold Gold { get; private set; }
@@ -28,20 +29,23 @@ public class Player
         HiredWorkers = new List<IWorker>();
         Gold.SetAmount(0);
         Reputation.SetAmount(15);
-        StockpileMaximum.SetAmount(80);
+        StockpileMaximum.SetAmount(60);
         Monument = new Monument(playerNumber);
-
-
     }
 
     public void InitialisePlayer()
     {
         InitialiseResources();
         InitialisePlayerColour();
-
         InitialiseEventListeners();
 
         Monument.InitialiseMonumentComponents();
+        InitialiseAvatars();
+    }
+
+    private void InitialiseAvatars()
+    {
+        Avatar = AssetManager.Instance.GetAvatar(Name);
     }
 
     private void InitialiseEventListeners()

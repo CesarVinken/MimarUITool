@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerPriorityTile : MonoBehaviour
 {
+    [SerializeField] private Image _playerAvatar;
     [SerializeField] private TextMeshProUGUI _playerNameTextField;
     [SerializeField] private TextMeshProUGUI _playerInfoTextField;
     [SerializeField] private Image _background;
@@ -16,6 +17,10 @@ public class PlayerPriorityTile : MonoBehaviour
         if (_playerNameTextField == null)
         {
             Debug.LogError($"Could not find _playerNameTextField on {gameObject.name}");
+        }
+        if (_playerAvatar == null)
+        {
+            Debug.LogError($"Could not find _playerAvatar on {gameObject.name}");
         }
         if (_playerInfoTextField == null)
         {
@@ -34,6 +39,7 @@ public class PlayerPriorityTile : MonoBehaviour
 
     public void UpdatePriorityTile(Player player)
     {
+        SetAvatar(player);
         SetText(player);
         SetColour(player.PlayerNumber);
     }
@@ -50,8 +56,14 @@ public class PlayerPriorityTile : MonoBehaviour
             rankingNumber = 3;
         }
 
-        _playerNameTextField.text = $"{rankingNumber}. {player.Name}";
+        //_playerNameTextField.text = $"{rankingNumber}. {player.Name}";
+        _playerNameTextField.text = $"{rankingNumber}.";
         _playerInfoTextField.text = $"{AssetManager.Instance.GetInlineIcon(InlineIconType.Reputation)}: {player.Reputation.Amount} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}: {player.Gold.Amount}";
+    }
+
+    private void SetAvatar(Player player)
+    {
+        _playerAvatar.sprite = player.Avatar;
     }
 
     private void SetColour(PlayerNumber playerNumber)
