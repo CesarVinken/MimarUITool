@@ -8,6 +8,7 @@ public class UIToolGameActionHandler
     public UIToolGameActionAssetHandler UIToolGameActionAssetHandler { get; private set; }
 
     private List<IUIToolGameActionStep> _uiToolGameActionSteps = new List<IUIToolGameActionStep>();
+    private IUIToolGameActionStep _currentGameActionStep = null;
 
     public UIToolGameActionHandler()
     {
@@ -23,40 +24,82 @@ public class UIToolGameActionHandler
 
         _uiToolActionWindow = uiToolActionWindowGO.GetComponent<UIToolActionWindow>();
 
-        if(_uiToolActionWindow == null)
+        if (_uiToolActionWindow == null)
         {
             Debug.LogError($"Could not find UIToolActionWindow script on {uiToolActionWindowGO.name}");
         }
 
         AddStep(new TestStep());
+        AddStep(new TestStep());
+        AddStep(new TestStep());
 
-        if(_uiToolGameActionSteps.Count == 0)
+        if (_uiToolGameActionSteps.Count == 0)
         {
             Debug.LogError($"We need at least 1 uiToolGameActionStep");
             return;
         }
 
-        IUIToolGameActionStep firstStep = _uiToolGameActionSteps[0];
+        NextStep();
+    }
 
-        _uiToolActionWindow.LoadStepUI(firstStep);
+    public List<IUIToolGameActionStep> GetSteps()
+    {
+        return _uiToolGameActionSteps;
     }
 
     private void AddStep(IUIToolGameActionStep step)
     {
-        Debug.Log($"Add step");
+        Debug.Log($"Add step {step.StepNumber}");
         _uiToolGameActionSteps.Add(step);
+    }
+
+    public void NextStep()
+    {
+        if (_currentGameActionStep == null)
+        {
+            _currentGameActionStep = _uiToolGameActionSteps[0];
+        }
+        else
+        {
+            int nextStepNumber = _currentGameActionStep.StepNumber + 1;
+
+            if (nextStepNumber > _uiToolGameActionSteps.Count)
+            {
+                Complete();
+                return;
+            }
+            else
+            {
+                _currentGameActionStep = _uiToolGameActionSteps[nextStepNumber - 1];
+                _uiToolActionWindow.EmptyWindowUI();
+            }
+        }
+        _uiToolActionWindow.LoadStepUI(_currentGameActionStep);
     }
 
     public void Complete()
     {
+        Debug.Log($"complete");
         CurrentUIGameToolAction = null;
+        _currentGameActionStep = null;
+        _uiToolGameActionSteps.Clear();
+
+        _uiToolActionWindow.DestroyWindow();
     }
 
 }
 
-
 public class TestStep : IUIToolGameActionStep
 {
+    public int StepNumber { get; private set; }
+    public TestStep()
+    {
+        List<IUIToolGameActionStep> steps = UIToolGameActionHandler.CurrentUIGameToolAction.GetSteps();
+
+        int numberOfLastStep = steps.Count == 0 ? 0 : steps[steps.Count - 1].StepNumber;
+        StepNumber = numberOfLastStep + 1;
+    }
+
     List<IUIToolGameActionElement> elements = new List<IUIToolGameActionElement>()
     {
     };
@@ -77,15 +120,3 @@ public class TestStep : IUIToolGameActionStep
         return elements;
     }
 }
-
-public interface IUIToolGameActionStep
-{
-    List<IUIToolGameActionElement> Initialise();
-}
-
-public interface IUIToolGameActionElement
-{
-    Transform GetTransform();
-    GameObject GetGameObject();
-}
-

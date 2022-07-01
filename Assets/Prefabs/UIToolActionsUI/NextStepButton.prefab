@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7510458344195776852}
   - component: {fileID: 2872453886293059932}
   m_Layer: 5
-  m_Name: ExecuteButton
+  m_Name: NextStepButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,3 +270,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7030be7fc5c813240af8ce951061fcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 7510458344195776852}
+  _buttonLabel: {fileID: 991572705667593180}

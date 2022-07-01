@@ -17,6 +17,7 @@ public class UIToolActionWindow : MonoBehaviour
 
     public void LoadStepUI(IUIToolGameActionStep newStep)
     {
+        Debug.Log($"Load new step: {newStep.GetType()}");
         for (int i = _spawnedUIElements.Count - 1; i >= 0; i--)
         {
             GameObject.Destroy(_spawnedUIElements[i]);
@@ -24,7 +25,6 @@ public class UIToolActionWindow : MonoBehaviour
 
         List<IUIToolGameActionElement> elements = newStep.Initialise();
 
-     
         for (int j = 0; j < elements.Count; j++)
         {
             Debug.Log($"add element");
@@ -38,11 +38,28 @@ public class UIToolActionWindow : MonoBehaviour
     private void SetParentForElement(IUIToolGameActionElement element)
     {
         Transform elementTransform = element.GetTransform();
-        if (element is UIToolActionExecutionButtonElement) // todo: make switch
+        if (element is UIToolActionNextStepButtonElement) // todo: make switch
         {
             elementTransform.SetParent(_executeButtonContainer);
         }
+        else
+        {
+            Debug.LogError($"Unknown element type of {element.GetType()}");
+        }
 
         elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+    }
+
+    public void EmptyWindowUI()
+    {
+        for (int i = _spawnedUIElements.Count - 1; i >= 0; i--)
+        {
+            Destroy(_spawnedUIElements[i]);
+        }
+    }
+
+    public void DestroyWindow()
+    {
+        Destroy(gameObject);
     }
 }
