@@ -29,7 +29,7 @@ public class UIToolGameActionHandler
             Debug.LogError($"Could not find UIToolActionWindow script on {uiToolActionWindowGO.name}");
         }
 
-        AddStep(new TestStep());
+        AddStep(new PlayerPickStep());
         AddStep(new TestStep());
         AddStep(new TestStep());
 
@@ -86,37 +86,112 @@ public class UIToolGameActionHandler
 
         _uiToolActionWindow.DestroyWindow();
     }
-
 }
+
 
 public class TestStep : IUIToolGameActionStep
 {
     public int StepNumber { get; private set; }
+    private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
+
     public TestStep()
     {
-        List<IUIToolGameActionStep> steps = UIToolGameActionHandler.CurrentUIGameToolAction.GetSteps();
-
-        int numberOfLastStep = steps.Count == 0 ? 0 : steps[steps.Count - 1].StepNumber;
-        StepNumber = numberOfLastStep + 1;
+        StepNumber = GameActionUtility.CalculateStepNumber();
     }
-
-    List<IUIToolGameActionElement> elements = new List<IUIToolGameActionElement>()
-    {
-    };
 
     public List<IUIToolGameActionElement> Initialise()
     {
-        GameObject executeActionButtonPrefab = UIToolGameActionAssetHandler.Instance.GetExecuteActionButton();
-        GameObject executeActionButton = GameObject.Instantiate(executeActionButtonPrefab);
-        IUIToolGameActionElement executionButton = executeActionButton.GetComponent<IUIToolGameActionElement>();
+        IUIToolGameActionElement stepLabelElement = InitialiseLabel();
+        _elements.Add(stepLabelElement);
 
-        if(executionButton == null)
+        IUIToolGameActionElement nextStepButtonElement = InitialiseNextStepButton();
+        _elements.Add(nextStepButtonElement);
+
+        return _elements;
+    }
+
+    private IUIToolGameActionElement InitialiseLabel()
+    {
+        GameObject stepLabelPrefab = UIToolGameActionAssetHandler.Instance.GetStepLabelPrefab();
+        GameObject stepLabelGO = GameObject.Instantiate(stepLabelPrefab);
+        IUIToolGameActionElement stepLabelElement = stepLabelGO.GetComponent<IUIToolGameActionElement>();
+
+        if (stepLabelElement == null)
+        {
+            Debug.LogError($"could not find stepLabelElement script");
+        }
+
+        stepLabelElement.Initialise(this);
+        return stepLabelElement;
+    }
+
+    private IUIToolGameActionElement InitialiseNextStepButton()
+    {
+        GameObject nextStepButtonPrefab = UIToolGameActionAssetHandler.Instance.GetNextActionStepButton();
+        GameObject nextStepButtonGO = GameObject.Instantiate(nextStepButtonPrefab);
+        
+        IUIToolGameActionElement nextStepButton = nextStepButtonGO.GetComponent<IUIToolGameActionElement>();
+
+        if (nextStepButton == null)
         {
             Debug.LogError($"could not find executionButton script on executionButton");
         }
 
-        elements.Add(executionButton);
+        nextStepButton.Initialise(this);
+        return nextStepButton;
+    }
+}
 
-        return elements;
+public class PlayerPickStep : IUIToolGameActionStep
+{
+    public int StepNumber { get; private set; }
+
+    private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
+
+    public PlayerPickStep()
+    {
+        StepNumber = GameActionUtility.CalculateStepNumber();
+    }
+
+    public List<IUIToolGameActionElement> Initialise()
+    {
+        IUIToolGameActionElement stepLabelElement = InitialiseLabel();
+        _elements.Add(stepLabelElement);
+
+        IUIToolGameActionElement nextStepButtonElement = InitialiseNextStepButton();
+        _elements.Add(nextStepButtonElement);
+
+        return _elements;
+    }
+
+    private IUIToolGameActionElement InitialiseNextStepButton()
+    {
+        GameObject nextStepButtonPrefab = UIToolGameActionAssetHandler.Instance.GetNextActionStepButton();
+        GameObject nextStepButtonGO = GameObject.Instantiate(nextStepButtonPrefab);
+
+        IUIToolGameActionElement nextStepButton = nextStepButtonGO.GetComponent<IUIToolGameActionElement>();
+
+        if (nextStepButton == null)
+        {
+            Debug.LogError($"could not find executionButton script on executionButton");
+        }
+
+        nextStepButton.Initialise(this);
+        return nextStepButton;
+    }
+
+    private IUIToolGameActionElement InitialiseLabel()
+    {
+        GameObject stepLabelPrefab = UIToolGameActionAssetHandler.Instance.GetStepLabelPrefab();
+        GameObject stepLabelGO = GameObject.Instantiate(stepLabelPrefab);
+        IUIToolGameActionElement stepLabelElement = stepLabelGO.GetComponent<IUIToolGameActionElement>();
+
+        if (stepLabelElement == null)
+        {
+            Debug.LogError($"could not find stepLabelElement script");
+        }
+
+        stepLabelElement.Initialise(this);
+        return stepLabelElement;
     }
 }

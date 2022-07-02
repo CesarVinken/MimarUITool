@@ -19,7 +19,6 @@ public class UIToolActionNextStepButtonElement : MonoBehaviour, IUIToolGameActio
         return gameObject;
     }
 
-
     private void Awake()
     {
         if(_button == null)
@@ -36,5 +35,18 @@ public class UIToolActionNextStepButtonElement : MonoBehaviour, IUIToolGameActio
     private void OnClick()
     {
         UIToolGameActionHandler.CurrentUIGameToolAction.NextStep();
+    }
+
+    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    {
+        int stepsInSequence = UIToolGameActionHandler.CurrentUIGameToolAction.GetSteps().Count;
+        if(stepsInSequence == uiToolGameActionStep.StepNumber)
+        {
+            _buttonLabel.text = "Execute action";
+        }
+        else
+        {
+            _buttonLabel.text = "Next";
+        }
     }
 }
