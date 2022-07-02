@@ -5,6 +5,7 @@ public class UIToolActionWindow : MonoBehaviour
 {
     [SerializeField] private Transform _stepLabelContainer;
     [SerializeField] private Transform _nextStepButtonContainer;
+    [SerializeField] private Transform _optionListContainer;
 
     private List<GameObject> _spawnedUIElements = new List<GameObject>();
 
@@ -17,6 +18,10 @@ public class UIToolActionWindow : MonoBehaviour
         if (_nextStepButtonContainer == null)
         {
             Debug.LogError($"Could not find _nextStepButtonContainer");
+        }
+        if (_optionListContainer == null)
+        {
+            Debug.LogError($"Could not find _optionListContainer");
         }
     }
 
@@ -53,6 +58,11 @@ public class UIToolActionWindow : MonoBehaviour
             RectTransform rect = elementTransform.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(0, 0);
             rect.sizeDelta = new Vector2(0, 0);
+        }
+        else if (element is UIToolActionPlayerSelectionTileElement) 
+        {
+            elementTransform.SetParent(_optionListContainer);
+            elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
         else
         {
