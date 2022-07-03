@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActionStep
 {
-    public int StepNumber { get; private set; }
+    public int StepNumber { get; private set; } = -1;
 
     private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
     private PlayerNumber _selectedPlayer;

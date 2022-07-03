@@ -3,8 +3,16 @@ using UnityEngine;
 
 public class ActionPickStep : IUIToolGameActionStep
 {
-    public int StepNumber { get; private set; }
+    public int StepNumber { get; private set; } = -1;
     private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
+    private UIToolGameActionType _selectedActionType;
+
+    private Dictionary<UIToolGameActionType, GameActionActionSelectionTileElement> _actionTileByActionType = new Dictionary<UIToolGameActionType, GameActionActionSelectionTileElement>();
+
+    public ActionPickStep()
+    {
+        StepNumber = GameActionUtility.CalculateStepNumber();
+    }
 
     public List<IUIToolGameActionElement> GetUIElements()
     {
@@ -13,6 +21,8 @@ public class ActionPickStep : IUIToolGameActionStep
 
     public List<IUIToolGameActionElement> Initialise()
     {
+        _actionTileByActionType.Clear();
+
         IUIToolGameActionElement stepLabelElement = GameActionElementInitaliser.InitialiseLabel(this);
         _elements.Add(stepLabelElement);
 
@@ -23,17 +33,32 @@ public class ActionPickStep : IUIToolGameActionStep
 
         // TODO: show but gray out actions that cannot be done.
 
-        IUIToolGameActionElement hireWorkerActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.HireWorker);
+        GameActionActionSelectionTileElement hireWorkerActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.HireWorker);
+        _actionTileByActionType.Add(hireWorkerActionElement.GameActionType, hireWorkerActionElement);
         _elements.Add(hireWorkerActionElement);
-        IUIToolGameActionElement expandStockpileActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.ExpandStockpile);
+        GameActionActionSelectionTileElement expandStockpileActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.ExpandStockpile);
+        _actionTileByActionType.Add(expandStockpileActionElement.GameActionType, expandStockpileActionElement);
         _elements.Add(expandStockpileActionElement);
 
+        _actionTileByActionType[UIToolGameActionType.HireWorker].Select();
 
         return _elements;
     }
 
+    public void SelectAction(UIToolGameActionType actionType)
+    {
+        if (actionType == _selectedActionType) return;
+
+        UIToolGameActionType previouslySelectedActionType = _selectedActionType;
+        _actionTileByActionType[previouslySelectedActionType].Deselect(); // Deselect the current
+
+        _selectedActionType = actionType;
+        _actionTileByActionType[_selectedActionType].Select();
+    }
+
     public void NextStep()
     {
+        UIToolGameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithActionType(_selectedActionType);
         UIToolGameActionHandler.CurrentUIGameToolAction.NextStep();
     }
 }

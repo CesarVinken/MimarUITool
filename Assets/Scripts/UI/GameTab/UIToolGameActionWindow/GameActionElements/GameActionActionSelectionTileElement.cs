@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,8 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IUIToolGameAc
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    private UIToolGameActionType _gameActionType;
+    public UIToolGameActionType GameActionType { get; private set; }
+    private ActionPickStep _actionPickStep;
 
     public GameObject GetGameObject()
     {
@@ -36,17 +36,28 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IUIToolGameAc
 
     public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
     {
-        _buttonLabel.text = $"{_gameActionType}";
+        _buttonLabel.text = $"{GameActionType}";
 
     }
 
-    public void SetUp(UIToolGameActionType gameActionType)
+    public void SetUp(UIToolGameActionType gameActionType, ActionPickStep actionPickStep)
     {
-        _gameActionType = gameActionType;
+        GameActionType = gameActionType;
+        _actionPickStep = actionPickStep;
     }
 
     private void OnClick()
     {
-        Debug.Log($"Select action {_gameActionType}");
+        _actionPickStep.SelectAction(GameActionType);
+    }
+
+    public void Select()
+    {
+        _button.image.color = ColourUtility.GetColour(ColourType.SelectedBackground);
+    }
+
+    public void Deselect()
+    {
+        _button.image.color = ColourUtility.GetColour(ColourType.Empty);
     }
 }

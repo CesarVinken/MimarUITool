@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class TestStep : IUIToolGameActionStep
 {
-    public int StepNumber { get; private set; }
+    public int StepNumber { get; private set; } = -1;
     private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
 
     public TestStep()

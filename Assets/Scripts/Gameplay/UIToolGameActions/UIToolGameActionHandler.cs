@@ -52,12 +52,12 @@ public class UIToolGameActionHandler
 
     private void AddStep(IUIToolGameActionStep step)
     {
-        Debug.Log($"Add step {step.StepNumber}");
         _uiToolGameActionSteps.Add(step);
     }
 
     public void NextStep()
     {
+
         if (_currentGameActionStep == null)
         {
             _currentGameActionStep = _uiToolGameActionSteps[0];
