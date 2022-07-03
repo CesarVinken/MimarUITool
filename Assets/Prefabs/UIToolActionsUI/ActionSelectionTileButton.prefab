@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1665728868946941756}
   - component: {fileID: 4508236878266380902}
   - component: {fileID: 2108465933788568070}
-  - component: {fileID: 5083095021031323803}
+  - component: {fileID: -1122530645806057538}
   m_Layer: 5
-  m_Name: PlayerSelectionTileButton
+  m_Name: ActionSelectionTileButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 40}
+  m_SizeDelta: {x: 260, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1665728868946941756
 CanvasRenderer:
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5083095021031323803
+--- !u!114 &-1122530645806057538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2202137820020949588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cb2b2e7adfbdfc4e811d5567bcc970c, type: 3}
+  m_Script: {fileID: 11500000, guid: 408508def0ca9764ca18670f79873f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 2108465933788568070}

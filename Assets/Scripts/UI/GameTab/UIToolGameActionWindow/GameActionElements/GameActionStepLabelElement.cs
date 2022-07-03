@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIToolActionStepLabelElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionStepLabelElement : MonoBehaviour, IUIToolGameActionElement
 {
     [SerializeField] private TextMeshProUGUI _label;
-
-    private UIToolGameActionHandler _gameActionHandler = null;
 
     public Transform GetTransform()
     {
@@ -36,6 +34,16 @@ public class UIToolActionStepLabelElement : MonoBehaviour, IUIToolGameActionElem
         else if(uiToolGameActionStep is PlayerPickStep)
         {
             _label.text = "Select player";
+        }
+        else if (uiToolGameActionStep is ActionPickStep)
+        {
+            Player player = UIToolGameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.Player;
+
+            if(player == null)
+            {
+                Debug.LogError($"Could not find the required player during the {uiToolGameActionStep.GetType()} step");
+            }
+            _label.text = $"Select an action for {player.Name}";
         }
         else
         {

@@ -47,19 +47,24 @@ public class UIToolActionWindow : MonoBehaviour
     private void SetParentForElement(IUIToolGameActionElement element)
     {
         Transform elementTransform = element.GetTransform();
-        if (element is UIToolActionNextStepButtonElement) // todo: make switch
+        if (element is GameActionNextStepButtonElement) // todo: make switch
         {
             elementTransform.SetParent(_nextStepButtonContainer);
             elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
-        else if(element is UIToolActionStepLabelElement)
+        else if(element is GameActionStepLabelElement)
         {
             elementTransform.SetParent(_stepLabelContainer);
             RectTransform rect = elementTransform.GetComponent<RectTransform>();
             rect.anchoredPosition = new Vector2(0, 0);
             rect.sizeDelta = new Vector2(0, 0);
         }
-        else if (element is UIToolActionPlayerSelectionTileElement) 
+        else if (element is GameActionPlayerSelectionTileElement)
+        {
+            elementTransform.SetParent(_optionListContainer);
+            elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        }
+        else if (element is GameActionActionSelectionTileElement)
         {
             elementTransform.SetParent(_optionListContainer);
             elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ToolActionElementInitaliser
+public class GameActionElementInitaliser
 {
     public static IUIToolGameActionElement InitialiseLabel(IUIToolGameActionStep uiToolGameActionStep)
     {
@@ -42,10 +42,27 @@ public class ToolActionElementInitaliser
 
         if (playerSelectionTileElement == null)
         {
-            Debug.LogError($"could not find playerSelectionTileElement script on playerSelectionTileElement");
+            Debug.LogError($"could not find playerSelectionTileElement script");
         }
 
         playerSelectionTileElement.Initialise(uiToolGameActionStep);
         return playerSelectionTileElement;
+    }
+
+    public static IUIToolGameActionElement InitialiseActionSelectionTile(IUIToolGameActionStep uiToolGameActionStep, UIToolGameActionType gameActionType)
+    {
+        GameObject actionSelectionTileElementPrefab = UIToolGameActionAssetHandler.Instance.GetActionSelectionTilePrefab();
+        GameObject actionSelectionTileElementGO = GameObject.Instantiate(actionSelectionTileElementPrefab);
+
+        GameActionActionSelectionTileElement actionSelectionTileElement = actionSelectionTileElementGO.GetComponent<GameActionActionSelectionTileElement>();
+
+        if (actionSelectionTileElement == null)
+        {
+            Debug.LogError($"could not find actionSelectionTileElement script");
+        }
+
+        actionSelectionTileElement.SetUp(gameActionType);
+        actionSelectionTileElement.Initialise(uiToolGameActionStep);
+        return actionSelectionTileElement;
     }
 }

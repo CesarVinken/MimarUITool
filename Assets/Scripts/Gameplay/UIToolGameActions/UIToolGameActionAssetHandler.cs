@@ -9,6 +9,7 @@ public class UIToolGameActionAssetHandler : MonoBehaviour
     [SerializeField] private GameObject _uiToolGameActionButtonPrefab;
     [SerializeField] private GameObject _uiToolActionWindowPrefab;
     [SerializeField] private GameObject _uiToolPlayerSelectionTilePrefab;
+    [SerializeField] private GameObject _uiToolActionSelectionTilePrefab;
 
     private void Awake()
     {
@@ -27,6 +28,10 @@ public class UIToolGameActionAssetHandler : MonoBehaviour
         if (_uiToolPlayerSelectionTilePrefab == null)
         {
             Debug.LogError($"Could not find _uiToolPlayerSelectionTilePrefab");
+        }
+        if (_uiToolActionSelectionTilePrefab == null)
+        {
+            Debug.LogError($"Could not find _uiToolActionSelectionTilePrefab");
         }
 
         Instance = this;
@@ -49,5 +54,10 @@ public class UIToolGameActionAssetHandler : MonoBehaviour
     public GameObject GetUIToolActionWindowPrefab()
     {
         return _uiToolActionWindowPrefab;
+    }
+
+    public GameObject GetActionSelectionTilePrefab()
+    {
+        return _uiToolActionSelectionTilePrefab;
     }
 }

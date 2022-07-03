@@ -6,4 +6,5 @@ public interface IUIToolGameActionStep
 
     List<IUIToolGameActionElement> Initialise();
     List<IUIToolGameActionElement> GetUIElements();
+    void NextStep();
 }

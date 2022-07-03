@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIToolActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    private PlayerNumber _playerNumber;
+    public PlayerNumber PlayerNumber { get; private set; }
+    private IUIPlayerSelectionGameActionStep _uiToolGameActionStep;
 
     public GameObject GetGameObject()
     {
@@ -36,12 +36,18 @@ public class UIToolActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGame
 
     public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
     {
+        _uiToolGameActionStep = uiToolGameActionStep as IUIPlayerSelectionGameActionStep;
+        if(_uiToolGameActionStep == null)
+        {
+
+            Debug.LogError($"Could not parse {uiToolGameActionStep.GetType()} as a IUIPlayerSelectionGameActionStep");
+        }
         List<IUIToolGameActionElement> existingElements = uiToolGameActionStep.GetUIElements();
 
         int existingPlayerTiles = 0;
         for (int i = 0; i < existingElements.Count; i++)
         {
-            if(existingElements[i] is UIToolActionPlayerSelectionTileElement)
+            if(existingElements[i] is GameActionPlayerSelectionTileElement)
             {
                 existingPlayerTiles++;
             }
@@ -49,24 +55,34 @@ public class UIToolActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGame
 
         if(existingPlayerTiles == 0)
         {
-            _playerNumber = PlayerNumber.Player1;
+            PlayerNumber = PlayerNumber.Player1;
         }
         else if(existingPlayerTiles == 1)
         {
-            _playerNumber = PlayerNumber.Player2;
+            PlayerNumber = PlayerNumber.Player2;
         }
         else
         {
-            _playerNumber = PlayerNumber.Player3;
+            PlayerNumber = PlayerNumber.Player3;
         }
 
-        Player player = PlayerManager.Instance.Players[_playerNumber];
+        Player player = PlayerManager.Instance.Players[PlayerNumber];
         _buttonLabel.text = $"{player.Name}";
 
     }
 
     private void OnClick()
     {
-        Debug.Log($"Select player {_playerNumber}");
+        _uiToolGameActionStep.SelectPlayer(PlayerNumber);
+    }
+
+    public void Select()
+    {
+        _button.image.color = ColourUtility.GetColour(ColourType.SelectedBackground);
+    }
+
+    public void Deselect()
+    {
+        _button.image.color = ColourUtility.GetColour(ColourType.Empty);
     }
 }

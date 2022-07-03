@@ -10,10 +10,13 @@ public class UIToolGameActionHandler
     private List<IUIToolGameActionStep> _uiToolGameActionSteps = new List<IUIToolGameActionStep>();
     private IUIToolGameActionStep _currentGameActionStep = null;
 
+    public GameActionCheckSum GameActionCheckSum;
+
     public UIToolGameActionHandler()
     {
         Debug.Log($"Commence new game tool action");
         CurrentUIGameToolAction = this;
+        GameActionCheckSum = new GameActionCheckSum();
 
         GameObject uiToolActionWindowPrefab = UIToolGameActionAssetHandler.Instance.GetUIToolActionWindowPrefab();
         GameObject uiToolActionWindowGO = GameObject.Instantiate(uiToolActionWindowPrefab);
@@ -30,7 +33,7 @@ public class UIToolGameActionHandler
         }
 
         AddStep(new PlayerPickStep());
-        AddStep(new TestStep());
+        AddStep(new ActionPickStep());
         AddStep(new TestStep());
 
         if (_uiToolGameActionSteps.Count == 0)
@@ -85,67 +88,5 @@ public class UIToolGameActionHandler
         _uiToolGameActionSteps.Clear();
 
         _uiToolActionWindow.DestroyWindow();
-    }
-}
-
-
-public class TestStep : IUIToolGameActionStep
-{
-    public int StepNumber { get; private set; }
-    private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
-
-    public TestStep()
-    {
-        StepNumber = GameActionUtility.CalculateStepNumber();
-    }
-
-    public List<IUIToolGameActionElement> Initialise()
-    {
-        IUIToolGameActionElement stepLabelElement = ToolActionElementInitaliser.InitialiseLabel(this);
-        _elements.Add(stepLabelElement);
-
-        IUIToolGameActionElement nextStepButtonElement = ToolActionElementInitaliser.InitialiseNextStepButton(this);
-        _elements.Add(nextStepButtonElement);
-
-        return _elements;
-    }
-    public List<IUIToolGameActionElement> GetUIElements()
-    {
-        return _elements;
-    }
-}
-
-public class PlayerPickStep : IUIToolGameActionStep
-{
-    public int StepNumber { get; private set; }
-
-    private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
-
-    public PlayerPickStep()
-    {
-        StepNumber = GameActionUtility.CalculateStepNumber();
-    }
-
-    public List<IUIToolGameActionElement> Initialise()
-    {
-        IUIToolGameActionElement stepLabelElement = ToolActionElementInitaliser.InitialiseLabel(this);
-        _elements.Add(stepLabelElement);
-
-        IUIToolGameActionElement nextStepButtonElement = ToolActionElementInitaliser.InitialiseNextStepButton(this);
-        _elements.Add(nextStepButtonElement);
-
-        IUIToolGameActionElement player1TileElement = ToolActionElementInitaliser.InitialisePlayerSelectionTile(this);
-        _elements.Add(player1TileElement);
-        IUIToolGameActionElement player2TileElement = ToolActionElementInitaliser.InitialisePlayerSelectionTile(this);
-        _elements.Add(player2TileElement);
-        IUIToolGameActionElement player3TileElement = ToolActionElementInitaliser.InitialisePlayerSelectionTile(this);
-        _elements.Add(player3TileElement);
-
-        return _elements;
-    }
-
-    public List<IUIToolGameActionElement> GetUIElements()
-    {
-        return _elements;
     }
 }
