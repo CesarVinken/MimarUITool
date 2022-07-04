@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 3631365654090380608}
   - component: {fileID: 7763151274101128931}
   m_Layer: 5
-  m_Name: OptionListContainer
+  m_Name: MainContentContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stepLabelContainer: {fileID: 3506576250263426310}
   _nextStepButtonContainer: {fileID: 8066918770017828825}
-  _optionListContainer: {fileID: 5393066391839182416}
+  _mainContentContainer: {fileID: 5393066391839182416}
 --- !u!114 &8066918770064658901
 MonoBehaviour:
   m_ObjectHideFlags: 0

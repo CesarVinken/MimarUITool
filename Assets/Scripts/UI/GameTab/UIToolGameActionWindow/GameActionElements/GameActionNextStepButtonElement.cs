@@ -40,8 +40,8 @@ public class GameActionNextStepButtonElement : MonoBehaviour, IUIToolGameActionE
     public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
     {
         _uiToolGameActionStep = uiToolGameActionStep;
-        int stepsInSequence = UIToolGameActionHandler.CurrentUIGameToolAction.GetSteps().Count;
-        if(stepsInSequence == uiToolGameActionStep.StepNumber)
+
+        if(uiToolGameActionStep is CheckoutStep)
         {
             _buttonLabel.text = "Execute action";
         }

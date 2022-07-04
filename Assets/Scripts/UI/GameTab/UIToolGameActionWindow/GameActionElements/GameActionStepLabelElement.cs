@@ -31,6 +31,10 @@ public class GameActionStepLabelElement : MonoBehaviour, IUIToolGameActionElemen
         {
             _label.text = "TBA";
         }
+        if (uiToolGameActionStep is CheckoutStep)
+        {
+            _label.text = "Checkout";
+        }
         else if(uiToolGameActionStep is PlayerPickStep)
         {
             _label.text = "Select player";

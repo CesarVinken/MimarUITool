@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GameActionElementInitaliser
+public class GameActionElementInitialiser
 {
-    public static IUIToolGameActionElement InitialiseLabel(IUIToolGameActionStep uiToolGameActionStep)
+    public static IUIToolGameActionElement InitialiseTitleLabel(IUIToolGameActionStep uiToolGameActionStep)
     {
         GameObject stepLabelPrefab = UIToolGameActionAssetHandler.Instance.GetStepLabelPrefab();
         GameObject stepLabelGO = GameObject.Instantiate(stepLabelPrefab);
@@ -16,6 +16,24 @@ public class GameActionElementInitaliser
         stepLabelElement.Initialise(uiToolGameActionStep);
         return stepLabelElement;
     }
+
+    public static IUIToolGameActionElement InitialiseMainContentLabel(IUIToolGameActionStep uiToolGameActionStep, string contentText)
+    {
+        GameObject mainContentLabelPrefab = UIToolGameActionAssetHandler.Instance.GetMainContentLabelPrefab();
+        GameObject mainContentLabelGO = GameObject.Instantiate(mainContentLabelPrefab);
+        GameActionMainContentTextBlockElement mainContentLabelElement = mainContentLabelGO.GetComponent<GameActionMainContentTextBlockElement>();
+
+        if (mainContentLabelElement == null)
+        {
+            Debug.LogError($"could not find mainContentLabelElement script");
+        }
+
+        mainContentLabelElement.Setup(contentText);
+        mainContentLabelElement.Initialise(uiToolGameActionStep);
+        return mainContentLabelElement;
+    }
+
+
 
     public static IUIToolGameActionElement InitialiseNextStepButton(IUIToolGameActionStep uiToolGameActionStep)
     {

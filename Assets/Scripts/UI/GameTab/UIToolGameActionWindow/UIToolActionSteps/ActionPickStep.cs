@@ -23,20 +23,20 @@ public class ActionPickStep : IUIToolGameActionStep
     {
         _actionTileByActionType.Clear();
 
-        IUIToolGameActionElement stepLabelElement = GameActionElementInitaliser.InitialiseLabel(this);
+        IUIToolGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
-        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitaliser.InitialiseNextStepButton(this);
+        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
         // List here all the possible Actions
 
         // TODO: show but gray out actions that cannot be done.
 
-        GameActionActionSelectionTileElement hireWorkerActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.HireWorker);
+        GameActionActionSelectionTileElement hireWorkerActionElement = GameActionElementInitialiser.InitialiseActionSelectionTile(this, UIToolGameActionType.HireWorker);
         _actionTileByActionType.Add(hireWorkerActionElement.GameActionType, hireWorkerActionElement);
         _elements.Add(hireWorkerActionElement);
-        GameActionActionSelectionTileElement expandStockpileActionElement = GameActionElementInitaliser.InitialiseActionSelectionTile(this, UIToolGameActionType.ExpandStockpile);
+        GameActionActionSelectionTileElement expandStockpileActionElement = GameActionElementInitialiser.InitialiseActionSelectionTile(this, UIToolGameActionType.ExpandStockpile);
         _actionTileByActionType.Add(expandStockpileActionElement.GameActionType, expandStockpileActionElement);
         _elements.Add(expandStockpileActionElement);
 
@@ -58,6 +58,8 @@ public class ActionPickStep : IUIToolGameActionStep
 
     public void NextStep()
     {
+        UIToolGameActionHandler.CurrentUIGameToolAction.AddStep(new CheckoutStep());
+
         UIToolGameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithActionType(_selectedActionType);
         UIToolGameActionHandler.CurrentUIGameToolAction.NextStep();
     }

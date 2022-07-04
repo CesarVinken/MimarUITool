@@ -12,10 +12,10 @@ public class TestStep : IUIToolGameActionStep
 
     public List<IUIToolGameActionElement> Initialise()
     {
-        IUIToolGameActionElement stepLabelElement = GameActionElementInitaliser.InitialiseLabel(this);
+        IUIToolGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
-        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitaliser.InitialiseNextStepButton(this);
+        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
         return _elements;

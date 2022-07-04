@@ -18,19 +18,19 @@ public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActio
     {
         _playerTileByPlayerNumber.Clear();
 
-        IUIToolGameActionElement stepLabelElement = GameActionElementInitaliser.InitialiseLabel(this);
+        IUIToolGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
-        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitaliser.InitialiseNextStepButton(this);
+        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
-        GameActionPlayerSelectionTileElement player1TileElement = GameActionElementInitaliser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
+        GameActionPlayerSelectionTileElement player1TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
         _playerTileByPlayerNumber.Add(player1TileElement.PlayerNumber, player1TileElement);
         _elements.Add(player1TileElement);
-        GameActionPlayerSelectionTileElement player2TileElement = GameActionElementInitaliser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
+        GameActionPlayerSelectionTileElement player2TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
         _playerTileByPlayerNumber.Add(player2TileElement.PlayerNumber, player2TileElement);
         _elements.Add(player2TileElement);
-        GameActionPlayerSelectionTileElement player3TileElement = GameActionElementInitaliser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
+        GameActionPlayerSelectionTileElement player3TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
         _playerTileByPlayerNumber.Add(player3TileElement.PlayerNumber, player3TileElement);
         _elements.Add(player3TileElement);
 

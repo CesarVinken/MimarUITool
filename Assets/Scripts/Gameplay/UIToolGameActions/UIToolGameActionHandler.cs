@@ -34,7 +34,6 @@ public class UIToolGameActionHandler
 
         AddStep(new PlayerPickStep());
         AddStep(new ActionPickStep());
-        AddStep(new TestStep());
 
         if (_uiToolGameActionSteps.Count == 0)
         {
@@ -50,7 +49,7 @@ public class UIToolGameActionHandler
         return _uiToolGameActionSteps;
     }
 
-    private void AddStep(IUIToolGameActionStep step)
+    public void AddStep(IUIToolGameActionStep step)
     {
         _uiToolGameActionSteps.Add(step);
     }
@@ -78,6 +77,11 @@ public class UIToolGameActionHandler
             }
         }
         _uiToolActionWindow.LoadStepUI(_currentGameActionStep);
+    }
+
+    public IUIToolGameActionStep GetCurrentStep()
+    {
+        return _currentGameActionStep;
     }
 
     public void Complete()
