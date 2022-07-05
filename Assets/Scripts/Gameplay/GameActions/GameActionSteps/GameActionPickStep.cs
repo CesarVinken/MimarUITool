@@ -58,10 +58,10 @@ public class GameActionPickStep : IGameActionStep
 
     public void NextStep()
     {
-        GameActionHandler.CurrentUIGameToolAction.AddStep(new CheckoutStep());
+        GameActionHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
 
-        GameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithActionType(_selectedActionType);
-        GameActionHandler.CurrentUIGameToolAction.NextStep();
+        GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.WithActionType(_selectedActionType);
+        GameActionHandler.CurrentGameActionSequence.NextStep();
     }
 }
 

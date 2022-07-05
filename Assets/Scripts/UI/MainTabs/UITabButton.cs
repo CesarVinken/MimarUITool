@@ -27,7 +27,7 @@ public class UITabButton : MonoBehaviour
 
 	public void OnClick()
 	{
-		if (GameActionHandler.CurrentUIGameToolAction != null) return;
+		if (GameActionHandler.CurrentGameActionSequence != null) return;
 
 		NavigationManager.Instance.SetTab(this);
     }

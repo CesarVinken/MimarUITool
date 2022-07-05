@@ -6,7 +6,7 @@ public class GameActionAssetHandler : MonoBehaviour
     public static GameActionAssetHandler Instance;
 
     [SerializeField] private GameObject _gameStepLabelPrefab;
-    [SerializeField] private GameObject _gameActionButtonPrefab;
+    [SerializeField] private GameObject _nextStepButtonPrefab;
     [SerializeField] private GameObject _gameActionWindowPrefab;
     [SerializeField] private GameObject _playerSelectionTilePrefab;
     [SerializeField] private GameObject _actionSelectionTilePrefab;
@@ -18,7 +18,7 @@ public class GameActionAssetHandler : MonoBehaviour
         {
             Debug.LogError($"Could not find _gameStepLabelPrefab");
         }
-        if (_gameActionButtonPrefab == null)
+        if (_nextStepButtonPrefab == null)
         {
             Debug.LogError($"Could not find _gameActionButtonPrefab");
         }
@@ -48,7 +48,7 @@ public class GameActionAssetHandler : MonoBehaviour
     }
     public GameObject GetNextActionStepButtonPrefab()
     {
-        return _gameActionButtonPrefab;
+        return _nextStepButtonPrefab;
     }
 
     public GameObject GetPlayerSelectionTilePrefab()

@@ -58,9 +58,9 @@ public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
     public void NextStep()
     {
         Player player = PlayerManager.Instance.Players[_selectedPlayer];
-        GameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithPlayer(player);
+        GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.WithPlayer(player);
 
-        GameActionHandler.CurrentUIGameToolAction.NextStep();
+        GameActionHandler.CurrentGameActionSequence.NextStep();
     }
 }
 

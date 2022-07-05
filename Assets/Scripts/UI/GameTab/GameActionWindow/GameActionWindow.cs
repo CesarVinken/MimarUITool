@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameActionWindow : MonoBehaviour
 {
     [SerializeField] private Transform _stepLabelContainer;
     [SerializeField] private Transform _nextStepButtonContainer;
     [SerializeField] private Transform _mainContentContainer;
+
+    [SerializeField] private Button _closeButton;
 
     private List<GameObject> _spawnedUIElements = new List<GameObject>();
 
@@ -23,6 +26,12 @@ public class GameActionWindow : MonoBehaviour
         {
             Debug.LogError($"Could not find _mainContentContainer");
         }
+        if (_closeButton == null)
+        {
+            Debug.LogError($"Could not find _closeButton");
+        }
+
+        _closeButton.onClick.AddListener(() => OnClose());
     }
 
     public void LoadStepUI(IGameActionStep newStep)
@@ -37,7 +46,6 @@ public class GameActionWindow : MonoBehaviour
 
         for (int j = 0; j < elements.Count; j++)
         {
-            Debug.Log($"add element on step");
             IGameActionElement element = elements[j];
             SetParentForElement(element);
             _spawnedUIElements.Add(element.GetGameObject());
@@ -78,6 +86,11 @@ public class GameActionWindow : MonoBehaviour
         {
             Debug.LogError($"Unknown element type of {element.GetType()}");
         }
+    }
+
+    public void OnClose()
+    {
+        GameActionHandler.CurrentGameActionSequence.CloseGameActionWindow();
     }
 
     public void EmptyWindowUI()

@@ -1,5 +1,5 @@
 public enum GameActionType
 {
     HireWorker,
-    ExpandStockpile
+    ExpandStockpile 
 }

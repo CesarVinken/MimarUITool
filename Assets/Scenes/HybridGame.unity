@@ -8395,17 +8395,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4b58f04f8f5594ebc63a4e0526f68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiToolGameStepLabelPrefab: {fileID: 674667321240906823, guid: cafa33c3a3b478c4da3a972c62a90ad7,
+  _gameStepLabelPrefab: {fileID: 674667321240906823, guid: cafa33c3a3b478c4da3a972c62a90ad7,
     type: 3}
-  _uiToolGameActionButtonPrefab: {fileID: 7142246620871997495, guid: cb8e6c165b3f47f42872dd1e6e0cc508,
+  _nextStepButtonPrefab: {fileID: 7142246620871997495, guid: cb8e6c165b3f47f42872dd1e6e0cc508,
     type: 3}
-  _uiToolActionWindowPrefab: {fileID: 8066918770064658903, guid: fb3225479592a6449aee6a379d17115f,
+  _gameActionWindowPrefab: {fileID: 8066918770064658903, guid: fb3225479592a6449aee6a379d17115f,
     type: 3}
-  _uiToolPlayerSelectionTilePrefab: {fileID: 2202137820020949588, guid: d49be11f1b5b2d64a8211ed48ba79b80,
+  _playerSelectionTilePrefab: {fileID: 2202137820020949588, guid: d49be11f1b5b2d64a8211ed48ba79b80,
     type: 3}
-  _uiToolActionSelectionTilePrefab: {fileID: 2202137820020949588, guid: 806e902267d018d43bdb6f4bd3d96775,
+  _actionSelectionTilePrefab: {fileID: 2202137820020949588, guid: 806e902267d018d43bdb6f4bd3d96775,
     type: 3}
-  _uiToolMainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
+  _mainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
     type: 3}
 --- !u!1 &929982465
 GameObject:
