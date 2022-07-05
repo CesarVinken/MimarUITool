@@ -919,9 +919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Next
-
-    Round'
+  m_text: Next Round
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8927,7 +8925,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -15, y: 15}
-  m_SizeDelta: {x: 100, y: 90}
+  m_SizeDelta: {x: 240, y: 60}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &979881760
 MonoBehaviour:
@@ -8997,6 +8995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3010044c8d6b14fa8cab7065d0b227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textField: {fileID: 148284742}
 --- !u!114 &979881762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11942,6 +11941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPriorityContainer: {fileID: 1457626221}
+  NextTurnButton: {fileID: 979881761}
 --- !u!1 &1205878143
 GameObject:
   m_ObjectHideFlags: 0

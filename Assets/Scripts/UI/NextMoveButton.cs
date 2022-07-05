@@ -1,12 +1,42 @@
+using TMPro;
 using UnityEngine;
 
 public class NextMoveButton : MonoBehaviour
 {
-    // TODO: we should differentiate between NextMove and NextRound and update the ButtonText.
+    [SerializeField] private TextMeshProUGUI _textField;
+
+    private void Awake()
+    {
+        if(_textField == null)
+        {
+            Debug.LogError($"Cannot find text field on Next Move Button");
+        }
+    }
+
     public void ExecuteNextRound()
     {
         if (GameActionHandler.CurrentGameActionSequence != null) return;
 
         GameFlowManager.Instance.ExecuteNextGameStep();
+    }
+
+    public void UpdateText()
+    {
+        TimeOfDay timeOfDay = GameFlowManager.Instance.TimeOfDay;
+
+        switch (timeOfDay)
+        {
+            case TimeOfDay.Morning:
+                _textField.text = "To Noon";
+                break;
+            case TimeOfDay.Noon:
+                _textField.text = "To Afternoon";
+                break;
+            case TimeOfDay.Afternoon:
+                _textField.text = "Next Day";
+                break;
+            default:
+                break;
+        }
     }
 }

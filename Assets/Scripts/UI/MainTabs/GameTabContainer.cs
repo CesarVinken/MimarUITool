@@ -1,10 +1,23 @@
-
 using UnityEngine;
 
 public class GameTabContainer : UITabContainer
 {
     [SerializeField] private PlayerPriorityContainer _playerPriorityContainer;
     public override MainTabType MainTabType { get; } = MainTabType.GameTab;
+    [SerializeField] private NextMoveButton _nextTurnButton;
+
+    private void Awake()
+    {
+        if(_nextTurnButton == null)
+        {
+            Debug.LogError($"Cannot find next turn button");
+        }
+    }
+
+    public NextMoveButton GetNextMoveButton()
+    {
+        return _nextTurnButton;
+    }
 
     public void Setup()
     {
