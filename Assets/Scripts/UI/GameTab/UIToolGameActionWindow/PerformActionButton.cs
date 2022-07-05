@@ -15,6 +15,15 @@ public class PerformActionButton : MonoBehaviour
         _button.onClick.AddListener(delegate { BeginActionProcudure(); });
     }
 
+    public void Update()
+    {
+        if(UIToolGameActionHandler.CurrentUIGameToolAction != null &&
+            Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIToolGameActionHandler.CurrentUIGameToolAction.CloseGameActionWindow();
+        }
+    }
+
     private void BeginActionProcudure()
     {
         if (UIToolGameActionHandler.CurrentUIGameToolAction != null) return;

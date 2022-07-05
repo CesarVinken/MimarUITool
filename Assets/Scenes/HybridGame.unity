@@ -8405,6 +8405,8 @@ MonoBehaviour:
     type: 3}
   _uiToolActionSelectionTilePrefab: {fileID: 2202137820020949588, guid: 806e902267d018d43bdb6f4bd3d96775,
     type: 3}
+  _uiToolMainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
+    type: 3}
 --- !u!1 &929982465
 GameObject:
   m_ObjectHideFlags: 0

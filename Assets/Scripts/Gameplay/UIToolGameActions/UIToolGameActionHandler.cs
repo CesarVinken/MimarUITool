@@ -87,6 +87,12 @@ public class UIToolGameActionHandler
     public void Complete()
     {
         Debug.Log($"complete");
+        //TODO: Execute result of checkout
+        CloseGameActionWindow();
+    }
+
+    public void CloseGameActionWindow()
+    {
         CurrentUIGameToolAction = null;
         _currentGameActionStep = null;
         _uiToolGameActionSteps.Clear();

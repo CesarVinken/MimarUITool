@@ -5,6 +5,8 @@ public class NextMoveButton : MonoBehaviour
     // TODO: we should differentiate between NextMove and NextRound and update the ButtonText.
     public void ExecuteNextRound()
     {
+        if (UIToolGameActionHandler.CurrentUIGameToolAction != null) return;
+
         GameFlowManager.Instance.ExecuteNextGameStep();
     }
 }
