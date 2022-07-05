@@ -2,13 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameActionActionSelectionTileElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    public UIToolGameActionType GameActionType { get; private set; }
-    private ActionPickStep _actionPickStep;
+    public GameActionType GameActionType { get; private set; }
+    private GameActionPickStep _actionPickStep;
 
     public GameObject GetGameObject()
     {
@@ -33,13 +33,13 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IUIToolGameAc
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         _buttonLabel.text = $"{GameActionType}";
 
     }
 
-    public void SetUp(UIToolGameActionType gameActionType, ActionPickStep actionPickStep)
+    public void SetUp(GameActionType gameActionType, GameActionPickStep actionPickStep)
     {
         GameActionType = gameActionType;
         _actionPickStep = actionPickStep;

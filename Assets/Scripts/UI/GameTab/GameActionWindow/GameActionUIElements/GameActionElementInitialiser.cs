@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class GameActionElementInitialiser
 {
-    public static IUIToolGameActionElement InitialiseTitleLabel(IUIToolGameActionStep uiToolGameActionStep)
+    public static IGameActionElement InitialiseTitleLabel(IGameActionStep uiToolGameActionStep)
     {
-        GameObject stepLabelPrefab = UIToolGameActionAssetHandler.Instance.GetStepLabelPrefab();
+        GameObject stepLabelPrefab = GameActionAssetHandler.Instance.GetStepLabelPrefab();
         GameObject stepLabelGO = GameObject.Instantiate(stepLabelPrefab);
-        IUIToolGameActionElement stepLabelElement = stepLabelGO.GetComponent<IUIToolGameActionElement>();
+        IGameActionElement stepLabelElement = stepLabelGO.GetComponent<IGameActionElement>();
 
         if (stepLabelElement == null)
         {
@@ -17,9 +17,9 @@ public class GameActionElementInitialiser
         return stepLabelElement;
     }
 
-    public static IUIToolGameActionElement InitialiseMainContentLabel(IUIToolGameActionStep uiToolGameActionStep, string contentText)
+    public static IGameActionElement InitialiseMainContentLabel(IGameActionStep uiToolGameActionStep, string contentText)
     {
-        GameObject mainContentLabelPrefab = UIToolGameActionAssetHandler.Instance.GetMainContentLabelPrefab();
+        GameObject mainContentLabelPrefab = GameActionAssetHandler.Instance.GetMainContentLabelPrefab();
         GameObject mainContentLabelGO = GameObject.Instantiate(mainContentLabelPrefab);
         GameActionMainContentTextBlockElement mainContentLabelElement = mainContentLabelGO.GetComponent<GameActionMainContentTextBlockElement>();
 
@@ -35,12 +35,12 @@ public class GameActionElementInitialiser
 
 
 
-    public static IUIToolGameActionElement InitialiseNextStepButton(IUIToolGameActionStep uiToolGameActionStep)
+    public static IGameActionElement InitialiseNextStepButton(IGameActionStep uiToolGameActionStep)
     {
-        GameObject nextStepButtonPrefab = UIToolGameActionAssetHandler.Instance.GetNextActionStepButtonPrefab();
+        GameObject nextStepButtonPrefab = GameActionAssetHandler.Instance.GetNextActionStepButtonPrefab();
         GameObject nextStepButtonGO = GameObject.Instantiate(nextStepButtonPrefab);
 
-        IUIToolGameActionElement nextStepButton = nextStepButtonGO.GetComponent<IUIToolGameActionElement>();
+        IGameActionElement nextStepButton = nextStepButtonGO.GetComponent<IGameActionElement>();
 
         if (nextStepButton == null)
         {
@@ -51,12 +51,12 @@ public class GameActionElementInitialiser
         return nextStepButton;
     }
 
-    public static IUIToolGameActionElement InitialisePlayerSelectionTile(IUIToolGameActionStep uiToolGameActionStep)
+    public static IGameActionElement InitialisePlayerSelectionTile(IGameActionStep uiToolGameActionStep)
     {
-        GameObject playerSelectionTileElementPrefab = UIToolGameActionAssetHandler.Instance.GetPlayerSelectionTilePrefab();
+        GameObject playerSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetPlayerSelectionTilePrefab();
         GameObject playerSelectionTileElementGO = GameObject.Instantiate(playerSelectionTileElementPrefab);
 
-        IUIToolGameActionElement playerSelectionTileElement = playerSelectionTileElementGO.GetComponent<IUIToolGameActionElement>();
+        IGameActionElement playerSelectionTileElement = playerSelectionTileElementGO.GetComponent<IGameActionElement>();
 
         if (playerSelectionTileElement == null)
         {
@@ -67,9 +67,9 @@ public class GameActionElementInitialiser
         return playerSelectionTileElement;
     }
 
-    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(ActionPickStep actionPickStep, UIToolGameActionType gameActionType)
+    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(GameActionPickStep actionPickStep, GameActionType gameActionType)
     {
-        GameObject actionSelectionTileElementPrefab = UIToolGameActionAssetHandler.Instance.GetActionSelectionTilePrefab();
+        GameObject actionSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetActionSelectionTilePrefab();
         GameObject actionSelectionTileElementGO = GameObject.Instantiate(actionSelectionTileElementPrefab);
 
         GameActionActionSelectionTileElement actionSelectionTileElement = actionSelectionTileElementGO.GetComponent<GameActionActionSelectionTileElement>();

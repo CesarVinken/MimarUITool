@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionPlayerSelectionTileElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
@@ -34,7 +34,7 @@ public class GameActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGameAc
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         _uiToolGameActionStep = uiToolGameActionStep as IUIPlayerSelectionGameActionStep;
         if(_uiToolGameActionStep == null)
@@ -42,7 +42,7 @@ public class GameActionPlayerSelectionTileElement : MonoBehaviour, IUIToolGameAc
 
             Debug.LogError($"Could not parse {uiToolGameActionStep.GetType()} as a IUIPlayerSelectionGameActionStep");
         }
-        List<IUIToolGameActionElement> existingElements = uiToolGameActionStep.GetUIElements();
+        List<IGameActionElement> existingElements = uiToolGameActionStep.GetUIElements();
 
         int existingPlayerTiles = 0;
         for (int i = 0; i < existingElements.Count; i++)

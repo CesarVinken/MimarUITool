@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameActionStepLabelElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private TextMeshProUGUI _label;
 
@@ -25,7 +25,7 @@ public class GameActionStepLabelElement : MonoBehaviour, IUIToolGameActionElemen
         }
     }
 
-    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         if (uiToolGameActionStep is TestStep)
         {
@@ -39,9 +39,9 @@ public class GameActionStepLabelElement : MonoBehaviour, IUIToolGameActionElemen
         {
             _label.text = "Select player";
         }
-        else if (uiToolGameActionStep is ActionPickStep)
+        else if (uiToolGameActionStep is GameActionPickStep)
         {
-            Player player = UIToolGameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.Player;
+            Player player = GameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.Player;
 
             if(player == null)
             {

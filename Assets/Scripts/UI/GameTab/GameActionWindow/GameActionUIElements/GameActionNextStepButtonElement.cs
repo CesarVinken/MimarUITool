@@ -2,12 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameActionNextStepButtonElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionNextStepButtonElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    private IUIToolGameActionStep _uiToolGameActionStep = null;
+    private IGameActionStep _uiToolGameActionStep = null;
 
     public Transform GetTransform()
     {
@@ -37,7 +37,7 @@ public class GameActionNextStepButtonElement : MonoBehaviour, IUIToolGameActionE
         _uiToolGameActionStep.NextStep();
     }
 
-    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         _uiToolGameActionStep = uiToolGameActionStep;
 

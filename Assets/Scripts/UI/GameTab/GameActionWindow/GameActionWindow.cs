@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIToolActionWindow : MonoBehaviour
+public class GameActionWindow : MonoBehaviour
 {
     [SerializeField] private Transform _stepLabelContainer;
     [SerializeField] private Transform _nextStepButtonContainer;
@@ -25,7 +25,7 @@ public class UIToolActionWindow : MonoBehaviour
         }
     }
 
-    public void LoadStepUI(IUIToolGameActionStep newStep)
+    public void LoadStepUI(IGameActionStep newStep)
     {
         Debug.Log($"Load new step: {newStep.GetType()}");
         for (int i = _spawnedUIElements.Count - 1; i >= 0; i--)
@@ -33,18 +33,18 @@ public class UIToolActionWindow : MonoBehaviour
             GameObject.Destroy(_spawnedUIElements[i]);
         }
 
-        List<IUIToolGameActionElement> elements = newStep.Initialise();
+        List<IGameActionElement> elements = newStep.Initialise();
 
         for (int j = 0; j < elements.Count; j++)
         {
             Debug.Log($"add element on step");
-            IUIToolGameActionElement element = elements[j];
+            IGameActionElement element = elements[j];
             SetParentForElement(element);
             _spawnedUIElements.Add(element.GetGameObject());
         }
     }
 
-    private void SetParentForElement(IUIToolGameActionElement element)
+    private void SetParentForElement(IGameActionElement element)
     {
         Transform elementTransform = element.GetTransform();
         if (element is GameActionNextStepButtonElement) // todo: make switch

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActionStep
+public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
 {
     public int StepNumber { get; private set; } = -1;
 
-    private List<IUIToolGameActionElement> _elements = new List<IUIToolGameActionElement>();
+    private List<IGameActionElement> _elements = new List<IGameActionElement>();
     private PlayerNumber _selectedPlayer;
 
     private Dictionary<PlayerNumber, GameActionPlayerSelectionTileElement> _playerTileByPlayerNumber = new Dictionary<PlayerNumber, GameActionPlayerSelectionTileElement>();
@@ -14,14 +14,14 @@ public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActio
         StepNumber = GameActionUtility.CalculateStepNumber();
     }
 
-    public List<IUIToolGameActionElement> Initialise()
+    public List<IGameActionElement> Initialise()
     {
         _playerTileByPlayerNumber.Clear();
 
-        IUIToolGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
+        IGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
-        IUIToolGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
+        IGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
         GameActionPlayerSelectionTileElement player1TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
@@ -39,7 +39,7 @@ public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActio
         return _elements;
     }
 
-    public List<IUIToolGameActionElement> GetUIElements()
+    public List<IGameActionElement> GetUIElements()
     {
         return _elements;
     }
@@ -58,9 +58,9 @@ public class PlayerPickStep : IUIToolGameActionStep, IUIPlayerSelectionGameActio
     public void NextStep()
     {
         Player player = PlayerManager.Instance.Players[_selectedPlayer];
-        UIToolGameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithPlayer(player);
+        GameActionHandler.CurrentUIGameToolAction.GameActionCheckSum.WithPlayer(player);
 
-        UIToolGameActionHandler.CurrentUIGameToolAction.NextStep();
+        GameActionHandler.CurrentUIGameToolAction.NextStep();
     }
 }
 

@@ -1,4 +1,4 @@
-public enum UIToolGameActionType
+public enum GameActionType
 {
     HireWorker,
     ExpandStockpile

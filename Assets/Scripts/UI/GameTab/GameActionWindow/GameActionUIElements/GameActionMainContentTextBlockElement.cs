@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class GameActionMainContentTextBlockElement : MonoBehaviour, IUIToolGameActionElement
+public class GameActionMainContentTextBlockElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private TextMeshProUGUI _label;
 
@@ -20,7 +20,7 @@ public class GameActionMainContentTextBlockElement : MonoBehaviour, IUIToolGameA
         _label.text = content;
     }
 
-    public void Initialise(IUIToolGameActionStep uiToolGameActionStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
 
     }
