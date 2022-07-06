@@ -46,4 +46,24 @@ public class PlayerPriorityContainer : MonoBehaviour
             PlayerPriorityTiles[i].UpdatePriorityTile(PlayerManager.Instance.PlayersByPriority[i]); 
         }
     }
+
+    public void RefreshPlayerMovesUI()
+    {
+        for (int i = 0; i < PlayerPriorityTiles.Count; i++)
+        {
+            PlayerPriorityTiles[i].SetPlayerTurnStatus(true);
+        }
+    }
+
+    public void UpdatePlayerMoveUI(Player player, bool canMove)
+    {
+        for (int i = 0; i < PlayerPriorityTiles.Count; i++)
+        {
+            if(PlayerPriorityTiles[i].Player.PlayerNumber == player.PlayerNumber)
+            {
+                PlayerPriorityTiles[i].SetPlayerTurnStatus(canMove);
+                return;
+            }
+        }
+    }
 }

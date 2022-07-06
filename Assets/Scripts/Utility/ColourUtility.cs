@@ -6,6 +6,8 @@ public static class ColourUtility
     {
         switch (colourType)
         {
+            case ColourType.GreenBright:
+                return new Color(145f / 255f, 246f / 255f, 70f / 255f);
             case ColourType.Empty:
                 return Color.white;
             case ColourType.ErrorRed:

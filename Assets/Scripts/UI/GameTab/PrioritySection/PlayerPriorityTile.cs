@@ -9,7 +9,9 @@ public class PlayerPriorityTile : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerNameTextField;
     [SerializeField] private TextMeshProUGUI _playerInfoTextField;
     [SerializeField] private Image _background;
+    [SerializeField] private Image _playerTurnStatusImage;
 
+    public Player Player { get; private set; }
     private PriorityNumber _priorityNumber;
 
     private void Awake()
@@ -30,6 +32,22 @@ public class PlayerPriorityTile : MonoBehaviour
         {
             Debug.LogError($"Could not find background on {gameObject.name}");
         }
+        if (_playerTurnStatusImage == null)
+        {
+            Debug.LogError($"Could not find playerTurnStatusImage on {gameObject.name}");
+        }
+    }
+
+    public void SetPlayerTurnStatus(bool canMove)
+    {
+        if (canMove)
+        {
+            _playerTurnStatusImage.color = ColourUtility.GetColour(ColourType.GreenBright);
+        }
+        else
+        {
+            _playerTurnStatusImage.color = ColourUtility.GetColour(ColourType.ErrorRed);
+        }
     }
 
     public void Initialise(PriorityNumber priorityNumber)
@@ -39,6 +57,8 @@ public class PlayerPriorityTile : MonoBehaviour
 
     public void UpdatePriorityTile(Player player)
     {
+        Player = player;
+
         SetAvatar(player);
         SetText(player);
         SetColour(player.PlayerNumber);

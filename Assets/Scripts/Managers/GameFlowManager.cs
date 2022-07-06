@@ -32,11 +32,11 @@ public class GameFlowManager : MonoBehaviour
 
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
+        gameTabContainer.RefreshPlayerMoves();
     }
 
     private void NextDayPart()
     {
-        
         if(TimeOfDay == TimeOfDay.Morning)
         {
             TimeOfDay = TimeOfDay.Noon;
