@@ -38,7 +38,7 @@ public class GameActionPickStep : IGameActionStep
 
         // List here all the possible Actions
         AddGameActionElement(gameActionInitiator, new HireWorkerGameAction());
-        AddGameActionElement(gameActionInitiator, new ExpandStockpileGameAction());
+        AddGameActionElement(gameActionInitiator, new UpgradeConstructionSiteGameAction());
 
         foreach (KeyValuePair<GameActionType, GameActionActionSelectionTileElement> item in _actionTileByActionType)
         {

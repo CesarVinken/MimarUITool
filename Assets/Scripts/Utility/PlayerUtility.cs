@@ -44,7 +44,7 @@ public class PlayerUtility : MonoBehaviour
         {
             ResourceType resourceType = resourceCosts[i].GetResourceType();
 
-            if (playerResources[resourceType].Amount < resourceCosts[i].Amount)
+            if (playerResources[resourceType].Value < resourceCosts[i].Value)
             {
                 return false;
             }

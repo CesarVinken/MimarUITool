@@ -3,26 +3,26 @@ using UnityEngine;
 public class LabourTime : IResource
 {
     public Player Player { get; private set; }
-    public int Amount { get; private set; }
+    public int Value { get; private set; }
 
     public LabourTime(int amount)
     {
-        Amount = amount;
+        Value = amount;
     }
     public LabourTime(int amount, Player player)
     {
-        Amount = amount;
+        Value = amount;
         Player = player;
     }
 
-    public void SetAmount(int newAmount)
+    public void SetValue(int newAmount)
     {
-        Amount = newAmount;
+        Value = newAmount;
     }
 
-    public void AddAmount(int amount)
+    public void AddValue(int amount)
     {
-        Amount += amount;
+        Value += amount;
     }
 
     public ResourceType GetResourceType()
@@ -30,7 +30,7 @@ public class LabourTime : IResource
         return ResourceType.LabourTime;
     }
 
-    public int GetAmountCap()
+    public int GetValueCap()
     {
         return 999;
     }

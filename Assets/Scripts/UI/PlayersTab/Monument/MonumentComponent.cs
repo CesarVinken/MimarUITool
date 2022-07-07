@@ -90,7 +90,7 @@ public class MonumentComponent
 
         for (int i = 0; i < resourceCosts.Count; i++)
         {
-            player.AddResource(resourceCosts[i].GetResourceType(), -resourceCosts[i].Amount);
+            player.AddResource(resourceCosts[i].GetResourceType(), -resourceCosts[i].Value);
 
         }
     }

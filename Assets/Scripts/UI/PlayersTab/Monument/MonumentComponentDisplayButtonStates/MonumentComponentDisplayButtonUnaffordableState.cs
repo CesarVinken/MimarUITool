@@ -39,15 +39,15 @@ public class MonumentComponentDisplayButtonUnaffordableState : MonumentComponent
             InlineIconType inlineIconType = resourceCosts[i].GetInlineIconType();
 
             ResourceType resourceType = resourceCosts[i].GetResourceType();
-            bool canAffordResource = player.Resources[resourceType].Amount >= resourceCosts[i].Amount;
+            bool canAffordResource = player.Resources[resourceType].Value >= resourceCosts[i].Value;
             
             if (canAffordResource)
             {
-                subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} {resourceCosts[i].Amount}    ";
+                subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} {resourceCosts[i].Value}    ";
             }
             else
             {
-                subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} <color={ColourUtility.GetHexadecimalColour(ColourType.ErrorRed)}>{resourceCosts[i].Amount}</color>    ";
+                subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} <color={ColourUtility.GetHexadecimalColour(ColourType.ErrorRed)}>{resourceCosts[i].Value}</color>    ";
             }
         }
 

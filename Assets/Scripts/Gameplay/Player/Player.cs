@@ -28,9 +28,9 @@ public class Player
         StockpileMaximum = new StockpileMaximum(this);
 
         HiredWorkers = new List<IWorker>();
-        Gold.SetAmount(0);
-        Reputation.SetAmount(15);
-        StockpileMaximum.SetAmount(60);
+        Gold.SetValue(0);
+        Reputation.SetValue(15);
+        StockpileMaximum.SetLevel(new StockpileUpgrade(UpgradeLevel.Level0));
         Monument = new Monument(playerNumber);
     }
 
@@ -97,12 +97,12 @@ public class Player
 
     public void SetReputation(int reputation)
     {
-        Reputation.SetAmount(reputation);
+        Reputation.SetValue(reputation);
     }
 
     public void SetGold(int goldAmount)
     {
-        Gold.SetAmount(goldAmount);
+        Gold.SetValue(goldAmount);
     }
 
     public void SetCanMove(bool canMove)
@@ -112,35 +112,31 @@ public class Player
 
     public void SetResource(ResourceType resourceType, int amount)
     {
-        if (amount > StockpileMaximum.Amount)
+        if (amount > StockpileMaximum.Value)
         {
-            Resources[resourceType].SetAmount(StockpileMaximum.Amount);
+            Resources[resourceType].SetValue(StockpileMaximum.Value);
             return;
         }
 
-        Resources[resourceType].SetAmount(amount);
+        Resources[resourceType].SetValue(amount);
     }
 
     public void AddResource(ResourceType resourceType, int amount)
     {
-        if(Resources[resourceType].Amount + amount > StockpileMaximum.Amount)
+        if(Resources[resourceType].Value + amount > StockpileMaximum.Value)
         {
-            Resources[resourceType].SetAmount(StockpileMaximum.Amount);
+            Resources[resourceType].SetValue(StockpileMaximum.Value);
             return;
         }
-        if(amount < 0 && Resources[resourceType].Amount + amount < 0)
+        if(amount < 0 && Resources[resourceType].Value + amount < 0)
         {
-            Resources[resourceType].SetAmount(0);
+            Resources[resourceType].SetValue(0);
             return;
         }
 
-        Resources[resourceType].AddAmount(amount);
+        Resources[resourceType].AddValue(amount);
     }
 
-    public void SetStockpileMaximum(int maximum)
-    {
-        StockpileMaximum.SetAmount(maximum);
-    }
 
     public void OnMonumentComponentStateChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {
@@ -149,7 +145,7 @@ public class Player
         if (e.State == MonumentComponentState.Complete)
         {
             int gainedReputation = e.AffectedComponent.MonumentComponentBlueprint.ReputationGain;
-            int oldReputation = Reputation.Amount;
+            int oldReputation = Reputation.Value;
             int newReputation = oldReputation + gainedReputation;
 
             SetReputation(newReputation);

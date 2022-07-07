@@ -78,7 +78,7 @@ public class PlayerPriorityTile : MonoBehaviour
 
         //_playerNameTextField.text = $"{rankingNumber}. {player.Name}";
         _playerNameTextField.text = $"{rankingNumber}.";
-        _playerInfoTextField.text = $"{AssetManager.Instance.GetInlineIcon(InlineIconType.Reputation)}: {player.Reputation.Amount} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}: {player.Gold.Amount}";
+        _playerInfoTextField.text = $"{AssetManager.Instance.GetInlineIcon(InlineIconType.Reputation)}: {player.Reputation.Value} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}: {player.Gold.Value}";
     }
 
     private void SetAvatar(Player player)

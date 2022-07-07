@@ -69,12 +69,12 @@ public class PlayerManager : MonoBehaviour
         int priorityPosition = 1;
         for (int n = 0; n < newPriorityList.Count; n++)
         {
-            if (newPriorityList[n].Reputation.Amount > updatedPlayer.Reputation.Amount)
+            if (newPriorityList[n].Reputation.Value > updatedPlayer.Reputation.Value)
             {
                 priorityPosition++;
             }
-            else if(newPriorityList[n].Reputation.Amount == updatedPlayer.Reputation.Amount &&
-                oldReputation > newPriorityList[n].Reputation.Amount)
+            else if(newPriorityList[n].Reputation.Value == updatedPlayer.Reputation.Value &&
+                oldReputation > newPriorityList[n].Reputation.Value)
             {
                 priorityPosition++;
             }
@@ -118,7 +118,7 @@ public class PlayerManager : MonoBehaviour
             Player player = item.Value;
 
             // TODO: If we do not have enough gold, force fire workers
-            player.SetGold(player.Gold.Amount + StatCalculator.CalculateGoldIncome(player));
+            player.SetGold(player.Gold.Value + StatCalculator.CalculateGoldIncome(player));
         }
     }
 

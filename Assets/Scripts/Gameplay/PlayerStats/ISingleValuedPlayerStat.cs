@@ -1,0 +1,5 @@
+public interface ISingleValuedPlayerStat : IPlayerStat
+{
+
+
+}

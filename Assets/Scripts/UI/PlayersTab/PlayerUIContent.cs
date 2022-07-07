@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerUIContent : MonoBehaviour
 {
-    [SerializeField] private PlayerStatElementUIContainer _reputationContainer;
-    [SerializeField] private PlayerStatElementUIContainer _goldContainer;
-    [SerializeField] private PlayerStatElementUIContainer _woodResourceContainer;
-    [SerializeField] private PlayerStatElementUIContainer _marbleResourceContainer;
-    [SerializeField] private PlayerStatElementUIContainer _graniteResourceContainer;
-    [SerializeField] private PlayerStatElementUIContainer _stockpileMaximumContainer;
+    [SerializeField] private AccumulativePlayerStatElementUIContainer _reputationContainer;
+    [SerializeField] private AccumulativePlayerStatElementUIContainer _goldContainer;
+    [SerializeField] private AccumulativePlayerStatElementUIContainer _woodResourceContainer;
+    [SerializeField] private AccumulativePlayerStatElementUIContainer _marbleResourceContainer;
+    [SerializeField] private AccumulativePlayerStatElementUIContainer _graniteResourceContainer;
+    [SerializeField] private SingleValuedPlayerStatElementUIContainer _stockpileMaximumContainer;
 
     [SerializeField] private PlayersTabContainer _playersTabContainer;
     [SerializeField] private MonumentUIContainer _uiMonumentContainer;
@@ -75,9 +75,9 @@ public class PlayerUIContent : MonoBehaviour
 
         Dictionary<ResourceType, IResource> resources = _player.Resources;
 
-        _woodResourceContainer.UpdateUI(_player, resources[ResourceType.Wood] as IPlayerStat);
-        _marbleResourceContainer.UpdateUI(_player, resources[ResourceType.Marble] as IPlayerStat);
-        _graniteResourceContainer.UpdateUI(_player, resources[ResourceType.Granite] as IPlayerStat);
+        _woodResourceContainer.UpdateUI(_player, resources[ResourceType.Wood]);
+        _marbleResourceContainer.UpdateUI(_player, resources[ResourceType.Marble]);
+        _graniteResourceContainer.UpdateUI(_player, resources[ResourceType.Granite]);
     }
 
     private void OnReputationInputFieldChange(TMP_InputField inputField)
@@ -87,9 +87,9 @@ public class PlayerUIContent : MonoBehaviour
             inputField.text = "0";
         }
 
-        int oldReputation = _player.Reputation.Amount;
+        int oldReputation = _player.Reputation.Value;
         int newReputation = int.Parse(inputField.text);
-        int amountCap = _player.Reputation.GetAmountCap();
+        int amountCap = _player.Reputation.GetValueCap();
 
         if (newReputation > amountCap)
         {
@@ -105,7 +105,16 @@ public class PlayerUIContent : MonoBehaviour
 
     public void SetPlayerStatInputFieldValue(TMP_InputField inputField, IPlayerStat playerStat)
     {
-        if(playerStat is Reputation)
+        if(playerStat is IAccumulativePlayerStat)
+        {
+            SetAccumulativePlayerStatInputFieldValue(inputField, playerStat as IAccumulativePlayerStat);
+            return;
+        }      
+    }
+
+    public void SetAccumulativePlayerStatInputFieldValue(TMP_InputField inputField, IAccumulativePlayerStat playerStat)
+    {
+        if (playerStat is Reputation)
         {
             OnReputationInputFieldChange(inputField);
             return;
@@ -114,22 +123,22 @@ public class PlayerUIContent : MonoBehaviour
         {
             inputField.text = "0";
 
-            playerStat.SetAmount(0);
+            playerStat.SetValue(0);
             return;
         }
 
         int newAmount = int.Parse(inputField.text);
-        int amountCap = playerStat.GetAmountCap();
+        int amountCap = playerStat.GetValueCap();
 
         if (newAmount > amountCap)
         {
             newAmount = amountCap;
             inputField.text = newAmount.ToString();
         }
-        playerStat.SetAmount(newAmount);
+        playerStat.SetValue(newAmount);
     }
 
-    public void CalculateIncomeProjectionLabel(PlayerStatElementUIContainer playerStatElementUIContainer, IPlayerStat playerStat)
+    public void CalculateIncomeProjectionLabel(AccumulativePlayerStatElementUIContainer playerStatElementUIContainer, IAccumulativePlayerStat playerStat)
     {
         string projectionString = "";
         int projectedIncome;
@@ -139,7 +148,7 @@ public class PlayerUIContent : MonoBehaviour
             ResourceType resourceType = resource.GetResourceType();
             projectedIncome = StatCalculator.CalculateResourceIncome(resourceType, _player);
 
-            if (_player.Resources[resourceType].Amount + projectedIncome > playerStat.GetAmountCap())
+            if (_player.Resources[resourceType].Value + projectedIncome > playerStat.GetValueCap())
             {
                 projectionString = $"<color=red>+{projectedIncome}</color>";
             }

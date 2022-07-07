@@ -39,7 +39,7 @@ public class MonumentComponentDisplayButtonAvailableState : MonumentComponentDis
         for (int i = 0; i < resourceCosts.Count; i++)
         {
             InlineIconType inlineIconType = resourceCosts[i].GetInlineIconType();
-            subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} {resourceCosts[i].Amount}    ";
+            subLabelText += $"{AssetManager.Instance.GetInlineIcon(inlineIconType)} {resourceCosts[i].Value}    ";
         }
 
         subLabel.text = subLabelText;

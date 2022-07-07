@@ -21,19 +21,22 @@ public class GameActionExecutor
     {
         GameActionType gameActionType = gameActionCheckSum.GameAction.GetGameActionType();
         PlayerManager.Instance.UpdatePlayerMove(gameActionCheckSum.Player, false);
+        Player player = gameActionCheckSum.Player;
 
         switch (gameActionType)
         {
             case GameActionType.HireWorker:
                 Debug.Log($"EXECUTE ACTION ---- Hire a worker for {gameActionCheckSum.Player.Name}");
                 break;
-            case GameActionType.ExpandStockpile:
-                Debug.Log($"Expand the stockpile for {gameActionCheckSum.Player.Name}");
+            case GameActionType.UpgradeConstructionSite:
+                Debug.Log($"Upgrade the construction site for {gameActionCheckSum.Player.Name}");
+                ConstructionSiteUpgradeHandler constructionSiteUpgradeHandler = new ConstructionSiteUpgradeHandler();
+                constructionSiteUpgradeHandler.UpgradeStockpile(player);
                 break;
             default:
-
                 Debug.LogError($"The game action type {gameActionCheckSum.GameAction.GetName()} is not implemented");
                 break;
         }
     }
 }
+
