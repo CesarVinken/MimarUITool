@@ -27,6 +27,6 @@ public class TestStep : IGameActionStep
 
     public void NextStep()
     {
-        GameActionHandler.CurrentGameActionSequence.NextStep();
+        GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 }

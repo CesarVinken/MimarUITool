@@ -17,17 +17,17 @@ public class PerformActionButton : MonoBehaviour
 
     public void Update()
     {
-        if(GameActionHandler.CurrentGameActionSequence != null &&
+        if(GameActionStepHandler.CurrentGameActionSequence != null &&
             Input.GetKeyDown(KeyCode.Escape))
         {
-            GameActionHandler.CurrentGameActionSequence.CloseGameActionWindow();
+            GameActionStepHandler.CurrentGameActionSequence.CloseGameActionWindow();
         }
     }
 
     private void BeginActionSequenceProcudure()
     {
-        if (GameActionHandler.CurrentGameActionSequence != null) return;
+        if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
-        GameActionHandler toolGameActionHandler = new GameActionHandler();
+        GameActionStepHandler toolGameActionHandler = new GameActionStepHandler();
     }
 }

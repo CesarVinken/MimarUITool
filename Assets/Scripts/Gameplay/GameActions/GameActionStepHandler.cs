@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameActionHandler
+public class GameActionStepHandler
 {
-    public static GameActionHandler CurrentGameActionSequence = null;
+    public static GameActionStepHandler CurrentGameActionSequence = null;
     private GameActionWindow _gameActionWindow;
     public GameActionAssetHandler GameActionAssetHandler { get; private set; }
 
@@ -11,14 +11,11 @@ public class GameActionHandler
     private IGameActionStep _currentGameActionStep = null;
 
     public GameActionCheckSum GameActionCheckSum;
-    private GameActionChecksumHandler _checksumHandler;
-
-    public GameActionHandler()
+    public GameActionStepHandler()
     {
         Debug.Log($"Commence new game tool action");
         CurrentGameActionSequence = this;
         GameActionCheckSum = new GameActionCheckSum();
-        _checksumHandler = new GameActionChecksumHandler();
 
         GameObject gameActionWindowPrefab = GameActionAssetHandler.Instance.GetGameActionWindowPrefab();
         GameObject gameActionWindowGO = GameObject.Instantiate(gameActionWindowPrefab);
@@ -58,7 +55,6 @@ public class GameActionHandler
 
     public void NextStep()
     {
-
         if (_currentGameActionStep == null)
         {
             _currentGameActionStep = _gameActionSteps[0];
@@ -88,7 +84,8 @@ public class GameActionHandler
 
     public void CompleteSequence()
     {
-        _checksumHandler.HandleGameAction();
+        GameFlowManager.Instance.AddPlannedGameAction(CurrentGameActionSequence.GameActionCheckSum);
+        PlayerManager.Instance.UpdatePlayerMove(CurrentGameActionSequence.GameActionCheckSum.Player, false);
 
         CloseGameActionWindow();
     }
@@ -100,31 +97,5 @@ public class GameActionHandler
         _gameActionSteps.Clear();
 
         _gameActionWindow.DestroyWindow();
-    }
-}
-
-public class GameActionChecksumHandler
-{
-    public void HandleGameAction()
-    {
-        GameActionCheckSum gameActionCheckSum = GameActionHandler.CurrentGameActionSequence.GameActionCheckSum;
-        GameActionType gameActionType = gameActionCheckSum.ActionType;
-
-        PlayerManager.Instance.UpdatePlayerMove(gameActionCheckSum.Player, false);
-      
-        switch (gameActionType)
-        {
-            case GameActionType.HireWorker:
-
-                Debug.Log($"EXECUTE ACTION ---- Hire a worker for {gameActionCheckSum.Player.Name}");
-                break;
-            case GameActionType.ExpandStockpile:
-                Debug.Log($"Expand the stockpile for {gameActionCheckSum.Player.Name}");
-                break;
-            default:
-
-                Debug.LogError($"The game action type {gameActionType} is not implemented");
-                break;
-        }
     }
 }

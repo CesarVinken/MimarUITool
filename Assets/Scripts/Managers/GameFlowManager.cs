@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 // Responsible for arranging the next turn and text move procedures. Responsible for managing player actions, triggering random events etc.
@@ -9,14 +9,24 @@ public class GameFlowManager : MonoBehaviour
 
     public TimeOfDay TimeOfDay { get; private set; } = TimeOfDay.Morning;
 
+    private List<GameActionCheckSum> _plannedGameActions = new List<GameActionCheckSum>();
+    private GameActionExecutor _gameActionExecutor;
+
     public event EventHandler<MonumentComponentCompletionStateChangeEvent> MonumentComponentCompletionStateChangeEvent;
 
     public void Setup()
     {
         Instance = this;
 
+        _gameActionExecutor = new GameActionExecutor();
+
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
+    }
+
+    public void AddPlannedGameAction(GameActionCheckSum gameAction)
+    {
+        _plannedGameActions.Add(gameAction);
     }
 
     public void ExecuteNextGameStep()
@@ -30,10 +40,11 @@ public class GameFlowManager : MonoBehaviour
             NextDayPart();
         }
 
-        PlayerManager.Instance.RefreshPlayerMoves();
-
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
+
+        _gameActionExecutor.HandlePlannedGameActions(_plannedGameActions);
+        _plannedGameActions.Clear();
     }
 
     private void NextDayPart()

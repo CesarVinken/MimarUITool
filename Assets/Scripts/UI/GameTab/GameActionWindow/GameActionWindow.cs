@@ -90,7 +90,7 @@ public class GameActionWindow : MonoBehaviour
 
     public void OnClose()
     {
-        GameActionHandler.CurrentGameActionSequence.CloseGameActionWindow();
+        GameActionStepHandler.CurrentGameActionSequence.CloseGameActionWindow();
     }
 
     public void EmptyWindowUI()

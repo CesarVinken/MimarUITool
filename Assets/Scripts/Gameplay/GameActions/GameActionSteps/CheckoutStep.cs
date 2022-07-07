@@ -19,7 +19,7 @@ public class CheckoutStep : IGameActionStep
 
     public List<IGameActionElement> Initialise()
     {
-        List<IGameActionStep> steps = GameActionHandler.CurrentGameActionSequence.GetSteps();
+        List<IGameActionStep> steps = GameActionStepHandler.CurrentGameActionSequence.GetSteps();
         IGameActionStep previousStep = null;
 
         if(steps.Count < 2)
@@ -57,7 +57,7 @@ public class CheckoutStep : IGameActionStep
     {
         if(previousStep is GameActionPickStep)
         {
-            return $"Perform a {GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.ActionType.GetType()} action for {GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
+            return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.ActionType.GetType()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
         }
         else
         {
@@ -68,6 +68,6 @@ public class CheckoutStep : IGameActionStep
 
     public void NextStep()
     {
-        GameActionHandler.CurrentGameActionSequence.NextStep();
+        GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 }

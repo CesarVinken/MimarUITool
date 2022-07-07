@@ -56,7 +56,7 @@ public class UILocationContainer : MonoBehaviour
 
     public void ShrinkLabourPool()
     {
-        if (GameActionHandler.CurrentGameActionSequence != null) return;
+        if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
         if (WorkerTiles.Count <= 0) return;
 
@@ -113,7 +113,7 @@ public class UILocationContainer : MonoBehaviour
 
     public void GrowLabourPool()
     {
-        if (GameActionHandler.CurrentGameActionSequence != null) return;
+        if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
         ILocation location = LocationManager.Instance.GetLocation(_locationType);
         ILabourPoolLocation resourcesLocation = location as ILabourPoolLocation;

@@ -23,7 +23,7 @@ public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
         IGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
-        List<Player> players = PlayerManager.Instance.Players.Values.ToList();
+        List<Player> players = PlayerManager.Instance.PlayersByPriority;
         List<Player> playersThatCanMove = players.Where(p => p.CanMove).ToList();
 
         if (playersThatCanMove.Count == 0)
@@ -76,9 +76,9 @@ public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
     public void NextStep()
     {
         Player player = PlayerManager.Instance.Players[_selectedPlayer];
-        GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.WithPlayer(player);
+        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithPlayer(player);
 
-        GameActionHandler.CurrentGameActionSequence.NextStep();
+        GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 }
 

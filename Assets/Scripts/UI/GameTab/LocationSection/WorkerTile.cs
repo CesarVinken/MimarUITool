@@ -15,7 +15,7 @@ public abstract class WorkerTile : MonoBehaviour
     // called when changing the input field
     public void OnChangeServiceLengthInputField()
     {
-        if (GameActionHandler.CurrentGameActionSequence != null) return;
+        if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
         int newContractLength = 1;
 

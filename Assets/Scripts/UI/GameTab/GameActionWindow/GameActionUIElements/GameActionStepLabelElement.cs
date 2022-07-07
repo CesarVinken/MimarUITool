@@ -41,7 +41,7 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         }
         else if (uiToolGameActionStep is GameActionPickStep)
         {
-            Player player = GameActionHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
+            Player player = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
 
             if(player == null)
             {

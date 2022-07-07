@@ -15,7 +15,7 @@ public class NextMoveButton : MonoBehaviour
 
     public void ExecuteNextRound()
     {
-        if (GameActionHandler.CurrentGameActionSequence != null) return;
+        if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
         GameFlowManager.Instance.ExecuteNextGameStep();
     }
