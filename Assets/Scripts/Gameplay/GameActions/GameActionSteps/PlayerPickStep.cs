@@ -53,7 +53,7 @@ public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
 
         _selectedPlayer = playersThatCanMove[0].PlayerNumber;
         _playerTileByPlayerNumber[_selectedPlayer].Select();
-        Debug.Log($"Select {_selectedPlayer}");
+
         return _elements;
     }
 

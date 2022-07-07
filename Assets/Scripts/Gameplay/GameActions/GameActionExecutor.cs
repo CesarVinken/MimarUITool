@@ -11,7 +11,6 @@ public class GameActionExecutor
         // execute actions in order of priority
         for (int i = 0; i < gameActionsOrderedByPriority.Count; i++)
         {
-            Debug.LogWarning($"{i} in order is {gameActionsOrderedByPriority[i].Player.Name}");
             HandlePlannedGameAction(gameActionsOrderedByPriority[i]);
         }
 
@@ -20,7 +19,7 @@ public class GameActionExecutor
 
     private void HandlePlannedGameAction(GameActionCheckSum gameActionCheckSum)
     {
-        GameActionType gameActionType = gameActionCheckSum.ActionType;
+        GameActionType gameActionType = gameActionCheckSum.GameAction.GetGameActionType();
         PlayerManager.Instance.UpdatePlayerMove(gameActionCheckSum.Player, false);
 
         switch (gameActionType)
@@ -33,7 +32,7 @@ public class GameActionExecutor
                 break;
             default:
 
-                Debug.LogError($"The game action type {gameActionType} is not implemented");
+                Debug.LogError($"The game action type {gameActionCheckSum.GameAction.GetName()} is not implemented");
                 break;
         }
     }

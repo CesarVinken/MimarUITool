@@ -57,7 +57,7 @@ public class CheckoutStep : IGameActionStep
     {
         if(previousStep is GameActionPickStep)
         {
-            return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.ActionType.GetType()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
+            return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetName()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
         }
         else
         {

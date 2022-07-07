@@ -68,7 +68,7 @@ public class GameActionElementInitialiser
         return playerSelectionTileElement;
     }
 
-    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(GameActionPickStep actionPickStep, GameActionType gameActionType)
+    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(GameActionPickStep actionPickStep, IGameAction gameAction)
     {
         GameObject actionSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetActionSelectionTilePrefab();
         GameObject actionSelectionTileElementGO = GameObject.Instantiate(actionSelectionTileElementPrefab);
@@ -80,7 +80,7 @@ public class GameActionElementInitialiser
             Debug.LogError($"could not find actionSelectionTileElement script");
         }
 
-        actionSelectionTileElement.SetUp(gameActionType, actionPickStep);
+        actionSelectionTileElement.SetUp(gameAction, actionPickStep);
         actionSelectionTileElement.Initialise(actionPickStep);
         return actionSelectionTileElement;
     }

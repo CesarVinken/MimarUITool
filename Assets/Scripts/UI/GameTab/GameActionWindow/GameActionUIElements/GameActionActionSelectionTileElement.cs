@@ -7,8 +7,10 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionEl
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    public GameActionType GameActionType { get; private set; }
+    public IGameAction GameAction { get; private set; }
+    public bool IsAvailable { get; private set; } = true;
     private GameActionPickStep _actionPickStep;
+
 
     public GameObject GetGameObject()
     {
@@ -35,19 +37,18 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionEl
 
     public void Initialise(IGameActionStep uiToolGameActionStep)
     {
-        _buttonLabel.text = $"{GameActionType}";
-
+        _buttonLabel.text = $"{GameAction.GetName()}";
     }
 
-    public void SetUp(GameActionType gameActionType, GameActionPickStep actionPickStep)
+    public void SetUp(IGameAction gameAction, GameActionPickStep actionPickStep)
     {
-        GameActionType = gameActionType;
+        GameAction = gameAction;
         _actionPickStep = actionPickStep;
     }
 
     private void OnClick()
     {
-        _actionPickStep.SelectAction(GameActionType);
+        _actionPickStep.SelectAction(GameAction);
     }
 
     public void Select()
@@ -59,4 +60,18 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionEl
     {
         _button.image.color = ColourUtility.GetColour(ColourType.Empty);
     }
+
+    public void MakeUnavailable()
+    {
+        _button.interactable = false;
+        _button.image.color = ColourUtility.GetColour(ColourType.GrayedOut);
+        IsAvailable = false;
+    }
+
+    public void MakeAvailable()
+    {
+        _button.interactable = true;
+        IsAvailable = true;
+    }
 }
+
