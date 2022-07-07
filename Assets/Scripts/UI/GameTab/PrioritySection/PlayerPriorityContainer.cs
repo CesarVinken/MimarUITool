@@ -49,6 +49,11 @@ public class PlayerPriorityContainer : MonoBehaviour
 
     public void RefreshPlayerMovesUI()
     {
+        if(PlayerPriorityTiles.Count == 0)
+        {
+            Debug.LogError($"The player priority list is empty but should contain all the players");
+        }
+
         for (int i = 0; i < PlayerPriorityTiles.Count; i++)
         {
             PlayerPriorityTiles[i].SetPlayerTurnStatus(true);

@@ -15,6 +15,7 @@ public class Player
     public Dictionary<ResourceType, IResource> Resources { get; private set; } = new Dictionary<ResourceType, IResource>();
 
     public Monument Monument { get; private set; }
+    public bool CanMove { get; private set; }
 
     public List<IWorker> HiredWorkers { get; private set; }
 
@@ -102,6 +103,11 @@ public class Player
     public void SetGold(int goldAmount)
     {
         Gold.SetAmount(goldAmount);
+    }
+
+    public void SetCanMove(bool canMove)
+    {
+        CanMove = canMove;
     }
 
     public void SetResource(ResourceType resourceType, int amount)

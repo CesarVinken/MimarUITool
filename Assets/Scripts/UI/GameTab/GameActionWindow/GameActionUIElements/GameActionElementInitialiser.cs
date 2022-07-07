@@ -51,18 +51,19 @@ public class GameActionElementInitialiser
         return nextStepButton;
     }
 
-    public static IGameActionElement InitialisePlayerSelectionTile(IGameActionStep uiToolGameActionStep)
+    public static IGameActionElement InitialisePlayerSelectionTile(IGameActionStep uiToolGameActionStep, Player player)
     {
         GameObject playerSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetPlayerSelectionTilePrefab();
         GameObject playerSelectionTileElementGO = GameObject.Instantiate(playerSelectionTileElementPrefab);
 
-        IGameActionElement playerSelectionTileElement = playerSelectionTileElementGO.GetComponent<IGameActionElement>();
+        GameActionPlayerSelectionTileElement playerSelectionTileElement = playerSelectionTileElementGO.GetComponent<GameActionPlayerSelectionTileElement>();
 
         if (playerSelectionTileElement == null)
         {
             Debug.LogError($"could not find playerSelectionTileElement script");
         }
 
+        playerSelectionTileElement.SetUp(player);
         playerSelectionTileElement.Initialise(uiToolGameActionStep);
         return playerSelectionTileElement;
     }

@@ -30,9 +30,10 @@ public class GameFlowManager : MonoBehaviour
             NextDayPart();
         }
 
+        PlayerManager.Instance.RefreshPlayerMoves();
+
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
-        gameTabContainer.RefreshPlayerMoves();
     }
 
     private void NextDayPart()

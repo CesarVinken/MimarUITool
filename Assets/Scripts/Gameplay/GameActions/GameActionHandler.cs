@@ -110,10 +110,8 @@ public class GameActionChecksumHandler
         GameActionCheckSum gameActionCheckSum = GameActionHandler.CurrentGameActionSequence.GameActionCheckSum;
         GameActionType gameActionType = gameActionCheckSum.ActionType;
 
-        GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
-        gameTabContainer.UpdatePlayerMove(gameActionCheckSum.Player, false);
-
-
+        PlayerManager.Instance.UpdatePlayerMove(gameActionCheckSum.Player, false);
+      
         switch (gameActionType)
         {
             case GameActionType.HireWorker:

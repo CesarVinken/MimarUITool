@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
 {
@@ -21,21 +23,37 @@ public class PlayerPickStep : IGameActionStep, IUIPlayerSelectionGameActionStep
         IGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 
+        List<Player> players = PlayerManager.Instance.Players.Values.ToList();
+        List<Player> playersThatCanMove = players.Where(p => p.CanMove).ToList();
+
+        if (playersThatCanMove.Count == 0)
+        {
+            IGameActionElement labelElement = GameActionElementInitialiser.InitialiseMainContentLabel(this, "All players have moved. Go the the next turn.");
+            _elements.Add(labelElement);
+            return _elements;
+        }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i];
+
+            GameActionPlayerSelectionTileElement tileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this, player) as GameActionPlayerSelectionTileElement;
+
+            if (!player.CanMove)
+            {
+                tileElement.Deactivate();
+            }
+
+            _playerTileByPlayerNumber.Add(player.PlayerNumber, tileElement);
+            _elements.Add(tileElement);
+        }
+
         IGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
-        GameActionPlayerSelectionTileElement player1TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
-        _playerTileByPlayerNumber.Add(player1TileElement.PlayerNumber, player1TileElement);
-        _elements.Add(player1TileElement);
-        GameActionPlayerSelectionTileElement player2TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
-        _playerTileByPlayerNumber.Add(player2TileElement.PlayerNumber, player2TileElement);
-        _elements.Add(player2TileElement);
-        GameActionPlayerSelectionTileElement player3TileElement = GameActionElementInitialiser.InitialisePlayerSelectionTile(this) as GameActionPlayerSelectionTileElement;
-        _playerTileByPlayerNumber.Add(player3TileElement.PlayerNumber, player3TileElement);
-        _elements.Add(player3TileElement);
-
-        _playerTileByPlayerNumber[PlayerNumber.Player1].Select();
-
+        _selectedPlayer = playersThatCanMove[0].PlayerNumber;
+        _playerTileByPlayerNumber[_selectedPlayer].Select();
+        Debug.Log($"Select {_selectedPlayer}");
         return _elements;
     }
 

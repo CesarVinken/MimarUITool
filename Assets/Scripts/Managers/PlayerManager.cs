@@ -35,11 +35,7 @@ public class PlayerManager : MonoBehaviour
 
         UIPlayerData playerData = new UIPlayerData()
             .WithPlayer(player);
-            //.WithGold(player.Gold)
-            //.WithReputation(player.Reputation)
-            //.WithResources(player.Resources)
-            //.WithStockpileMaximum(player.StockpileMaximum);
-
+            
         return playerData;
     }
 
@@ -92,6 +88,27 @@ public class PlayerManager : MonoBehaviour
         }
 
         PlayersByPriority = newPriorityList;
+    }
+
+    public void RefreshPlayerMoves()
+    {
+        List<Player> players = Players.Values.ToList();
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].SetCanMove(true);
+        }
+
+        GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
+        gameTabContainer.RefreshPlayerMovesUI();
+    }
+
+    public void UpdatePlayerMove(Player player, bool canMove)
+    {
+        GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
+        gameTabContainer.UpdatePlayerMove(player, canMove);
+
+        player.SetCanMove(canMove);
     }
 
     public void PayIncomes()

@@ -8,7 +8,7 @@ public class GameActionPlayerSelectionTileElement : MonoBehaviour, IGameActionEl
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
 
-    public PlayerNumber PlayerNumber { get; private set; }
+    public Player Player { get; private set; }
     private IUIPlayerSelectionGameActionStep _uiToolGameActionStep;
 
     public GameObject GetGameObject()
@@ -34,46 +34,27 @@ public class GameActionPlayerSelectionTileElement : MonoBehaviour, IGameActionEl
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
+    public void SetUp(Player player)
+    {
+        Player = player;
+    }
+
     public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         _uiToolGameActionStep = uiToolGameActionStep as IUIPlayerSelectionGameActionStep;
+
         if(_uiToolGameActionStep == null)
         {
-
             Debug.LogError($"Could not parse {uiToolGameActionStep.GetType()} as a IUIPlayerSelectionGameActionStep");
         }
+
         List<IGameActionElement> existingElements = uiToolGameActionStep.GetUIElements();
-
-        int existingPlayerTiles = 0;
-        for (int i = 0; i < existingElements.Count; i++)
-        {
-            if(existingElements[i] is GameActionPlayerSelectionTileElement)
-            {
-                existingPlayerTiles++;
-            }
-        }
-
-        if(existingPlayerTiles == 0)
-        {
-            PlayerNumber = PlayerNumber.Player1;
-        }
-        else if(existingPlayerTiles == 1)
-        {
-            PlayerNumber = PlayerNumber.Player2;
-        }
-        else
-        {
-            PlayerNumber = PlayerNumber.Player3;
-        }
-
-        Player player = PlayerManager.Instance.Players[PlayerNumber];
-        _buttonLabel.text = $"{player.Name}";
-
+        _buttonLabel.text = $"{Player.Name}";
     }
 
     private void OnClick()
     {
-        _uiToolGameActionStep.SelectPlayer(PlayerNumber);
+        _uiToolGameActionStep.SelectPlayer(Player.PlayerNumber);
     }
 
     public void Select()
@@ -84,5 +65,16 @@ public class GameActionPlayerSelectionTileElement : MonoBehaviour, IGameActionEl
     public void Deselect()
     {
         _button.image.color = ColourUtility.GetColour(ColourType.Empty);
+    }
+
+    public void Deactivate()
+    {
+        _button.interactable = false;
+        _button.image.color = ColourUtility.GetColour(ColourType.GrayedOut);
+    }
+
+    public void Activate()
+    {
+        _button.interactable = true;
     }
 }

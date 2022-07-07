@@ -44,7 +44,7 @@ public class GameTabContainer : UITabContainer
     }
 
 
-    public void RefreshPlayerMoves()
+    public void RefreshPlayerMovesUI()
     {
         _playerPriorityContainer.RefreshPlayerMovesUI();
     }

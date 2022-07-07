@@ -46,6 +46,7 @@ public class InitialisationManager : MonoBehaviour
         _navigationManager.InitialiseTabContainers();
         _navigationManager.InitialiseLabourPools();
 
+        _playerManager.RefreshPlayerMoves();
     }
 
 }
