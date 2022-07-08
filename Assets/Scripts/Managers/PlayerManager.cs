@@ -167,4 +167,20 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    public void GoToLocation(Player player, LocationType newLocation)
+    {
+        if (player.Location != null)
+        {
+            LocationType oldLocation = player.Location.LocationType;
+            ILocationUIContainer oldLocationUIContainer = NavigationManager.Instance.GetLocationUIContainer(oldLocation);
+            oldLocationUIContainer.RemovePlayerFromLocation(player);
+        }
+
+        IPlayerLocation location = LocationManager.Instance.GetPlayerLocation(newLocation);
+        player.SetLocation(location);
+
+        ILocationUIContainer newLocationUIContainer = NavigationManager.Instance.GetLocationUIContainer(newLocation);
+        newLocationUIContainer.AddPlayerToLocation(player);
+    }
 }

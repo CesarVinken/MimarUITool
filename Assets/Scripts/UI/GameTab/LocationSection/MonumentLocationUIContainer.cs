@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonumentLocationUIContainer : MonoBehaviour
+public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 {
     [SerializeField] private UILocationContainer _constantinopleContainer;
 
@@ -12,6 +12,9 @@ public class MonumentLocationUIContainer : MonoBehaviour
     [SerializeField] private Transform _workersContainer;
     private List<WorkerTile> _workerTiles = new List<WorkerTile>();
     private LocationType _locationType;
+
+    [SerializeField] private Image[] _playerIconSlot;
+    Dictionary<Player, Image> _usedPlayerIcons = new Dictionary<Player, Image>();
 
     private void Awake()
     {
@@ -30,6 +33,10 @@ public class MonumentLocationUIContainer : MonoBehaviour
         if (_removeWorkerButton == null)
         {
             Debug.LogError($"Could not find _removeWorkerButton on {gameObject.name}");
+        }
+        if (_playerIconSlot.Length != 3)
+        {
+            Debug.LogError($"There should be 3 slots for player icons on {gameObject.name}");
         }
 
         _removeWorkerButton.onClick.AddListener(() =>
@@ -92,8 +99,6 @@ public class MonumentLocationUIContainer : MonoBehaviour
         workerTile.Destroy();
     }
 
-
-
     // Add worker tile to construction site, remove neutral worker tile work Constantinople location
     public void AddWorker()
     {
@@ -101,7 +106,6 @@ public class MonumentLocationUIContainer : MonoBehaviour
         if (constantinopleWorkerTiles.Count < 1) return; // There should be neutral workers available in the shared worker pool
 
         IWorkerLocation buildingSiteLocation = LocationManager.Instance.GetWorkerLocation(_locationType);
-        //IWorkerLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(LocationType.Constantinople);
 
         // Remove worker tile from Constantinople
         WorkerTile lastNeutralWorkerTile = constantinopleWorkerTiles[constantinopleWorkerTiles.Count - 1];
@@ -123,5 +127,34 @@ public class MonumentLocationUIContainer : MonoBehaviour
         workerTile.Initialise(_locationType, workerTile.Worker);
         _workerTiles.Add(workerTile);
         _constantinopleContainer.RemoveWorkerTile(lastNeutralWorkerTile);
+    }
+
+    public void AddPlayerToLocation(Player player)
+    {
+        Debug.Log($"add {player.Name} to {_locationType} location");
+        int numberOfUsedPlayerIcons = _usedPlayerIcons.Count;
+
+        _usedPlayerIcons.Add(player, _playerIconSlot[numberOfUsedPlayerIcons]);
+        _playerIconSlot[numberOfUsedPlayerIcons].sprite = player.Avatar;
+    }
+
+    public void RemovePlayerFromLocation(Player player)
+    {
+        Debug.Log($"remove {player.Name} from {_locationType} location");
+        _playerIconSlot[_usedPlayerIcons.Count - 1].sprite = null;
+
+        if (_usedPlayerIcons.TryGetValue(player, out Image image))
+        {
+            _usedPlayerIcons.Remove(player);
+        }
+
+        Dictionary<Player, Image> _updatedUsedPlayerIcons = new Dictionary<Player, Image>();
+        foreach (KeyValuePair<Player, Image> item in _usedPlayerIcons)
+        {
+            if (item.Key == player) continue;
+
+            _updatedUsedPlayerIcons.Add(item.Key, item.Value);
+            _playerIconSlot[_updatedUsedPlayerIcons.Count - 1].sprite = item.Key.Avatar;
+        }
     }
 }

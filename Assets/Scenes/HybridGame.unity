@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 88757717}
   - component: {fileID: 88757716}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 145162295}
   - component: {fileID: 145162294}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5305,6 +5305,10 @@ MonoBehaviour:
   _shrinkLabourPoolButton: {fileID: 1076448791}
   _growLabourPoolButton: {fileID: 1471687596}
   _workersContainer: {fileID: 1567383524}
+  _playerIconSlot:
+  - {fileID: 1380060096}
+  - {fileID: 145162294}
+  - {fileID: 1736075179}
 --- !u!1 &445089472
 GameObject:
   m_ObjectHideFlags: 0
@@ -5608,7 +5612,7 @@ GameObject:
   - component: {fileID: 494216595}
   - component: {fileID: 494216594}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5948,7 +5952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 83.24, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506097335
@@ -8145,7 +8149,7 @@ GameObject:
   - component: {fileID: 709658179}
   - component: {fileID: 709658178}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8623,7 +8627,7 @@ GameObject:
   - component: {fileID: 727296469}
   - component: {fileID: 727296468}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9399,7 +9403,7 @@ GameObject:
   - component: {fileID: 775436856}
   - component: {fileID: 775436855}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10554,7 +10558,7 @@ GameObject:
   - component: {fileID: 872023442}
   - component: {fileID: 872023441}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10632,7 +10636,7 @@ GameObject:
   - component: {fileID: 875766742}
   - component: {fileID: 875766741}
   m_Layer: 5
-  m_Name: HeaderTextContainer (1)
+  m_Name: HeaderTextContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11759,7 +11763,7 @@ GameObject:
   - component: {fileID: 997130981}
   - component: {fileID: 997130980}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12087,6 +12091,10 @@ MonoBehaviour:
   _addWorkerButton: {fileID: 573137896}
   _removeWorkerButton: {fileID: 1024770539}
   _workersContainer: {fileID: 183250868}
+  _playerIconSlot:
+  - {fileID: 730711684}
+  - {fileID: 872023441}
+  - {fileID: 2047355455}
 --- !u!1 &1019638793
 GameObject:
   m_ObjectHideFlags: 0
@@ -15581,6 +15589,10 @@ MonoBehaviour:
   _shrinkLabourPoolButton: {fileID: 839573181}
   _growLabourPoolButton: {fileID: 1006796591}
   _workersContainer: {fileID: 1895519281}
+  _playerIconSlot:
+  - {fileID: 745265133}
+  - {fileID: 1589069442}
+  - {fileID: 727296468}
 --- !u!1 &1221098018
 GameObject:
   m_ObjectHideFlags: 0
@@ -15849,6 +15861,10 @@ MonoBehaviour:
   _addWorkerButton: {fileID: 1280241255}
   _removeWorkerButton: {fileID: 905747769}
   _workersContainer: {fileID: 1643037461}
+  _playerIconSlot:
+  - {fileID: 855687208}
+  - {fileID: 494216594}
+  - {fileID: 775436855}
 --- !u!1 &1226527410
 GameObject:
   m_ObjectHideFlags: 0
@@ -18152,6 +18168,10 @@ MonoBehaviour:
   _shrinkLabourPoolButton: {fileID: 745240045}
   _growLabourPoolButton: {fileID: 1317434210}
   _workersContainer: {fileID: 502903558}
+  _playerIconSlot:
+  - {fileID: 710481400}
+  - {fileID: 709658178}
+  - {fileID: 88757716}
 --- !u!1 &1373406200
 GameObject:
   m_ObjectHideFlags: 0
@@ -21257,7 +21277,7 @@ GameObject:
   - component: {fileID: 1589069443}
   - component: {fileID: 1589069442}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22214,6 +22234,7 @@ MonoBehaviour:
   _shrinkLabourPoolButton: {fileID: 1095323297}
   _growLabourPoolButton: {fileID: 562369375}
   _workersContainer: {fileID: 1373406201}
+  _playerIconSlot: []
 --- !u!1 &1687388035
 GameObject:
   m_ObjectHideFlags: 0
@@ -22655,6 +22676,10 @@ MonoBehaviour:
   _addWorkerButton: {fileID: 1986165919}
   _removeWorkerButton: {fileID: 1101027545}
   _workersContainer: {fileID: 584289173}
+  _playerIconSlot:
+  - {fileID: 1618918561}
+  - {fileID: 997130980}
+  - {fileID: 1743222066}
 --- !u!1 &1736075177
 GameObject:
   m_ObjectHideFlags: 0
@@ -22667,7 +22692,7 @@ GameObject:
   - component: {fileID: 1736075180}
   - component: {fileID: 1736075179}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22841,7 +22866,7 @@ GameObject:
   - component: {fileID: 1743222067}
   - component: {fileID: 1743222066}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26040,7 +26065,7 @@ GameObject:
   - component: {fileID: 2047355456}
   - component: {fileID: 2047355455}
   m_Layer: 5
-  m_Name: PlayerIcon1
+  m_Name: PlayerIcon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

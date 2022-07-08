@@ -191,7 +191,7 @@ public class NavigationManager : MonoBehaviour {
         CurrentTab.Activate();
     }
 
-    public UILocationContainer GetLocation(LocationType locationType)
+    public ILocationUIContainer GetLocationUIContainer(LocationType locationType)
     {
         switch (locationType)
         {
@@ -203,22 +203,28 @@ public class NavigationManager : MonoBehaviour {
                 return _graniteQuarryContainer;
             case LocationType.Constantinople:
                 return _constantinopleContainer;
+            case LocationType.ConstructionSite1:
+                return _constructionSite1Container;
+            case LocationType.ConstructionSite2:
+                return _constructionSite2Container;
+            case LocationType.ConstructionSite3:
+                return _constructionSite3Container;
             default:
                 Debug.LogError($"Location type {locationType} was not yet implemented");
                 return null;
         }
     }
 
-    public MonumentLocationUIContainer GetMonumentLocationUIContainer(LocationType locationType)
-    {
-        if(_constructionSiteContainersByLocationType.TryGetValue(locationType, out MonumentLocationUIContainer constructionSiteContainer))
-        {
-            return constructionSiteContainer;
-        }
+    //public MonumentLocationUIContainer GetMonumentLocationUIContainer(LocationType locationType)
+    //{
+    //    if(_constructionSiteContainersByLocationType.TryGetValue(locationType, out MonumentLocationUIContainer constructionSiteContainer))
+    //    {
+    //        return constructionSiteContainer;
+    //    }
 
-        Debug.LogError($"Could not find constructionSiteContainer for location type {locationType}");
-        return null;
-    }
+    //    Debug.LogError($"Could not find constructionSiteContainer for location type {locationType}");
+    //    return null;
+    //}
 
     public UITabContainer GetMainTabContainer(MainTabType mainTabType)
     {

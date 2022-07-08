@@ -71,6 +71,28 @@ public class LocationManager : MonoBehaviour
         }
     }
 
+    public IPlayerLocation GetPlayerLocation(LocationType locationType)
+    {
+        switch (locationType)
+        {
+            case LocationType.Forest:
+                return _forest;
+            case LocationType.MarbleQuarry:
+                return _marbleQuarry;
+            case LocationType.GraniteQuarry:
+                return _graniteQuarry;
+            case LocationType.ConstructionSite1:
+                return _constructionSite1;
+            case LocationType.ConstructionSite2:
+                return _constructionSite2;
+            case LocationType.ConstructionSite3:
+                return _constructionSite3;
+            default:
+                Debug.LogError($"Location type {locationType} was not yet implemented");
+                return null;
+        }
+    }
+
     public IWorkerLocation GetWorkerLocation(LocationType locationType)
     {
         switch (locationType)
@@ -98,7 +120,13 @@ public class LocationManager : MonoBehaviour
 
     public void UpdateLabourPoolLocationUI(LocationType locationType)
     {
-        UILocationContainer locationUIContainer = NavigationManager.Instance.GetLocation(locationType);
+        UILocationContainer locationUIContainer = NavigationManager.Instance.GetLocationUIContainer(locationType) as UILocationContainer;
+
+        if(locationUIContainer == null)
+        {
+            Debug.LogError($"Could not parse UILocationContainer for {locationType}");
+        }
+
         ILabourPoolLocation resourcesLocation = GetLabourPoolLocation(locationType);
         locationUIContainer.SetSubTitleText(resourcesLocation.GetLabourPoolWorkers().Count);
     }

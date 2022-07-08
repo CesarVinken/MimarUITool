@@ -43,6 +43,40 @@ public class Player
 
         Monument.InitialiseMonumentComponents();
         InitialiseAvatars();
+        InitialiseLocation();
+    }
+
+    private void InitialiseLocation()
+    {
+        IPlayerLocation location;
+        ILocationUIContainer newLocationUIContainer;
+
+        switch (PlayerNumber)
+        {
+            case PlayerNumber.Player1:
+                location = LocationManager.Instance.GetPlayerLocation(LocationType.ConstructionSite1);
+                SetLocation(location);
+
+                newLocationUIContainer = NavigationManager.Instance.GetLocationUIContainer(location.LocationType);
+                newLocationUIContainer.AddPlayerToLocation(this);
+                break;
+            case PlayerNumber.Player2:
+                location = LocationManager.Instance.GetPlayerLocation(LocationType.ConstructionSite2);
+                SetLocation(location);
+
+                newLocationUIContainer = NavigationManager.Instance.GetLocationUIContainer(location.LocationType);
+                newLocationUIContainer.AddPlayerToLocation(this); 
+                break;
+            case PlayerNumber.Player3:
+                location = LocationManager.Instance.GetPlayerLocation(LocationType.ConstructionSite3);
+                SetLocation(location);
+
+                newLocationUIContainer = NavigationManager.Instance.GetLocationUIContainer(location.LocationType);
+                newLocationUIContainer.AddPlayerToLocation(this);
+                break;
+            default:
+                break;
+        }
     }
 
     private void InitialiseAvatars()

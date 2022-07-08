@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILocationContainer : MonoBehaviour
+public class UILocationContainer : MonoBehaviour, ILocationUIContainer
 {
     [SerializeField] private TextMeshProUGUI _subTitleTextField;
     [SerializeField] private Button _shrinkLabourPoolButton;
@@ -13,6 +13,10 @@ public class UILocationContainer : MonoBehaviour
 
     [SerializeField] private Transform _workersContainer;
     public List<WorkerTile> WorkerTiles { get; private set; } = new List<WorkerTile>();
+
+    [SerializeField] private Image[] _playerIconSlot;
+    Dictionary<Player, Image> _usedPlayerIcons = new Dictionary<Player, Image>();
+
 
     private void Awake()
     {
@@ -139,5 +143,34 @@ public class UILocationContainer : MonoBehaviour
 
         WorkerTiles.Add(workerTile);
         return workerTile;
+    }
+
+    public void AddPlayerToLocation(Player player)
+    {
+        Debug.Log($"add {player.Name} to {_locationType} location");
+        int numberOfUsedPlayerIcons = _usedPlayerIcons.Count;
+
+        _usedPlayerIcons.Add(player, _playerIconSlot[numberOfUsedPlayerIcons]);
+        _playerIconSlot[numberOfUsedPlayerIcons].sprite = player.Avatar;
+    }
+
+    public void RemovePlayerFromLocation(Player player)
+    {
+        Debug.Log($"remove {player.Name} from {_locationType} location");
+        _playerIconSlot[_usedPlayerIcons.Count - 1].sprite = null;
+
+        if (_usedPlayerIcons.TryGetValue(player, out Image image))
+        {
+            _usedPlayerIcons.Remove(player);
+        }
+
+        Dictionary<Player, Image> _updatedUsedPlayerIcons = new Dictionary<Player, Image>();
+        foreach (KeyValuePair<Player, Image> item in _usedPlayerIcons)
+        {
+            if (item.Key == player) continue;
+
+            _updatedUsedPlayerIcons.Add(item.Key, item.Value);
+            _playerIconSlot[_updatedUsedPlayerIcons.Count - 1].sprite = item.Key.Avatar;
+        }
     }
 }

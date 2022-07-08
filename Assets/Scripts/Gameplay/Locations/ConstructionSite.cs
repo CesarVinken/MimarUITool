@@ -9,6 +9,7 @@ public class ConstructionSite : IPlayerLocation, IWorkerLocation
     public List<IWorker> LabourPoolWorkers { get; private set; } = new List<IWorker>();
 
     public ResourceType ResourceType { get; private set; } = ResourceType.LabourTime;
+    private UILocationContainer _uiLocationContainer;
 
     public ConstructionSite(LocationType locationType, string name)
     {

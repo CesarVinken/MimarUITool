@@ -166,7 +166,12 @@ public class CityWorkerTile : WorkerTile
 
     protected override void SetWorkerToNeutral()
     {
-        MonumentLocationUIContainer constructionSiteContainer = NavigationManager.Instance.GetMonumentLocationUIContainer(Worker.Location.LocationType);
+        MonumentLocationUIContainer constructionSiteContainer = NavigationManager.Instance.GetLocationUIContainer(Worker.Location.LocationType) as MonumentLocationUIContainer;
+        
+        if(constructionSiteContainer == null)
+        {
+            Debug.LogError($"Could not parse constructionSiteContainer as a MonumentLocationUIContainer");
+        }
 
         constructionSiteContainer.RemoveWorkerFromSite(this);
     }
