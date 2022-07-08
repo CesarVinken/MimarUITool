@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class LabourPoolHandler
 {
-    public static List<IWorker> AddWorkerToLabourPool(List<IWorker> workers, ILocation location)
+    public static List<IWorker> AddWorkerToLabourPool(List<IWorker> workers, IWorkerLocation location)
     {
         workers.Add(new ResourcesWorker(location));
         return workers;
     }
 
-    public static List<IWorker> AddCityWorkerToLabourPool(List<IWorker> workers, ILocation location)
+    public static List<IWorker> AddCityWorkerToLabourPool(List<IWorker> workers, IWorkerLocation location)
     {
         workers.Add(new CityWorker(location));
         return workers;

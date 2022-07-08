@@ -20,7 +20,6 @@ public class UpgradeConstructionSiteGameAction : IGameAction
 
     public bool IsAvailableForPlayer(Player player)
     {
-        Debug.Log($"TODO check if UpgradeConstructionSite should be available for the player");
         StockpileUpgrade nextUpgrade = player.StockpileMaximum.GetNextUpgrade();
 
         // check if player is at maximum upgrade level

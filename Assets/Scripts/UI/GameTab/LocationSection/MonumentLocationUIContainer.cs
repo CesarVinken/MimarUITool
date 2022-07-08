@@ -57,7 +57,7 @@ public class MonumentLocationUIContainer : MonoBehaviour
         WorkerTile lastWorkerTile = _workerTiles[_workerTiles.Count - 1];
         IWorker transferredWorker = lastWorkerTile.Worker;
 
-        WorkerTile constantinopleWorkerTile = _constantinopleContainer.AddWorkerTile(labourPoolLocation);
+        WorkerTile constantinopleWorkerTile = _constantinopleContainer.AddWorkerTile(labourPoolLocation.LocationType);
 
         constantinopleWorkerTile.Initialise(LocationType.Constantinople, transferredWorker);
 
@@ -78,7 +78,7 @@ public class MonumentLocationUIContainer : MonoBehaviour
 
         IWorker transferredWorker = workerTile.Worker;
 
-        WorkerTile constantinopleWorkerTile = _constantinopleContainer.AddWorkerTile(labourPoolLocation);
+        WorkerTile constantinopleWorkerTile = _constantinopleContainer.AddWorkerTile(labourPoolLocation.LocationType);
 
         constantinopleWorkerTile.Initialise(LocationType.Constantinople, transferredWorker);
 
@@ -100,15 +100,15 @@ public class MonumentLocationUIContainer : MonoBehaviour
         List<WorkerTile> constantinopleWorkerTiles = _constantinopleContainer.GetWorkerTiles();
         if (constantinopleWorkerTiles.Count < 1) return; // There should be neutral workers available in the shared worker pool
 
-        ILocation buildingSiteLocation = LocationManager.Instance.GetLocation(_locationType);
-        ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(LocationType.Constantinople);
+        IWorkerLocation buildingSiteLocation = LocationManager.Instance.GetWorkerLocation(_locationType);
+        //IWorkerLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(LocationType.Constantinople);
 
         // Remove worker tile from Constantinople
         WorkerTile lastNeutralWorkerTile = constantinopleWorkerTiles[constantinopleWorkerTiles.Count - 1];
-        LabourPoolHandler.RemoveCityWorkerFromLabourPool(labourPoolLocation.LabourPoolWorkers, lastNeutralWorkerTile.Worker);
+        LabourPoolHandler.RemoveCityWorkerFromLabourPool(Constantinople.LabourPoolWorkers, lastNeutralWorkerTile.Worker);
 
         // Add worker tile to construction site
-        GameObject workerPrefab = labourPoolLocation.GetWorkerPrefabForLocation();
+        GameObject workerPrefab = buildingSiteLocation.GetWorkerPrefabForLocation();
         GameObject workerGO = GameObject.Instantiate(workerPrefab, _workersContainer);
         CityWorkerTile workerTile = workerGO.GetComponent<CityWorkerTile>();
 
@@ -118,7 +118,7 @@ public class MonumentLocationUIContainer : MonoBehaviour
             return;
         }
 
-        List<IWorker> updatedLabourPool = LabourPoolHandler.AddCityWorkerToLabourPool(labourPoolLocation.LabourPoolWorkers, buildingSiteLocation);
+        List<IWorker> updatedLabourPool = LabourPoolHandler.AddCityWorkerToLabourPool(Constantinople.LabourPoolWorkers, buildingSiteLocation);
         workerTile.Worker = updatedLabourPool[updatedLabourPool.Count - 1];
         workerTile.Initialise(_locationType, workerTile.Worker);
         _workerTiles.Add(workerTile);

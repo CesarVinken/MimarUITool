@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LocationManager : MonoBehaviour
@@ -70,10 +71,35 @@ public class LocationManager : MonoBehaviour
         }
     }
 
+    public IWorkerLocation GetWorkerLocation(LocationType locationType)
+    {
+        switch (locationType)
+        {
+            case LocationType.Forest:
+                return _forest;
+            case LocationType.MarbleQuarry:
+                return _marbleQuarry;
+            case LocationType.GraniteQuarry:
+                return _graniteQuarry;
+            case LocationType.Constantinople:
+                return _constantinople;
+            case LocationType.ConstructionSite1:
+                return _constructionSite1;
+            case LocationType.ConstructionSite2:
+                return _constructionSite2;
+            case LocationType.ConstructionSite3:
+                return _constructionSite3;
+            default:
+                Debug.LogError($"Location type {locationType} was not yet implemented");
+                return null;
+        }
+    }
+
+
     public void UpdateLabourPoolLocationUI(LocationType locationType)
     {
         UILocationContainer locationUIContainer = NavigationManager.Instance.GetLocation(locationType);
         ILabourPoolLocation resourcesLocation = GetLabourPoolLocation(locationType);
-        locationUIContainer.SetSubTitleText(resourcesLocation.LabourPoolWorkers.Count);
+        locationUIContainer.SetSubTitleText(resourcesLocation.GetLabourPoolWorkers().Count);
     }
 }

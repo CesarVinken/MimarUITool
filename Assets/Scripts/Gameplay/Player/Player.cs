@@ -13,6 +13,7 @@ public class Player
     public Gold Gold { get; private set; }
     public StockpileMaximum StockpileMaximum { get; private set; }
     public Dictionary<ResourceType, IResource> Resources { get; private set; } = new Dictionary<ResourceType, IResource>();
+    public IPlayerLocation Location { get; private set; }
 
     public Monument Monument { get; private set; }
     public bool CanMove { get; private set; }
@@ -110,6 +111,11 @@ public class Player
         CanMove = canMove;
     }
 
+    public void SetLocation(IPlayerLocation location)
+    {
+        Location = location;
+    }
+
     public void SetResource(ResourceType resourceType, int amount)
     {
         if (amount > StockpileMaximum.Value)
@@ -136,7 +142,6 @@ public class Player
 
         Resources[resourceType].AddValue(amount);
     }
-
 
     public void OnMonumentComponentStateChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {

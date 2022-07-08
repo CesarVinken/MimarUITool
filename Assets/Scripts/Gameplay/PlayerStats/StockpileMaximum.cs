@@ -18,8 +18,6 @@ public class StockpileMaximum : ISingleValuedPlayerStat
     {
         _level = stockpileUpgrade.UpgradeLevel;
         Value = stockpileUpgrade.AmountCap;
-
-        Debug.Log($"amount cap is now {Value}. Level is {_level}");
     }
 
     public StockpileUpgrade GetNextUpgrade()

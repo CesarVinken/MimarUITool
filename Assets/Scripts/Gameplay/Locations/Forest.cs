@@ -1,27 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Forest : ILocation, ILabourPoolLocation
+public class Forest : IPlayerLocation, IWorkerLocation, ILabourPoolLocation
 {
     public ResourceType ResourceType { get; private set; } = ResourceType.Wood;
     public LocationType LocationType { get; private set; } = LocationType.Forest;
     public string Name { get; private set; } = "Forest";
-    public List<IWorker> LabourPoolWorkers { get; private set; }  = new List<IWorker>();
+    private List<IWorker> _labourPoolWorkers = new List<IWorker>();
 
     public void AddWorkerToLabourPool()
     {
-        LabourPoolWorkers = LabourPoolHandler.AddWorkerToLabourPool(LabourPoolWorkers, this);
+        _labourPoolWorkers = LabourPoolHandler.AddWorkerToLabourPool(_labourPoolWorkers, this);
         LocationManager.Instance.UpdateLabourPoolLocationUI(LocationType);
     }
 
     public void RemoveWorkerFromLabourPool(IWorker worker)
     {
-        LabourPoolWorkers = LabourPoolHandler.RemoveWorkerFromLabourPool(LabourPoolWorkers, worker);
+        _labourPoolWorkers = LabourPoolHandler.RemoveWorkerFromLabourPool(_labourPoolWorkers, worker);
         LocationManager.Instance.UpdateLabourPoolLocationUI(LocationType);
     }
 
     public GameObject GetWorkerPrefabForLocation()
     {
         return AssetManager.Instance.ResourcesWorkerPrefab;
+    }
+
+    public List<IWorker> GetLabourPoolWorkers()
+    {
+        return _labourPoolWorkers;
     }
 }

@@ -115,22 +115,18 @@ public class UILocationContainer : MonoBehaviour
     {
         if (GameActionStepHandler.CurrentGameActionSequence != null) return;
 
-        ILocation location = LocationManager.Instance.GetLocation(_locationType);
-        ILabourPoolLocation resourcesLocation = location as ILabourPoolLocation;
+        ILabourPoolLocation location = LocationManager.Instance.GetLabourPoolLocation(_locationType);
 
-        if (resourcesLocation == null)
-        {
-            Debug.LogError($"Could not parse {location.Name} as a IResourceLocation");
-            return;
-        }
-
-        WorkerTile workerTile = AddWorkerTile(resourcesLocation);
-        resourcesLocation.AddWorkerToLabourPool();
-        workerTile.Initialise(_locationType, resourcesLocation.LabourPoolWorkers[resourcesLocation.LabourPoolWorkers.Count - 1]);
+        WorkerTile workerTile = AddWorkerTile(location.LocationType);
+        location.AddWorkerToLabourPool();
+        List<IWorker> labourpoolWorkers = location.GetLabourPoolWorkers();
+        workerTile.Initialise(_locationType, labourpoolWorkers[labourpoolWorkers.Count - 1]);
     }
 
-    public WorkerTile AddWorkerTile(ILabourPoolLocation location)
+    public WorkerTile AddWorkerTile(LocationType locationType)
     {
+        IWorkerLocation location = LocationManager.Instance.GetWorkerLocation(_locationType);
+
         GameObject workerPrefab = location.GetWorkerPrefabForLocation();
         GameObject workerGO = GameObject.Instantiate(workerPrefab, _workersContainer);
         WorkerTile workerTile = workerGO.GetComponent<WorkerTile>();
