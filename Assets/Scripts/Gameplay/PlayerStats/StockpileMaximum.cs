@@ -7,6 +7,8 @@ public class StockpileMaximum : ISingleValuedPlayerStat
     public int Value { get; private set; }
     private UpgradeLevel _level = UpgradeLevel.Level0;
 
+    public UpgradeLevel MaximumUpgrade { get; private set; } = UpgradeLevel.Level2;
+
     public StockpileMaximum(Player player)
     {
         Player = player;
