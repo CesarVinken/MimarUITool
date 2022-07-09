@@ -32,7 +32,7 @@ public class GameActionStepHandler
         }
 
         AddStep(new PlayerPickStep());
-        AddStep(new GameActionPickStep());
+        AddStep(new PickGameActionStep());
 
         if (_gameActionSteps.Count == 0)
         {

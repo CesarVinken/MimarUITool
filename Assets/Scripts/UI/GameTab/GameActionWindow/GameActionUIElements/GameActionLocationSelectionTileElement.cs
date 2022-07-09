@@ -1,16 +1,16 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionElement
+public class GameActionLocationSelectionTileElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
+    private PickTargetLocationStep _uiToolGameActionStep;
 
-    public IGameAction GameAction { get; private set; }
+    public ILocation TargetLocation { get; private set; }
     public bool IsAvailable { get; private set; } = true;
-    private PickGameActionStep _actionPickStep;
-
 
     public GameObject GetGameObject()
     {
@@ -35,20 +35,20 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionEl
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void Initialise(IGameActionStep uiToolGameActionStep)
+    public void SetUp(ILocation location, PickTargetLocationStep locationSelectionGameActionStep)
     {
-        _buttonLabel.text = $"{GameAction.GetName()}";
+        TargetLocation = location;
+        _uiToolGameActionStep = locationSelectionGameActionStep;
     }
 
-    public void SetUp(IGameAction gameAction, PickGameActionStep actionPickStep)
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
-        GameAction = gameAction;
-        _actionPickStep = actionPickStep;
+        _buttonLabel.text = $"{TargetLocation.Name}";
     }
 
     private void OnClick()
     {
-        _actionPickStep.SelectAction(GameAction);
+        _uiToolGameActionStep.SelectLocation(TargetLocation.LocationType);
     }
 
     public void Select()
@@ -74,4 +74,3 @@ public class GameActionActionSelectionTileElement : MonoBehaviour, IGameActionEl
         IsAvailable = true;
     }
 }
-

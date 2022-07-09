@@ -9,6 +9,7 @@ public class GameActionAssetHandler : MonoBehaviour
     [SerializeField] private GameObject _gameActionWindowPrefab;
     [SerializeField] private GameObject _playerSelectionTilePrefab;
     [SerializeField] private GameObject _actionSelectionTilePrefab;
+    [SerializeField] private GameObject _locationSelectionTilePrefab;
     [SerializeField] private GameObject _mainContentLabelPrefab;
 
     private void Awake()
@@ -33,6 +34,10 @@ public class GameActionAssetHandler : MonoBehaviour
         {
             Debug.LogError($"Could not find _actionSelectionTilePrefab");
         }
+        if (_locationSelectionTilePrefab == null)
+        {
+            Debug.LogError($"Could not find _locationSelectionTilePrefab ");
+        }
         if (_mainContentLabelPrefab == null)
         {
             Debug.LogError($"Could not find _mainContentLabelPrefab");
@@ -45,6 +50,12 @@ public class GameActionAssetHandler : MonoBehaviour
     {
         return _gameStepLabelPrefab;
     }
+
+    public GameObject GetLocationSelectionTilePrefab()
+    {
+        return _locationSelectionTilePrefab;
+    }
+
     public GameObject GetNextActionStepButtonPrefab()
     {
         return _nextStepButtonPrefab;

@@ -77,6 +77,11 @@ public class GameActionWindow : MonoBehaviour
             elementTransform.SetParent(_mainContentContainer);
             elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
+        else if (element is GameActionLocationSelectionTileElement)
+        {
+            elementTransform.SetParent(_mainContentContainer);
+            elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        }
         else if (element is GameActionMainContentTextBlockElement)
         {
             elementTransform.SetParent(_mainContentContainer);

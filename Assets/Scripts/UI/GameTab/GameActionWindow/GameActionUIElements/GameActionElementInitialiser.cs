@@ -68,7 +68,7 @@ public class GameActionElementInitialiser
         return playerSelectionTileElement;
     }
 
-    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(GameActionPickStep actionPickStep, IGameAction gameAction)
+    public static GameActionActionSelectionTileElement InitialiseActionSelectionTile(PickGameActionStep actionPickStep, IGameAction gameAction)
     {
         GameObject actionSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetActionSelectionTilePrefab();
         GameObject actionSelectionTileElementGO = GameObject.Instantiate(actionSelectionTileElementPrefab);
@@ -83,5 +83,22 @@ public class GameActionElementInitialiser
         actionSelectionTileElement.SetUp(gameAction, actionPickStep);
         actionSelectionTileElement.Initialise(actionPickStep);
         return actionSelectionTileElement;
+    }
+
+    public static GameActionLocationSelectionTileElement InitialiseLocationSelectionTile(PickTargetLocationStep pickTargetLocationStep, IPlayerLocation location)
+    {
+        GameObject locationSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetLocationSelectionTilePrefab();
+        GameObject locationSelectionTileElementGO = GameObject.Instantiate(locationSelectionTileElementPrefab);
+
+        GameActionLocationSelectionTileElement locationSelectionTileElement = locationSelectionTileElementGO.GetComponent<GameActionLocationSelectionTileElement>();
+
+        if (locationSelectionTileElement == null)
+        {
+            Debug.LogError($"could not find locationSelectionTileElement script");
+        }
+
+        locationSelectionTileElement.SetUp(location, pickTargetLocationStep);
+        locationSelectionTileElement.Initialise(pickTargetLocationStep);
+        return locationSelectionTileElement;
     }
 }

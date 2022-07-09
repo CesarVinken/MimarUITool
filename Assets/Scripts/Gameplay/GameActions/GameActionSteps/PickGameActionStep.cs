@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameActionPickStep : IGameActionStep
+public class PickGameActionStep : IGameActionStep
 {
     public int StepNumber { get; private set; } = -1;
     private List<IGameActionElement> _elements = new List<IGameActionElement>();
@@ -9,7 +9,7 @@ public class GameActionPickStep : IGameActionStep
 
     private Dictionary<GameActionType, GameActionActionSelectionTileElement> _actionTileByActionType = new Dictionary<GameActionType, GameActionActionSelectionTileElement>();
 
-    public GameActionPickStep()
+    public PickGameActionStep()
     {
         StepNumber = GameActionUtility.CalculateStepNumber();
     }
@@ -37,9 +37,11 @@ public class GameActionPickStep : IGameActionStep
         }
 
         // List here all the possible Actions
+        AddGameActionElement(gameActionInitiator, new TravelAction());
         AddGameActionElement(gameActionInitiator, new HireWorkerGameAction());
         AddGameActionElement(gameActionInitiator, new UpgradeConstructionSiteGameAction());
 
+        // by default select first available tile
         foreach (KeyValuePair<GameActionType, GameActionActionSelectionTileElement> item in _actionTileByActionType)
         {
             if (item.Value.IsAvailable)
@@ -67,24 +69,43 @@ public class GameActionPickStep : IGameActionStep
 
     public void NextStep()
     {
-        GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+        AddStepsForSelectedGameAction();
 
         GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithActionType(_selectedGameAction);
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 
-    private void AddGameActionElement(Player gameActionInitiator, IGameAction gameAction)
+    private void AddStepsForSelectedGameAction()
     {
-        GameActionActionSelectionTileElement expandStockpileActionElement = GameActionElementInitialiser.InitialiseActionSelectionTile(this, gameAction);
-        bool isAvailable = expandStockpileActionElement.GameAction.IsAvailableForPlayer(gameActionInitiator);
+        GameActionType gameActionType = _selectedGameAction.GetGameActionType();
+        switch (gameActionType)
+        {
+            //case GameActionType.HireWorker:
+            //    break;
+            case GameActionType.Travel:
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickTargetLocationStep());
+                break;
+            //case GameActionType.UpgradeConstructionSite:
+            //    break;
+            default:
+                Debug.LogWarning($"No special follow up steps were implemented for the game action {gameActionType}. Going to checkout");
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+                break;
+        }
+    }
+
+    private void AddGameActionElement(Player player, IGameAction gameAction)
+    {
+        GameActionActionSelectionTileElement actionSelectionTileElement = GameActionElementInitialiser.InitialiseActionSelectionTile(this, gameAction);
+        bool isAvailable = actionSelectionTileElement.GameAction.IsAvailableForPlayer(player);
 
         if (!isAvailable)
         {
-            expandStockpileActionElement.MakeUnavailable();
+            actionSelectionTileElement.MakeUnavailable();
         }
 
-        _actionTileByActionType.Add(expandStockpileActionElement.GameAction.GetGameActionType(), expandStockpileActionElement);
-        _elements.Add(expandStockpileActionElement);
+        _actionTileByActionType.Add(actionSelectionTileElement.GameAction.GetGameActionType(), actionSelectionTileElement);
+        _elements.Add(actionSelectionTileElement);
     }
 }
 

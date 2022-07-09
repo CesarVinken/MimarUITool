@@ -39,7 +39,7 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         {
             _label.text = "Select player";
         }
-        else if (uiToolGameActionStep is GameActionPickStep)
+        else if (uiToolGameActionStep is PickGameActionStep)
         {
             Player player = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
 

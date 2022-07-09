@@ -55,7 +55,7 @@ public class CheckoutStep : IGameActionStep
 
     private string WriteCheckout(IGameActionStep previousStep)
     {
-        if(previousStep is GameActionPickStep)
+        if(previousStep is PickGameActionStep)
         {
             return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetName()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
         }
