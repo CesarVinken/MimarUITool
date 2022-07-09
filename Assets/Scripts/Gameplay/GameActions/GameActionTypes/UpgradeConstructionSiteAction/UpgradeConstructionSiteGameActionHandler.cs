@@ -1,6 +1,11 @@
-public class ConstructionSiteUpgradeHandler
+public class UpgradeConstructionSiteGameActionHandler : IGameActionHandler
 {
-    public void UpgradeStockpile(Player player)
+    public void Handle(GameActionCheckSum gameActionCheckSum)
+    {
+        UpgradeStockpile(gameActionCheckSum.Player);
+    }
+
+    private void UpgradeStockpile(Player player)
     {
         StockpileUpgrade stockpileUpgrade = player.StockpileMaximum.GetNextUpgrade();
 

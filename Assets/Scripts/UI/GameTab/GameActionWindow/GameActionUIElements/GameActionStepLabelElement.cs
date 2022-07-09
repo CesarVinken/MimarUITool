@@ -35,6 +35,10 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         {
             _label.text = "Checkout";
         }
+        if (uiToolGameActionStep is PickTargetLocationStep)
+        {
+            _label.text = "Select a destination";
+        }
         else if(uiToolGameActionStep is PlayerPickStep)
         {
             _label.text = "Select player";

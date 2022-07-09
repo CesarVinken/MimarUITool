@@ -37,7 +37,7 @@ public class PickGameActionStep : IGameActionStep
         }
 
         // List here all the possible Actions
-        AddGameActionElement(gameActionInitiator, new TravelAction());
+        AddGameActionElement(gameActionInitiator, new TravelGameAction());
         AddGameActionElement(gameActionInitiator, new HireWorkerGameAction());
         AddGameActionElement(gameActionInitiator, new UpgradeConstructionSiteGameAction());
 

@@ -6,7 +6,7 @@ public class PickTargetLocationStep : IGameActionStep, IUILocationSelectionGameA
 {
     public int StepNumber { get; private set; } = -1;
     private List<IGameActionElement> _elements = new List<IGameActionElement>();
-    private LocationType _selectedLocationType;
+    private ILocation _selectedLocation;
 
     private Dictionary<LocationType, GameActionLocationSelectionTileElement> _locationTileByLocationType = new Dictionary<LocationType, GameActionLocationSelectionTileElement>();
 
@@ -44,7 +44,7 @@ public class PickTargetLocationStep : IGameActionStep, IUILocationSelectionGameA
             if (item.Value.IsAvailable)
             {
                 _locationTileByLocationType[item.Key].Select();
-                _selectedLocationType = item.Key;
+                _selectedLocation = item.Value.TargetLocation;
                 return _elements;
             }
         }
@@ -54,19 +54,20 @@ public class PickTargetLocationStep : IGameActionStep, IUILocationSelectionGameA
 
     public void SelectLocation(LocationType locationType)
     {
-        if (_selectedLocationType == locationType) return;
+        if (_selectedLocation.LocationType == locationType) return;
 
-        LocationType previouslySelectedLocationType = _selectedLocationType;
+        LocationType previouslySelectedLocationType = _selectedLocation.LocationType;
         _locationTileByLocationType[previouslySelectedLocationType].Deselect();
 
-        _selectedLocationType = locationType;
-        _locationTileByLocationType[_selectedLocationType].Select();
+        _selectedLocation = LocationManager.Instance.GetLocation(locationType);
+        _locationTileByLocationType[_selectedLocation.LocationType].Select();
     }
 
 
     public void NextStep()
     {
-        throw new System.NotImplementedException();
+        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithLocation(_selectedLocation);
+        GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 
     private void AddTargetLocationElement(Player player, IPlayerLocation location)

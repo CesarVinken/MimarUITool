@@ -28,10 +28,15 @@ public class GameActionExecutor
             case GameActionType.HireWorker:
                 Debug.Log($"EXECUTE ACTION ---- Hire a worker for {gameActionCheckSum.Player.Name}");
                 break;
+            case GameActionType.Travel:
+                Debug.Log($"EXECUTE ACTION ---- {gameActionCheckSum.Player.Name} travels to {gameActionCheckSum.Location.Name}");
+                TravelGameActionHandler travelGameActionHandler = new TravelGameActionHandler();
+                travelGameActionHandler.Handle(gameActionCheckSum);
+                break;
             case GameActionType.UpgradeConstructionSite:
                 Debug.Log($"Upgrade the construction site for {gameActionCheckSum.Player.Name}");
-                ConstructionSiteUpgradeHandler constructionSiteUpgradeHandler = new ConstructionSiteUpgradeHandler();
-                constructionSiteUpgradeHandler.UpgradeStockpile(player);
+                UpgradeConstructionSiteGameActionHandler constructionSiteUpgradeHandler = new UpgradeConstructionSiteGameActionHandler();
+                constructionSiteUpgradeHandler.Handle(gameActionCheckSum);
                 break;
             default:
                 Debug.LogError($"The game action type {gameActionCheckSum.GameAction.GetName()} is not implemented");

@@ -1,10 +1,10 @@
 
 
-public class TravelAction : IGameAction
+public class TravelGameAction : IGameAction
 {
     private GameActionType _gameActionType;
 
-    public TravelAction()
+    public TravelGameAction()
     {
         _gameActionType = GameActionType.Travel ;
     }

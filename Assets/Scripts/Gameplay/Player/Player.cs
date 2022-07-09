@@ -29,8 +29,8 @@ public class Player
         StockpileMaximum = new StockpileMaximum(this);
 
         HiredWorkers = new List<IWorker>();
-        Gold.SetValue(0);
         Reputation.SetValue(15);
+        Gold.SetValue(StatCalculator.CalculateGoldIncome(this)); // give the player an initial amount of gold, based on their start reputation
         StockpileMaximum.SetLevel(new StockpileUpgrade(UpgradeLevel.Level0));
         Monument = new Monument(playerNumber);
     }
