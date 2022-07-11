@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameActionLocationSelectionTileElement : MonoBehaviour, IGameActionElement
+public class GameActionConstructionSiteUpgradeSelectionTileElement : MonoBehaviour, IGameActionElement
 {
     [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _buttonLabel;
-    private IUILocationSelectionGameActionStep _uiToolGameActionStep;
+    private PickConstructionSiteUpgradeStep _upgradeConstructionSitePickStep;
 
-    public ILocation TargetLocation { get; private set; }
+    public IConstructionSiteUpgrade ConstructionSiteUpgrade { get; private set; }
+
     public bool IsAvailable { get; private set; } = true;
 
     public GameObject GetGameObject()
@@ -35,20 +35,20 @@ public class GameActionLocationSelectionTileElement : MonoBehaviour, IGameAction
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void SetUp(ILocation location, IUILocationSelectionGameActionStep locationSelectionGameActionStep)
+    public void SetUp(IConstructionSiteUpgrade constructionSiteUpgrade, PickConstructionSiteUpgradeStep upgradeConstructionSitePickStep)
     {
-        TargetLocation = location;
-        _uiToolGameActionStep = locationSelectionGameActionStep;
+        ConstructionSiteUpgrade = constructionSiteUpgrade;
+        _upgradeConstructionSitePickStep = upgradeConstructionSitePickStep;
     }
 
     public void Initialise(IGameActionStep uiToolGameActionStep)
     {
-        _buttonLabel.text = $"{TargetLocation.Name}";
+        _buttonLabel.text = $"{ConstructionSiteUpgrade.Name}";
     }
 
     private void OnClick()
     {
-        _uiToolGameActionStep.SelectLocation(TargetLocation.LocationType);
+        _upgradeConstructionSitePickStep.SelectConstructionSiteUpgrade(ConstructionSiteUpgrade);
     }
 
     public void Select()

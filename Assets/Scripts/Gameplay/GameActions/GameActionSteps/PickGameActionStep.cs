@@ -4,6 +4,7 @@ using UnityEngine;
 public class PickGameActionStep : IGameActionStep
 {
     public int StepNumber { get; private set; } = -1;
+
     private List<IGameActionElement> _elements = new List<IGameActionElement>();
     private IGameAction _selectedGameAction;
 
@@ -80,13 +81,16 @@ public class PickGameActionStep : IGameActionStep
         GameActionType gameActionType = _selectedGameAction.GetGameActionType();
         switch (gameActionType)
         {
-            //case GameActionType.HireWorker:
-            //    break;
-            case GameActionType.Travel:
-                GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickTargetLocationStep());
+            case GameActionType.HireWorker:
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickHiringLocationStep());
                 break;
-            //case GameActionType.UpgradeConstructionSite:
-            //    break;
+            case GameActionType.Travel:
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickTravelLocationStep());
+                break;
+            case GameActionType.UpgradeConstructionSite:
+                //GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickConstructionSiteUpgradeStep());
+                break;
             default:
                 Debug.LogWarning($"No special follow up steps were implemented for the game action {gameActionType}. Going to checkout");
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());

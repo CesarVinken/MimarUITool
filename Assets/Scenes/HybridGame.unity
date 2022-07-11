@@ -11024,6 +11024,8 @@ MonoBehaviour:
     type: 3}
   _locationSelectionTilePrefab: {fileID: 2202137820020949588, guid: d90f6c2211b66f943b89d86b2b2a4b96,
     type: 3}
+  _constructionSiteUpgradeSelectionTilePrefab: {fileID: 2202137820020949588, guid: e50e265969823f04da38b3817bb2a047,
+    type: 3}
   _mainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
     type: 3}
 --- !u!1 &929982465

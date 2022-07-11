@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CheckoutStep : IGameActionStep
@@ -55,19 +56,60 @@ public class CheckoutStep : IGameActionStep
 
     private string WriteCheckout(IGameActionStep previousStep)
     {
+        GameActionCheckSum gameActionCheckSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
         if (previousStep is PickGameActionStep)
         {
-            return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetName()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
+            return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {gameActionCheckSum.Player.Name}";
         }
-        if (previousStep is PickTargetLocationStep)
+        else if (previousStep is PickTravelLocationStep)
         {
-            return $"Perform a {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetName()} action for {GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Name}";
+            return $"{gameActionCheckSum.GameAction.GetName()} will travel to {gameActionCheckSum.Location.Name}\n" +
+                $"The costs will be 1 {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}";
+        }
+        else if(previousStep is PickConstructionSiteUpgradeStep)
+        {
+            PickConstructionSiteUpgradeStep pickConstructionSiteUpgradeStep = previousStep as PickConstructionSiteUpgradeStep;
+            string costsString = WriteCosts(gameActionCheckSum);
+            return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {gameActionCheckSum.Player.Name}\n" +
+                $"{pickConstructionSiteUpgradeStep.GetEffectDescription()}\n" +
+                $"The costs will be {costsString}";
         }
         else
         {
             Debug.LogError($"The action step type {previousStep.GetType()}");
             return "";
         }
+    }
+
+    private string WriteCosts(GameActionCheckSum gameActionCheckSum)
+    {
+        string costsString = "";
+
+        List<IAccumulativePlayerStat> costs = gameActionCheckSum.GameAction.GetCosts();
+
+        int goldCosts = 0;
+        bool willTravel = gameActionCheckSum.Player.Location.LocationType != gameActionCheckSum.Location.LocationType;
+
+        if (willTravel)
+        {
+            goldCosts++;
+        }
+
+        for (int i = 0; i < costs.Count; i++)
+        {
+            int cost = costs[i].Value;
+            if(costs[i] is Gold)
+            {
+                cost += goldCosts;
+            }
+            costsString += $"{costs[i].Value} {costs[i].InlineIcon} ";
+        }
+        if(goldCosts > 0 && costs.FirstOrDefault(c => c is Gold) == null)
+        {
+            costsString += $"{goldCosts} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)} ";
+        }
+
+        return costsString;
     }
 
     public void NextStep()

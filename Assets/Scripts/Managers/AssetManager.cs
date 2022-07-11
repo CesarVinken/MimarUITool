@@ -187,31 +187,6 @@ public class AssetManager : MonoBehaviour
         }
     }
 
-    //public string GetPlayerStatInlineIcon(IPlayerStat playerStat)
-    //{
-    //    if (playerStat is Gold)
-    //    {
-    //        return "<sprite=\"Placeholder\" index=1>";
-    //    }
-    //    if (playerStat is Reputation)
-    //    {
-    //        return "<sprite=\"Placeholder\" index=2>";
-    //    }
-    //    if (playerStat is Wood)
-    //    {
-    //        return "<sprite=\"Placeholder\" index=3>";
-    //    }
-    //    if (playerStat is Granite)
-    //    {
-    //        return "<sprite=\"Placeholder\" index=4>";
-    //    }
-    //    if (playerStat is Marble)
-    //    {
-    //        return "<sprite=\"Placeholder\" index=5>";
-    //    }
-    //    return "UNKNOWN ICON";
-    //}
-
     public void InstantiateMonumentComponent(MonumentDisplay monumentDisplay, MonumentComponentType monumentComponentType)
     {
         AssetReference prefab = GetMonumentComponentPrefab(monumentComponentType);

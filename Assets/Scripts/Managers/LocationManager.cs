@@ -15,6 +15,7 @@ public class LocationManager : MonoBehaviour
 
     private Dictionary<LocationType, IPlayerLocation> _playerLocations = new Dictionary<LocationType, IPlayerLocation>();
     private Dictionary<LocationType, ILocation> _locations = new Dictionary<LocationType, ILocation>();
+    private Dictionary<LocationType, IWorkerLocation> _workerlLocations = new Dictionary<LocationType, IWorkerLocation>();
     private Dictionary<LocationType, ILabourPoolLocation> _labourPoolLocations = new Dictionary<LocationType, ILabourPoolLocation>();
 
     public void Setup()
@@ -36,6 +37,14 @@ public class LocationManager : MonoBehaviour
         _locations.Add(LocationType.GraniteQuarry, _graniteQuarry);
         _locations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _locations.Add(LocationType.Forest, _forest);
+
+        _workerlLocations.Add(LocationType.Constantinople, _constantinople);
+        _workerlLocations.Add(LocationType.ConstructionSite1, _constructionSite1);
+        _workerlLocations.Add(LocationType.ConstructionSite2, _constructionSite2);
+        _workerlLocations.Add(LocationType.ConstructionSite3, _constructionSite3);
+        _workerlLocations.Add(LocationType.GraniteQuarry, _graniteQuarry);
+        _workerlLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
+        _workerlLocations.Add(LocationType.Forest, _forest);
 
         _labourPoolLocations.Add(LocationType.Constantinople, _constantinople);
         _labourPoolLocations.Add(LocationType.ConstructionSite1, _constantinople);
@@ -62,6 +71,11 @@ public class LocationManager : MonoBehaviour
 
         Debug.LogError($"Location type {locationType} was not yet implemented");
         return null;
+    }
+
+    public Dictionary<LocationType, ILabourPoolLocation> GetLabourPoolLocations()
+    {
+        return _labourPoolLocations;
     }
 
     public ILabourPoolLocation GetLabourPoolLocation(LocationType locationType)
@@ -91,28 +105,20 @@ public class LocationManager : MonoBehaviour
         return null;
     }
 
+    public Dictionary<LocationType, IWorkerLocation> GetWorkerLocations()
+    {
+        return _workerlLocations;
+    }
+
     public IWorkerLocation GetWorkerLocation(LocationType locationType)
     {
-        switch (locationType)
+        if (_workerlLocations.TryGetValue(locationType, out IWorkerLocation workerLocation))
         {
-            case LocationType.Forest:
-                return _forest;
-            case LocationType.MarbleQuarry:
-                return _marbleQuarry;
-            case LocationType.GraniteQuarry:
-                return _graniteQuarry;
-            case LocationType.Constantinople:
-                return _constantinople;
-            case LocationType.ConstructionSite1:
-                return _constructionSite1;
-            case LocationType.ConstructionSite2:
-                return _constructionSite2;
-            case LocationType.ConstructionSite3:
-                return _constructionSite3;
-            default:
-                Debug.LogError($"Location type {locationType} was not yet implemented");
-                return null;
+            return workerLocation;
         }
+
+        Debug.LogError($"Location type {locationType} was not yet implemented");
+        return null;
     }
 
 

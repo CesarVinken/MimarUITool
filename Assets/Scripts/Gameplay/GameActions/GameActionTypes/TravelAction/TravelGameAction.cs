@@ -1,5 +1,7 @@
 
 
+using System.Collections.Generic;
+
 public class TravelGameAction : IGameAction
 {
     private GameActionType _gameActionType;
@@ -13,7 +15,6 @@ public class TravelGameAction : IGameAction
         return "Travel to location";
     }
 
-
     public GameActionType GetGameActionType()
     {
         return _gameActionType;
@@ -22,5 +23,10 @@ public class TravelGameAction : IGameAction
     public bool IsAvailableForPlayer(Player player)
     {
         return true;
+    }
+
+    public List<IAccumulativePlayerStat> GetCosts()
+    {
+        return new List<IAccumulativePlayerStat>() { };
     }
 }

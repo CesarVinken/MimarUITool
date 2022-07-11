@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 public class HireWorkerGameAction : IGameAction
 {
     private GameActionType _gameActionType;
@@ -21,5 +23,10 @@ public class HireWorkerGameAction : IGameAction
     public bool IsAvailableForPlayer(Player player)
     {
         return true;
+    }
+
+    public List<IAccumulativePlayerStat> GetCosts()
+    {
+        return new List<IAccumulativePlayerStat>() { };
     }
 }

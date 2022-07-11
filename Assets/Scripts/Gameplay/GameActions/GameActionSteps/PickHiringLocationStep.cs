@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickTravelLocationStep : IGameActionStep, IUILocationSelectionGameActionStep
+public class PickHiringLocationStep : IGameActionStep, IUILocationSelectionGameActionStep
 {
     public int StepNumber { get; private set; } = -1;
     private List<IGameActionElement> _elements = new List<IGameActionElement>();
@@ -9,7 +10,7 @@ public class PickTravelLocationStep : IGameActionStep, IUILocationSelectionGameA
 
     private Dictionary<LocationType, GameActionLocationSelectionTileElement> _locationTileByLocationType = new Dictionary<LocationType, GameActionLocationSelectionTileElement>();
 
-    public PickTravelLocationStep()
+    public PickHiringLocationStep()
     {
         StepNumber = GameActionUtility.CalculateStepNumber();
     }
@@ -46,12 +47,13 @@ public class PickTravelLocationStep : IGameActionStep, IUILocationSelectionGameA
     private void AddPossibleLocations()
     {
         Player player = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
+        GameActionType gameActionType = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetGameActionType();
 
-        // iterate over all player locations
-        Dictionary<LocationType, IPlayerLocation> playerLocations = LocationManager.Instance.GetPlayerLocations();
-
-        foreach (KeyValuePair<LocationType, IPlayerLocation> item in playerLocations)
+        Dictionary<LocationType, IWorkerLocation> workerLocations = LocationManager.Instance.GetWorkerLocations();
+        foreach (KeyValuePair<LocationType, IWorkerLocation> item in workerLocations)
         {
+            if (item.Key == LocationType.Constantinople) continue;
+
             AddTargetLocationElement(player, item.Value);
         }
     }
@@ -76,16 +78,19 @@ public class PickTravelLocationStep : IGameActionStep, IUILocationSelectionGameA
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 
-    private void AddTargetLocationElement(Player player, ILocation location)
+    private void AddTargetLocationElement(Player player, IWorkerLocation workerLocation)
     {
-        GameActionLocationSelectionTileElement locationSelectionTileElement = GameActionElementInitialiser.InitialiseLocationSelectionTile(this, location);
-        
-        if (player.Gold.Value == 0 || player.Location.LocationType == location.LocationType)
+        ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(workerLocation.LocationType);
+
+        GameActionLocationSelectionTileElement locationSelectionTileElement = GameActionElementInitialiser.InitialiseLocationSelectionTile(this, workerLocation);
+
+        List<IWorker> labourPoolWorkers = labourPoolLocation.GetLabourPoolWorkers();
+        if (labourPoolWorkers.Count == 0)
         {
             locationSelectionTileElement.MakeUnavailable();
         }
 
-        _locationTileByLocationType.Add(location.LocationType, locationSelectionTileElement);
+        _locationTileByLocationType.Add(workerLocation.LocationType, locationSelectionTileElement);
         _elements.Add(locationSelectionTileElement);
     }
 }

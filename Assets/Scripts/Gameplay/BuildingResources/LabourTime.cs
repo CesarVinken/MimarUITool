@@ -4,6 +4,7 @@ public class LabourTime : IResource
 {
     public Player Player { get; private set; }
     public int Value { get; private set; }
+    public string InlineIcon { get; } = "<sprite=\"Icons\" index=5>";
 
     public LabourTime(int amount)
     {

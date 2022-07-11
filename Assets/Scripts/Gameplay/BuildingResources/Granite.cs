@@ -2,6 +2,7 @@ public class Granite : IResource, IPlayerStat
 {
     public Player Player { get; private set; }
     public int Value { get; private set; }
+    public string InlineIcon { get; } = "<sprite=\"Icons\" index=3>";
 
 
     public Granite(int amount)

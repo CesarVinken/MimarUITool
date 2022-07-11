@@ -22,6 +22,7 @@ public class GameFlowManager : MonoBehaviour
 
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
+
     }
 
     public void AddPlannedGameAction(GameActionCheckSum gameAction)
@@ -40,11 +41,12 @@ public class GameFlowManager : MonoBehaviour
             NextDayPart();
         }
 
-        GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
-        gameTabContainer.GetNextMoveButton().UpdateText();
-
         _gameActionExecutor.HandlePlannedGameActions(_plannedGameActions);
         _plannedGameActions.Clear();
+
+        GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
+        gameTabContainer.GetNextMoveButton().UpdateText();
+        gameTabContainer.UpdatePlayerPriorityUI();
     }
 
     private void NextDayPart()

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StockpileUpgrade
+public class StockpileUpgrade : IConstructionSiteUpgrade
 {
+    public string Name { get; } = "Stockpile Upgrade";
+    public ConstructionSiteUpgradeType ConstructionSiteUpgradeType { get; } = ConstructionSiteUpgradeType.StockpileMaximum;
     public UpgradeLevel UpgradeLevel { get; private set; }
     public int AmountCap { get; private set; }
 
-    public List<IResource> Costs = new List<IResource>();
+    public List<IAccumulativePlayerStat> Costs { get; private set; } = new List<IAccumulativePlayerStat>();
 
     public static StockpileUpgrade GetUpgradeByLevel(UpgradeLevel level)
     {
@@ -57,5 +59,10 @@ public class StockpileUpgrade
                 Debug.LogError($"There is no implementation for {UpgradeLevel}");
                 break;
         }
+    }
+
+    public string GetEffectDescription()
+    {
+        return $"This upgrade will increase the stockpile maximum to {AmountCap}";
     }
 }

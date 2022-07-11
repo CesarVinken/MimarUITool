@@ -85,7 +85,7 @@ public class GameActionElementInitialiser
         return actionSelectionTileElement;
     }
 
-    public static GameActionLocationSelectionTileElement InitialiseLocationSelectionTile(PickTargetLocationStep pickTargetLocationStep, IPlayerLocation location)
+    public static GameActionLocationSelectionTileElement InitialiseLocationSelectionTile(IUILocationSelectionGameActionStep pickTargetLocationStep, ILocation location)
     {
         GameObject locationSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetLocationSelectionTilePrefab();
         GameObject locationSelectionTileElementGO = GameObject.Instantiate(locationSelectionTileElementPrefab);
@@ -98,7 +98,25 @@ public class GameActionElementInitialiser
         }
 
         locationSelectionTileElement.SetUp(location, pickTargetLocationStep);
-        locationSelectionTileElement.Initialise(pickTargetLocationStep);
+        locationSelectionTileElement.Initialise(pickTargetLocationStep as IGameActionStep);
         return locationSelectionTileElement;
+    }
+
+    
+    public static GameActionConstructionSiteUpgradeSelectionTileElement InitialiseConstructionSiteUpgradeSelectionTile(PickConstructionSiteUpgradeStep upgradeConstructionSitePickStep, IConstructionSiteUpgrade constructionSiteUpgrade)
+    {
+        GameObject upgradeSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetConstructionSiteUpgradeSelectionTilePrefab();
+        GameObject upgradeSelectionTileElementGO = GameObject.Instantiate(upgradeSelectionTileElementPrefab);
+
+        GameActionConstructionSiteUpgradeSelectionTileElement gameActionConstructionSiteUpgradeSelectionTileElement = upgradeSelectionTileElementGO.GetComponent<GameActionConstructionSiteUpgradeSelectionTileElement>();
+
+        if (gameActionConstructionSiteUpgradeSelectionTileElement == null)
+        {
+            Debug.LogError($"could not find gameActionConstructionSiteUpgradeSelectionTileElement script");
+        }
+
+        gameActionConstructionSiteUpgradeSelectionTileElement.SetUp(constructionSiteUpgrade, upgradeConstructionSitePickStep);
+        gameActionConstructionSiteUpgradeSelectionTileElement.Initialise(upgradeConstructionSitePickStep);
+        return gameActionConstructionSiteUpgradeSelectionTileElement;
     }
 }

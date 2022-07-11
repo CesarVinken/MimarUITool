@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Monument
 {
+    public LocationType ConstructionSite { get; private set; }
     private PlayerNumber _playerNumber;
     private List<MonumentComponent> _monumentComponents = new List<MonumentComponent>();
 
@@ -32,6 +33,22 @@ public class Monument
     public Monument(PlayerNumber playerNumber)
     {
         _playerNumber = playerNumber;
+
+        switch (playerNumber)
+        {
+            case PlayerNumber.Player1:
+                ConstructionSite = LocationType.ConstructionSite1;
+                break;
+            case PlayerNumber.Player2:
+                ConstructionSite = LocationType.ConstructionSite2;
+                break;
+            case PlayerNumber.Player3:
+                ConstructionSite = LocationType.ConstructionSite3;
+                break;
+            default:
+                Debug.LogError($"Unknown player {playerNumber}");
+                break;
+        }
     }
 
     // The new, initialised monument contains all the monument component but set to Complete = false;

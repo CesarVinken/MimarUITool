@@ -3,6 +3,7 @@ public class Wood : IResource
 {
     public Player Player { get; private set; }
     public int Value { get; private set; }
+    public string InlineIcon { get; } = "<sprite=\"Icons\" index=1>";
 
     public Wood(int amount, Player player)
     {

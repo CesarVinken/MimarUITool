@@ -2,6 +2,7 @@ public class Marble : IResource
 {
     public Player Player { get; private set; }
     public int Value { get; private set; }
+    public string InlineIcon { get; } = "<sprite=\"Icons\" index=2>";
 
 
     public Marble(int amount)

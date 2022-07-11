@@ -87,6 +87,11 @@ public class GameActionWindow : MonoBehaviour
             elementTransform.SetParent(_mainContentContainer);
             elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
+        else if (element is GameActionConstructionSiteUpgradeSelectionTileElement)
+        {
+            elementTransform.SetParent(_mainContentContainer);
+            elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        }
         else
         {
             Debug.LogError($"Unknown element type of {element.GetType()}");

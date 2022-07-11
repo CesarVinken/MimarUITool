@@ -38,7 +38,6 @@ public class PlayerPriorityContainer : MonoBehaviour
         UpdatePlayerPriorityTiles();
     }
 
-
     public void UpdatePlayerPriorityTiles()
     {
         for (int i = 0; i < PlayerPriorityTiles.Count; i++)

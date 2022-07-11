@@ -152,12 +152,15 @@ public class UILocationContainer : MonoBehaviour, ILocationUIContainer
 
         _usedPlayerIcons.Add(player, _playerIconSlot[numberOfUsedPlayerIcons]);
         _playerIconSlot[numberOfUsedPlayerIcons].sprite = player.Avatar;
+        _playerIconSlot[numberOfUsedPlayerIcons].enabled = true;
+
     }
 
     public void RemovePlayerFromLocation(Player player)
     {
         Debug.Log($"remove {player.Name} from {_locationType} location");
         _playerIconSlot[_usedPlayerIcons.Count - 1].sprite = null;
+        _playerIconSlot[_usedPlayerIcons.Count - 1].enabled = false;
 
         if (_usedPlayerIcons.TryGetValue(player, out Image image))
         {
@@ -171,6 +174,7 @@ public class UILocationContainer : MonoBehaviour, ILocationUIContainer
 
             _updatedUsedPlayerIcons.Add(item.Key, item.Value);
             _playerIconSlot[_updatedUsedPlayerIcons.Count - 1].sprite = item.Key.Avatar;
+            _playerIconSlot[_updatedUsedPlayerIcons.Count - 1].enabled = true;
         }
     }
 }

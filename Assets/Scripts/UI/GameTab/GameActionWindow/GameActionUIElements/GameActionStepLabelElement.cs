@@ -31,13 +31,21 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         {
             _label.text = "TBA";
         }
-        if (uiToolGameActionStep is CheckoutStep)
+        else if (uiToolGameActionStep is CheckoutStep)
         {
             _label.text = "Checkout";
         }
-        if (uiToolGameActionStep is PickTargetLocationStep)
+        else if (uiToolGameActionStep is PickTravelLocationStep)
         {
             _label.text = "Select a destination";
+        }
+        else if (uiToolGameActionStep is PickHiringLocationStep)
+        {
+            _label.text = "Select a location";
+        }
+        else if (uiToolGameActionStep is PickConstructionSiteUpgradeStep)
+        {
+            _label.text = "Select an upgrade";
         }
         else if(uiToolGameActionStep is PlayerPickStep)
         {
@@ -55,7 +63,7 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         }
         else
         {
-            _label.text = "UNKNOWN STEP TYPE";
+            _label.text = $"UNKNOWN STEP TYPE {uiToolGameActionStep.GetType()}";
         }
     }
 
