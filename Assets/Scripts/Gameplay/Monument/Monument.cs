@@ -46,7 +46,7 @@ public class Monument
                 ConstructionSite = LocationType.ConstructionSite3;
                 break;
             default:
-                Debug.LogError($"Unknown player {playerNumber}");
+                new NotImplementedException("PlayerNumber", playerNumber.ToString());
                 break;
         }
     }

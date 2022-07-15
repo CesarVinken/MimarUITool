@@ -50,7 +50,7 @@ public class MonumentDisplayComponent : MonoBehaviour
                 _monumentComponentMeshRenderer.material = _texturedMaterial;
                 break;
             default:
-                Debug.LogError($"Unknown visibility state {visibility}");
+                new NotImplementedException("VisibilityState", visibility.ToString());
                 break;
         }
     }

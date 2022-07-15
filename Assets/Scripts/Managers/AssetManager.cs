@@ -127,7 +127,7 @@ public class AssetManager : MonoBehaviour
             case MonumentComponentType.TowersMiddle:
                 return _towersMiddleMonumentPrefab;
             default:
-                Debug.LogError($"No prefab was implemented for monumentComponentType {monumentComponentType}");
+                new NotImplementedException("prefab", "monumentComponentType", monumentComponentType.ToString());
                 return null;
         }
     }

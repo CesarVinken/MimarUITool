@@ -26,7 +26,7 @@ public static class ColourUtility
                 //return new Color(0f / 255f, 117f / 255f, 107f / 255f); // green / turqoise
                 return new Color(243f / 255f, 133f / 255f, 27f / 255f); //  orange
             default:
-                Debug.LogError($"Colour {colourType} was not yet implemented");
+                new NotImplementedException("ColourType", colourType.ToString());
                 return Color.black;
         }
     }
@@ -42,7 +42,7 @@ public static class ColourUtility
             case ColourType.SelectedBackground:
                 return "#69FDFF";
             default:
-                Debug.LogError($"Colour {colourType} was not yet implemented");
+                new NotImplementedException("ColourType", colourType.ToString());
                 return "#000000";
         }
     }

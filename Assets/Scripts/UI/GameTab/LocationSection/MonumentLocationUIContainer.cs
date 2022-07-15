@@ -131,7 +131,6 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 
     public void AddPlayerToLocation(Player player)
     {
-        Debug.Log($"add {player.Name} to {_locationType} location");
         int numberOfUsedPlayerIcons = _usedPlayerIcons.Count;
 
         _usedPlayerIcons.Add(player, _playerIconSlot[numberOfUsedPlayerIcons]);
@@ -141,7 +140,6 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 
     public void RemovePlayerFromLocation(Player player)
     {
-        Debug.Log($"remove {player.Name} from {_locationType} location");
         _playerIconSlot[_usedPlayerIcons.Count - 1].sprite = null;
         _playerIconSlot[_usedPlayerIcons.Count - 1].enabled = false;
 

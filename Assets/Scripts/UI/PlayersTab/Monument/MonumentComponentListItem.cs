@@ -89,7 +89,7 @@ public class MonumentComponentListItem : MonoBehaviour
                 _buttonState = new MonumentComponentDisplayButtonCompletedState();
                 break;
             default:
-                Debug.LogError($"Unknown state {monumentComponentState}");
+                new NotImplementedException("MonumentComponentState", monumentComponentState.ToString());
                 break;
         }
 
@@ -123,7 +123,7 @@ public class MonumentComponentListItem : MonoBehaviour
                 _buttonState = new MonumentComponentDisplayButtonCompletedState();
                 break;
             default:
-                Debug.LogError($"Unknown state {monumentComponentState}");
+                new NotImplementedException("MonumentComponentState", monumentComponentState.ToString());
                 break;
         }
 

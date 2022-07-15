@@ -21,7 +21,6 @@ public class GameActionExecutor
     {
         GameActionType gameActionType = gameActionCheckSum.GameAction.GetGameActionType();
         PlayerManager.Instance.UpdatePlayerMove(gameActionCheckSum.Player, false);
-        Player player = gameActionCheckSum.Player;
 
         switch (gameActionType)
         {
@@ -39,7 +38,7 @@ public class GameActionExecutor
                 constructionSiteUpgradeHandler.Handle(gameActionCheckSum);
                 break;
             default:
-                Debug.LogError($"The game action type {gameActionCheckSum.GameAction.GetName()} is not implemented");
+                new NotImplementedException("GameAction", gameActionCheckSum.GameAction.GetName());
                 break;
         }
     }

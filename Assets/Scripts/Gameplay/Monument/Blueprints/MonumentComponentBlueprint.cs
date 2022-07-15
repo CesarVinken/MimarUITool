@@ -49,7 +49,7 @@ public abstract class MonumentComponentBlueprint
             case MonumentComponentType.TowersMiddle:
                 return TowersMiddleMonumentComponentBlueprint.Get();
             default:
-                Debug.LogError($"Could not find an implementation for the monument component type '{monumentComponentType}'");
+                new NotImplementedException("monumentComponentType", monumentComponentType.ToString());
                 return null;
         }
     }

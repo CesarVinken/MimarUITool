@@ -37,7 +37,7 @@ public class StockpileUpgrade : IConstructionSiteUpgrade
                 Costs.Add(new Wood(90));
                 break;
             default:
-                Debug.LogError($"There is no implementation for {UpgradeLevel}");
+                new NotImplementedException("UpgradeLevel", UpgradeLevel.ToString());
                 break;
         }
     }
@@ -56,7 +56,7 @@ public class StockpileUpgrade : IConstructionSiteUpgrade
                 AmountCap = 120;
                 break;
             default:
-                Debug.LogError($"There is no implementation for {UpgradeLevel}");
+                new NotImplementedException("UpgradeLevel", UpgradeLevel.ToString());
                 break;
         }
     }

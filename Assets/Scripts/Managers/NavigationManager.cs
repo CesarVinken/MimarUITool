@@ -135,7 +135,6 @@ public class NavigationManager : MonoBehaviour {
         {
             _constantinopleContainer.GrowLabourPool();
         }
-
     }
 
     public void InitialiseTabButtons()
@@ -210,21 +209,10 @@ public class NavigationManager : MonoBehaviour {
             case LocationType.ConstructionSite3:
                 return _constructionSite3Container;
             default:
-                Debug.LogError($"Location type {locationType} was not yet implemented");
+                new NotImplementedException("Location type", locationType.ToString());
                 return null;
         }
     }
-
-    //public MonumentLocationUIContainer GetMonumentLocationUIContainer(LocationType locationType)
-    //{
-    //    if(_constructionSiteContainersByLocationType.TryGetValue(locationType, out MonumentLocationUIContainer constructionSiteContainer))
-    //    {
-    //        return constructionSiteContainer;
-    //    }
-
-    //    Debug.LogError($"Could not find constructionSiteContainer for location type {locationType}");
-    //    return null;
-    //}
 
     public UITabContainer GetMainTabContainer(MainTabType mainTabType)
     {
@@ -239,7 +227,7 @@ public class NavigationManager : MonoBehaviour {
             case MainTabType.OptionsTab:
                 return _optionsTabContainer;
             default:
-                Debug.LogError($"Unknown main tab type {mainTabType}");
+                new NotImplementedException("main tab type ", mainTabType.ToString());
                 return null;
         }
     }

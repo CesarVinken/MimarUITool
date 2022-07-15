@@ -94,7 +94,7 @@ public class GameActionWindow : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Unknown element type of {element.GetType()}");
+            new NotImplementedException("element type", element.GetType().ToString());
         }
     }
 

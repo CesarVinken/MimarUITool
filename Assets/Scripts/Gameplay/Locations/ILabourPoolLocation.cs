@@ -7,4 +7,3 @@ public interface ILabourPoolLocation : ILocation
     public void AddWorkerToLabourPool();
     public void RemoveWorkerFromLabourPool(IWorker worker);
 }
-

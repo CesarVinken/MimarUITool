@@ -103,7 +103,7 @@ public class Player
                 PlayerColour = ColourUtility.GetColour(ColourType.Player3);
                 break;
             default:
-                Debug.LogError($"No colour set up for player {PlayerNumber}");
+                new NotImplementedException($"No colour set up for player {PlayerNumber}");
                 break;
         }
     }

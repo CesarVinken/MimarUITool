@@ -79,6 +79,7 @@ public class MonumentComponent
                 SetRemainingLabourTime(0);
                 break;
             default:
+                new NotImplementedException("MonumentComponentState", newState.ToString());
                 break;
         }
     }

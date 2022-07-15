@@ -18,7 +18,7 @@ public class PlayerUtility : MonoBehaviour
         {
             return PriorityNumber.Priority3;
         }
-        Debug.LogError($"Cannot convert unknown priority int {priorityInt}");
+        new NotImplementedException("Priority", priorityInt.ToString());
         return PriorityNumber.Priority1;
     }
 
@@ -33,7 +33,8 @@ public class PlayerUtility : MonoBehaviour
             case PriorityNumber.Priority3:
                 return 3;
             default:
-                Debug.LogError($"Cannot convert unknown priority {priorityNumber}");
+                new NotImplementedException("PriorityNumber", priorityNumber.ToString());
+                new NotImplementedException($"Cannot convert unknown priority {priorityNumber}");
                 return -1;
         }
     }
