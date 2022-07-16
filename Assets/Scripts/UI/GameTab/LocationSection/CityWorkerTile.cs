@@ -103,6 +103,14 @@ public class CityWorkerTile : WorkerTile
     // The available items in the dropdown changes whenver a player completes a part of the monument 
     public void UpdateDropdownComponentList()
     {
+        CityWorker cityWorker = Worker as CityWorker;
+        MonumentComponent previouslySelectedComponent = null;
+
+        if (_dropdown.value > 0)
+        {
+            previouslySelectedComponent = _dropdownOptions[_dropdown.value - 1];
+        }
+
         _dropdown.ClearOptions();
         _dropdownOptions.Clear();
 
@@ -129,6 +137,17 @@ public class CityWorkerTile : WorkerTile
             _dropdownOptions.Add(unfinishedMonumentComponents[i]);
         }
         _dropdown.AddOptions(options);
+
+        // After updating the component list, select the currently worked on Component is there is one
+        if (cityWorker.CurrentBuildingTask != null && previouslySelectedComponent != null)
+        {
+            MonumentComponent overlapComponent = _dropdownOptions.SingleOrDefault(o => o.Equals(previouslySelectedComponent));
+
+            if (overlapComponent != null)
+            {
+                _dropdown.value = _dropdownOptions.IndexOf(overlapComponent) + 1;
+            }
+        }
     }
 
     private void DropdownValueChanged(TMP_Dropdown change)

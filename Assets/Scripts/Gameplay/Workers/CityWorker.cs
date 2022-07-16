@@ -52,13 +52,13 @@ public class CityWorker : IWorker
 
     public void Build()
     {
-        Debug.Log($"build");
-
+        Debug.Log($"build on {CurrentBuildingTask.Name}");
+        
         CurrentBuildingTask.SetRemainingLabourTime(CurrentBuildingTask.RemainingLabourTime - BaseProductionPower);
 
         if (CurrentBuildingTask.State == MonumentComponentState.Complete)
         {
-            Debug.Log($"building complete");
+            Debug.Log($"building of {CurrentBuildingTask.Name} complete");
             Player player = PlayerManager.Instance.Players[Employer];
             player.Monument.UpdateDependencies();
 
