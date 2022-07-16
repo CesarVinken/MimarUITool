@@ -66,6 +66,11 @@ public class CheckoutStep : IGameActionStep
             return $"{gameActionCheckSum.GameAction.GetName()} will travel to {gameActionCheckSum.Location.Name}\n" +
                 $"The costs will be 1 {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}";
         }
+        else if (previousStep is PickWorkerGameActionStep)
+        {
+            return $"{gameActionCheckSum.GameAction.GetName()} will do SOEMTHING to a worker at {gameActionCheckSum.Location.Name}\n" +
+                $"The costs will be SOMETHING";
+        }
         else if(previousStep is PickConstructionSiteUpgradeStep)
         {
             PickConstructionSiteUpgradeStep pickConstructionSiteUpgradeStep = previousStep as PickConstructionSiteUpgradeStep;

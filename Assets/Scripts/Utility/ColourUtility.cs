@@ -31,6 +31,22 @@ public static class ColourUtility
         }
     }
 
+    public static Color GetColourForPlayer(PlayerNumber playerNumber)
+    {
+        switch (playerNumber)
+        {
+            case PlayerNumber.Player1:
+                return GetColour(ColourType.Player1);
+            case PlayerNumber.Player2:
+                return GetColour(ColourType.Player2);
+            case PlayerNumber.Player3:
+                return GetColour(ColourType.Player3);
+            case PlayerNumber.None:
+            default:
+                return GetColour(ColourType.Empty);
+        }
+    }
+
     public static string GetHexadecimalColour(ColourType colourType)
     {
         switch (colourType)

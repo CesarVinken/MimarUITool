@@ -91,21 +91,7 @@ public class Player
 
     private void InitialisePlayerColour()
     {
-        switch (PlayerNumber)
-        {
-            case PlayerNumber.Player1:
-                PlayerColour = ColourUtility.GetColour(ColourType.Player1);
-                break;
-            case PlayerNumber.Player2:
-                PlayerColour = ColourUtility.GetColour(ColourType.Player2);
-                break;
-            case PlayerNumber.Player3:
-                PlayerColour = ColourUtility.GetColour(ColourType.Player3);
-                break;
-            default:
-                new NotImplementedException($"No colour set up for player {PlayerNumber}");
-                break;
-        }
+        PlayerColour = ColourUtility.GetColourForPlayer(PlayerNumber);
     }
 
     private void InitialiseResources()

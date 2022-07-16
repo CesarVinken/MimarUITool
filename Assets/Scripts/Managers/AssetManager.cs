@@ -28,6 +28,8 @@ public class AssetManager : MonoBehaviour
     [SerializeField] private Sprite _lockIcon;
     [SerializeField] private Sprite _cogIcon;
     [SerializeField] private Sprite _labourTimeIcon;
+    [SerializeField] private Sprite _resourcesWorkerIcon;
+    [SerializeField] private Sprite _cityWorkerIcon;
 
     [Header("Avatars")]
 
@@ -94,6 +96,15 @@ public class AssetManager : MonoBehaviour
             Debug.LogError($"Could not find _towersFrontMonumentPrefab");
         }
 
+        if (_resourcesWorkerIcon == null)
+        {
+            Debug.LogError($"Could not find _resourcesWorkerIcon");
+        }
+        if (_cityWorkerIcon == null)
+        {
+            Debug.LogError($"Could not find _cityWorkerIcon");
+        }
+
         if (_emptyMaterial == null)
         {
             Debug.LogError($"Could not find _emptyMaterial");
@@ -145,6 +156,15 @@ public class AssetManager : MonoBehaviour
             default:
                 return _guestAvatar;
         }
+    }
+
+    public Sprite GetWorkerIcon(IWorker worker)
+    {
+        if(worker is CityWorker)
+        {
+            return _cityWorkerIcon;
+        }
+        return _resourcesWorkerIcon;
     }
     
     public Sprite GetMonumentComponentListItemIcon(MonumentComponentDisplayButtonState monumentComponentDisplayButtonState)

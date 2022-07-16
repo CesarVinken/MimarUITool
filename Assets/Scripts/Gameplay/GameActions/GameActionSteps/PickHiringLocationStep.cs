@@ -45,7 +45,6 @@ public class PickHiringLocationStep : IGameActionStep, IUILocationSelectionGameA
     private void AddPossibleLocations()
     {
         Player player = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
-        GameActionType gameActionType = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.GameAction.GetGameActionType();
 
         Dictionary<LocationType, IWorkerLocation> workerLocations = LocationManager.Instance.GetWorkerLocations();
         foreach (KeyValuePair<LocationType, IWorkerLocation> item in workerLocations)
@@ -70,7 +69,7 @@ public class PickHiringLocationStep : IGameActionStep, IUILocationSelectionGameA
 
     public void NextStep()
     {
-        GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+        GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickWorkerGameActionStep());
 
         GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithLocation(_selectedLocation);
         GameActionStepHandler.CurrentGameActionSequence.NextStep();

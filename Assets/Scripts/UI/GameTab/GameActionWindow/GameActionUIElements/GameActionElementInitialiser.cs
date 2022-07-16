@@ -102,7 +102,24 @@ public class GameActionElementInitialiser
         return locationSelectionTileElement;
     }
 
-    
+    public static GameActionWorkerSelectionTileElement InitialiseWorkerSelectionTile(PickWorkerGameActionStep pickWorkerStep, IWorker worker)
+    {
+        GameObject workerSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetWorkerSelectionTilePrefab();
+        GameObject workerSelectionTileElementGO = GameObject.Instantiate(workerSelectionTileElementPrefab);
+
+        GameActionWorkerSelectionTileElement workerSelectionTileElement = workerSelectionTileElementGO.GetComponent<GameActionWorkerSelectionTileElement>();
+
+        if (workerSelectionTileElement == null)
+        {
+            Debug.LogError($"could not find workerSelectionTileElement script");
+        }
+
+        workerSelectionTileElement.SetUp(worker, pickWorkerStep);
+        workerSelectionTileElement.Initialise(pickWorkerStep as IGameActionStep);
+        return workerSelectionTileElement;
+    }
+
+
     public static GameActionConstructionSiteUpgradeSelectionTileElement InitialiseConstructionSiteUpgradeSelectionTile(PickConstructionSiteUpgradeStep upgradeConstructionSitePickStep, IConstructionSiteUpgrade constructionSiteUpgrade)
     {
         GameObject upgradeSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetConstructionSiteUpgradeSelectionTilePrefab();

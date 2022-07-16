@@ -5952,7 +5952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 83.24, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506097335
@@ -8557,6 +8557,9 @@ MonoBehaviour:
   _lockIcon: {fileID: 21300000, guid: bcbe012f6f1a6584f8f70fa1891530fb, type: 3}
   _cogIcon: {fileID: 21300000, guid: bf6c681d4fc1eef46847d7a1cb288300, type: 3}
   _labourTimeIcon: {fileID: 21300000, guid: 74f7a5c7d8aa7d84a96f6bc9b47d2809, type: 3}
+  _resourcesWorkerIcon: {fileID: 21300000, guid: 64a3dac1b61338746bca74ceb7b69b65,
+    type: 3}
+  _cityWorkerIcon: {fileID: 21300000, guid: 0f9bfc879bcef914d935cab2028f17ad, type: 3}
   _cesarAvatar: {fileID: 21300000, guid: 581b89e6f53b29740964ebe450f2b21d, type: 3}
   _yigitAvatar: {fileID: 21300000, guid: 88171ea4f0be108409d48f36f591443b, type: 3}
   _mustafaAvatar: {fileID: 21300000, guid: 4bb43d2330a21dc4abdebd231e4d3bf8, type: 3}
@@ -11028,6 +11031,8 @@ MonoBehaviour:
     type: 3}
   _mainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
     type: 3}
+  _workerSelectionTilePrefab: {fileID: 2202137820020949588, guid: 1a580b13eea81414893f199958935e5d,
+    type: 3}
 --- !u!1 &929982465
 GameObject:
   m_ObjectHideFlags: 0
@@ -12099,6 +12104,7 @@ MonoBehaviour:
   - {fileID: 730711684}
   - {fileID: 872023441}
   - {fileID: 2047355455}
+  _locationName: {fileID: 87656439}
 --- !u!1 &1019638793
 GameObject:
   m_ObjectHideFlags: 0
@@ -15869,6 +15875,7 @@ MonoBehaviour:
   - {fileID: 855687208}
   - {fileID: 494216594}
   - {fileID: 775436855}
+  _locationName: {fileID: 1926093015}
 --- !u!1 &1226527410
 GameObject:
   m_ObjectHideFlags: 0
@@ -22684,6 +22691,7 @@ MonoBehaviour:
   - {fileID: 1618918561}
   - {fileID: 997130980}
   - {fileID: 1743222066}
+  _locationName: {fileID: 1089317789}
 --- !u!1 &1736075177
 GameObject:
   m_ObjectHideFlags: 0

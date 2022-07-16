@@ -12,6 +12,7 @@ public class GameActionAssetHandler : MonoBehaviour
     [SerializeField] private GameObject _locationSelectionTilePrefab;
     [SerializeField] private GameObject _constructionSiteUpgradeSelectionTilePrefab;
     [SerializeField] private GameObject _mainContentLabelPrefab;
+    [SerializeField] private GameObject _workerSelectionTilePrefab;
 
     private void Awake()
     {
@@ -46,6 +47,10 @@ public class GameActionAssetHandler : MonoBehaviour
         if (_mainContentLabelPrefab == null)
         {
             Debug.LogError($"Could not find _mainContentLabelPrefab");
+        }
+        if (_workerSelectionTilePrefab == null)
+        {
+            Debug.LogError($"Could not find _workerSelectionTilePrefab");
         }
 
         Instance = this;
@@ -89,5 +94,10 @@ public class GameActionAssetHandler : MonoBehaviour
     public GameObject GetConstructionSiteUpgradeSelectionTilePrefab()
     {
         return _constructionSiteUpgradeSelectionTilePrefab;
+    }
+
+    public GameObject GetWorkerSelectionTilePrefab()
+    {
+        return _workerSelectionTilePrefab;
     }
 }
