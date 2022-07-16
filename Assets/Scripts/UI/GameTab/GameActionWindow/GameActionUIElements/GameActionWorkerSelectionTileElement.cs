@@ -12,6 +12,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
     [SerializeField] protected Image _workerIcon;
 
     public IWorker Worker { get; private set; }
+    public HireWorkerActionType HireWorkerActionType { get; private set; }
     public bool IsAvailable { get; private set; } = true;
 
     public GameObject GetGameObject()
@@ -37,9 +38,10 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void SetUp(IWorker worker, PickWorkerGameActionStep pickWorkerGameActionStep)
+    public void SetUp(IWorker worker, PickWorkerGameActionStep pickWorkerGameActionStep, HireWorkerActionType hireWorkerActionType)
     {
         Worker = worker;
+        HireWorkerActionType = hireWorkerActionType;
         _uiToolGameActionStep = pickWorkerGameActionStep;
     }
 
@@ -52,6 +54,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
     private void SetWorkerIcon()
     {
         _workerIcon.sprite = AssetManager.Instance.GetWorkerIcon(Worker);
+
         if(Worker.Employer == PlayerNumber.None)
         {
             _workerIcon.color = ColourUtility.GetColour(ColourType.Empty);
@@ -65,7 +68,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
 
     private void OnClick()
     {
-        _uiToolGameActionStep.SelectWorker();
+        _uiToolGameActionStep.SelectWorker(this);
     }
 
     public void Select()

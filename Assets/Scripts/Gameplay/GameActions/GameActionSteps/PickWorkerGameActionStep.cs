@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,8 @@ public class PickWorkerGameActionStep : IGameActionStep
 {
     public int StepNumber { get; private set; } = -1;
     private List<IGameActionElement> _elements = new List<IGameActionElement>();
-    private IWorker _selectedWorker;
+    private GameActionWorkerSelectionTileElement _selectedTileElement;
+    List<GameActionWorkerSelectionTileElement> _workerSelectionTiles = new List<GameActionWorkerSelectionTileElement>();
 
     public PickWorkerGameActionStep()
     {
@@ -24,6 +24,17 @@ public class PickWorkerGameActionStep : IGameActionStep
         IGameActionElement nextStepButtonElement = GameActionElementInitialiser.InitialiseNextStepButton(this);
         _elements.Add(nextStepButtonElement);
 
+        for (int i = 0; i < _workerSelectionTiles.Count; i++)
+        {
+            if (_workerSelectionTiles[i].IsAvailable)
+            {
+                _selectedTileElement = _workerSelectionTiles[i];
+                _selectedTileElement.Select();
+                return _elements;
+            }
+        }
+
+        Debug.LogWarning($"We have no available workers. We need a return scenario for this.");
         return _elements;
     }
 
@@ -49,15 +60,21 @@ public class PickWorkerGameActionStep : IGameActionStep
         return _elements;
     }
 
-    public void SelectWorker()
+    public void SelectWorker(GameActionWorkerSelectionTileElement tile)
     {
-        Debug.Log($"select worker");
+        if(_selectedTileElement != null)
+        {
+            _selectedTileElement.Deselect();
+        }
+
+        _selectedTileElement = tile;
+        _selectedTileElement.Select();
     }
 
     public void NextStep()
     {
-        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithWorker(_selectedWorker);
-        GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithWorker(_selectedTileElement.Worker);
+        GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());//TODO based on the worker situation, set follow up step
 
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
@@ -90,20 +107,62 @@ public class PickWorkerGameActionStep : IGameActionStep
 
     private void AddWorkerElement(IWorker worker)
     {
-        //Player player = PlayerManager.Instance.Players[worker.Employer];
+        HireWorkerActionType hireWorkerActionType = DetermineWorkerActionType(worker);
+        GameActionWorkerSelectionTileElement workerSelectionTileElement = GameActionElementInitialiser.InitialiseWorkerSelectionTile(this, worker, hireWorkerActionType);
 
-
-        //ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(workerLocation.LocationType);
-
-        GameActionWorkerSelectionTileElement workerSelectionTileElement = GameActionElementInitialiser.InitialiseWorkerSelectionTile(this, worker);
-
-        //List<IWorker> labourPoolWorkers = labourPoolLocation.GetLabourPoolWorkers();
-        //if (labourPoolWorkers.Count == 0)
-        //{
-        //    locationSelectionTileElement.MakeUnavailable();
-        //}
-
-        //_locationTileByLocationType.Add(workerLocation.LocationType, locationSelectionTileElement);
+        if (!WorkerActionPossible(workerSelectionTileElement, worker))
+        {
+            workerSelectionTileElement.MakeUnavailable();
+        }
+        _workerSelectionTiles.Add(workerSelectionTileElement);
         _elements.Add(workerSelectionTileElement);
+    }
+
+    private HireWorkerActionType DetermineWorkerActionType(IWorker worker)
+    {
+        Player actionInitiator = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
+        PlayerNumber employer = worker.Employer;
+
+        if (actionInitiator.PlayerNumber == employer)
+        {
+            return HireWorkerActionType.ExtendContract;
+        }
+        if(employer == PlayerNumber.None)
+        {
+            return HireWorkerActionType.Hire;
+        }
+        return HireWorkerActionType.Bribe;
+    }
+
+    private bool WorkerActionPossible(GameActionWorkerSelectionTileElement workerSelectionTileElement, IWorker worker)
+    {
+        HireWorkerActionType hireWorkerActionType = workerSelectionTileElement.HireWorkerActionType;
+        Player actionInitiator = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
+
+        switch (hireWorkerActionType)
+        {
+            case HireWorkerActionType.Bribe:
+                if(actionInitiator.Gold.Value < 8)
+                {
+                    return false;
+                }
+                break;
+            case HireWorkerActionType.ExtendContract:
+                if (actionInitiator.Gold.Value < 2)
+                {
+                    return false;
+                }
+                break;
+            case HireWorkerActionType.Hire:
+                if (actionInitiator.Gold.Value < 4)
+                {
+                    return false;
+                }
+                break;
+            default:
+                new NotImplementedException("hireWorkerActionType", hireWorkerActionType.ToString());
+                break;
+        }
+        return true;
     }
 }

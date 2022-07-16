@@ -102,7 +102,7 @@ public class GameActionElementInitialiser
         return locationSelectionTileElement;
     }
 
-    public static GameActionWorkerSelectionTileElement InitialiseWorkerSelectionTile(PickWorkerGameActionStep pickWorkerStep, IWorker worker)
+    public static GameActionWorkerSelectionTileElement InitialiseWorkerSelectionTile(PickWorkerGameActionStep pickWorkerStep, IWorker worker, HireWorkerActionType hireWorkerActionType)
     {
         GameObject workerSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetWorkerSelectionTilePrefab();
         GameObject workerSelectionTileElementGO = GameObject.Instantiate(workerSelectionTileElementPrefab);
@@ -114,7 +114,7 @@ public class GameActionElementInitialiser
             Debug.LogError($"could not find workerSelectionTileElement script");
         }
 
-        workerSelectionTileElement.SetUp(worker, pickWorkerStep);
+        workerSelectionTileElement.SetUp(worker, pickWorkerStep, hireWorkerActionType);
         workerSelectionTileElement.Initialise(pickWorkerStep as IGameActionStep);
         return workerSelectionTileElement;
     }
