@@ -165,6 +165,13 @@ public class NavigationManager : MonoBehaviour {
         _optionsTabContainer.Initialise();
     }
 
+    public void InitialiseLocationContainers()
+    {
+        _constructionSite1Container.Initialise();
+        _constructionSite2Container.Initialise();
+        _constructionSite3Container.Initialise();
+    }
+
     private void Start()
     {
         SetTab(_gameTabButton);

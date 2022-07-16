@@ -11,9 +11,19 @@ public class ConstructionSite : IPlayerLocation, IWorkerLocation
     public ResourceType ResourceType { get; private set; } = ResourceType.LabourTime;
     private UILocationContainer _uiLocationContainer;
 
-    public ConstructionSite(LocationType locationType, string name)
+    public ConstructionSite(LocationType locationType, string name = "")
     {
+        if (string.IsNullOrEmpty(name))
+        {
+            name = LocationType.ToString();
+        }
+
         LocationType = locationType;
+        Name = name;
+    }
+
+    public void SetName(string name)
+    {
         Name = name;
     }
 

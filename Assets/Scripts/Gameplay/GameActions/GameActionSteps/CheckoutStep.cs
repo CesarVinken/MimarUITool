@@ -76,7 +76,7 @@ public class CheckoutStep : IGameActionStep
         }
         else
         {
-            Debug.LogError($"The action step type {previousStep.GetType()}");
+            new NotImplementedException($"No checkout was defined with the previous step {previousStep.GetType()}");
             return "";
         }
     }

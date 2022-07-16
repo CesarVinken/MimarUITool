@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
     private LocationType _locationType;
 
     [SerializeField] private Image[] _playerIconSlot;
+    [SerializeField] private TextMeshProUGUI _locationName;
     Dictionary<Player, Image> _usedPlayerIcons = new Dictionary<Player, Image>();
 
     private void Awake()
@@ -34,6 +36,10 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         {
             Debug.LogError($"Could not find _removeWorkerButton on {gameObject.name}");
         }
+        if (_locationName == null)
+        {
+            Debug.LogError($"Could not find _locationName on {gameObject.name}");
+        }
         if (_playerIconSlot.Length != 3)
         {
             Debug.LogError($"There should be 3 slots for player icons on {gameObject.name}");
@@ -47,6 +53,22 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         {
             AddWorker();
         });
+    }
+
+    public void Initialise()
+    {
+        if (_locationType == LocationType.ConstructionSite1)
+        {
+            _locationName.text = $"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player1])} Site";
+        }
+        else if (_locationType == LocationType.ConstructionSite2)
+        {
+            _locationName.text = $"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player2])} Site";
+        }
+        else if (_locationType == LocationType.ConstructionSite3)
+        {
+            _locationName.text = $"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player3])} Site";
+        }
     }
 
     public void SetLocationType(LocationType locationType)

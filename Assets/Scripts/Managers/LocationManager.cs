@@ -62,6 +62,13 @@ public class LocationManager : MonoBehaviour
         _playerLocations.Add(LocationType.Forest, _forest);
     }
 
+    public void InitialiseLocations()
+    {
+        _constructionSite1.SetName($"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player1])} Construction Site");
+        _constructionSite2.SetName($"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player2])} Construction Site");
+        _constructionSite3.SetName($"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player3])} Construction Site");
+    }
+
     public ILocation GetLocation(LocationType locationType)
     {
         if (_locations.TryGetValue(locationType, out ILocation playerLocation))

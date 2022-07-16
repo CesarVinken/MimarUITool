@@ -53,4 +53,15 @@ public class PlayerUtility : MonoBehaviour
 
         return true;
     }
+
+    public static string GetPossessivePlayerString(Player player)
+    {
+        string playerName = player.Name;
+        char lastCharacter = playerName[playerName.Length - 1];
+        if (lastCharacter.ToString() == "s" || lastCharacter.ToString() == "z")
+        {
+            return $"{playerName}'";
+        }
+        return $"{playerName}'s";
+    }
 }

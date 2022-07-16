@@ -40,11 +40,13 @@ public class InitialisationManager : MonoBehaviour
 
         _playerManager.InitialisePlayers();
         _playerManager.InitialisePlayerPriority();
+        _locationManager.InitialiseLocations();
 
         // Initialise the UI components once all the data (player data, etc) is in place and ready to be represented.
         _navigationManager.InitialiseTabButtons();
         _navigationManager.InitialiseTabContainers();
         _navigationManager.InitialiseLabourPools();
+        _navigationManager.InitialiseLocationContainers();
 
         _playerManager.RefreshPlayerMoves();
     }
