@@ -8,7 +8,7 @@ public class LocationManager : MonoBehaviour
     private Forest _forest;
     private MarbleQuarry _marbleQuarry;
     private GraniteQuarry _graniteQuarry;
-    private Constantinople _constantinople;
+    private Rome _rome;
     private ConstructionSite _constructionSite1;
     private ConstructionSite _constructionSite2;
     private ConstructionSite _constructionSite3;
@@ -25,12 +25,12 @@ public class LocationManager : MonoBehaviour
         _forest = new Forest();
         _marbleQuarry = new MarbleQuarry();
         _graniteQuarry = new GraniteQuarry();
-        _constantinople = new Constantinople();
+        _rome = new Rome();
         _constructionSite1 = new ConstructionSite(LocationType.ConstructionSite1, "Construction Site 1");
         _constructionSite2 = new ConstructionSite(LocationType.ConstructionSite2, "Construction Site 2");
         _constructionSite3 = new ConstructionSite(LocationType.ConstructionSite3, "Construction Site 3");
 
-        _locations.Add(LocationType.Constantinople, _constantinople);
+        _locations.Add(LocationType.Rome, _rome);
         _locations.Add(LocationType.ConstructionSite1, _constructionSite1);
         _locations.Add(LocationType.ConstructionSite2, _constructionSite2);
         _locations.Add(LocationType.ConstructionSite3, _constructionSite3);
@@ -38,7 +38,7 @@ public class LocationManager : MonoBehaviour
         _locations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _locations.Add(LocationType.Forest, _forest);
 
-        _workerlLocations.Add(LocationType.Constantinople, _constantinople);
+        _workerlLocations.Add(LocationType.Rome, _rome);
         _workerlLocations.Add(LocationType.ConstructionSite1, _constructionSite1);
         _workerlLocations.Add(LocationType.ConstructionSite2, _constructionSite2);
         _workerlLocations.Add(LocationType.ConstructionSite3, _constructionSite3);
@@ -46,10 +46,10 @@ public class LocationManager : MonoBehaviour
         _workerlLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _workerlLocations.Add(LocationType.Forest, _forest);
 
-        _labourPoolLocations.Add(LocationType.Constantinople, _constantinople);
-        _labourPoolLocations.Add(LocationType.ConstructionSite1, _constantinople);
-        _labourPoolLocations.Add(LocationType.ConstructionSite2, _constantinople);
-        _labourPoolLocations.Add(LocationType.ConstructionSite3, _constantinople);
+        _labourPoolLocations.Add(LocationType.Rome, _rome);
+        _labourPoolLocations.Add(LocationType.ConstructionSite1, _rome);
+        _labourPoolLocations.Add(LocationType.ConstructionSite2, _rome);
+        _labourPoolLocations.Add(LocationType.ConstructionSite3, _rome);
         _labourPoolLocations.Add(LocationType.GraniteQuarry, _graniteQuarry);
         _labourPoolLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _labourPoolLocations.Add(LocationType.Forest, _forest);

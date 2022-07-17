@@ -18,7 +18,7 @@ public class NavigationManager : MonoBehaviour {
     [SerializeField] private UILocationContainer _forestContainer;
     [SerializeField] private UILocationContainer _marbleQuarryContainer;
     [SerializeField] private UILocationContainer _graniteQuarryContainer;
-    [SerializeField] private UILocationContainer _constantinopleContainer;
+    [SerializeField] private UILocationContainer _romeContainer;
     [SerializeField] private MonumentLocationUIContainer _constructionSite1Container;
     [SerializeField] private MonumentLocationUIContainer _constructionSite2Container;
     [SerializeField] private MonumentLocationUIContainer _constructionSite3Container;
@@ -68,9 +68,9 @@ public class NavigationManager : MonoBehaviour {
         {
             Debug.LogError("_graniteQuarryContainer is not set");
         }
-        if (_constantinopleContainer == null)
+        if (_romeContainer == null)
         {
-            Debug.LogError("_constantinopleContainer is not set");
+            Debug.LogError("_romeContainer is not set");
         }
         if (_constructionSite1Container == null)
         {
@@ -105,7 +105,7 @@ public class NavigationManager : MonoBehaviour {
         _forestContainer.SetLocationType(LocationType.Forest);
         _marbleQuarryContainer.SetLocationType(LocationType.MarbleQuarry);
         _graniteQuarryContainer.SetLocationType(LocationType.GraniteQuarry);
-        _constantinopleContainer.SetLocationType(LocationType.Constantinople);
+        _romeContainer.SetLocationType(LocationType.Rome);
 
         _constructionSite1Container.SetLocationType(LocationType.ConstructionSite1);
         _constructionSite2Container.SetLocationType(LocationType.ConstructionSite2);
@@ -133,7 +133,7 @@ public class NavigationManager : MonoBehaviour {
         }
         for (int l = 0; l < _initialCityLabourPoolSize; l++)
         {
-            _constantinopleContainer.GrowLabourPool();
+            _romeContainer.GrowLabourPool();
         }
     }
 
@@ -207,8 +207,8 @@ public class NavigationManager : MonoBehaviour {
                 return _marbleQuarryContainer;
             case LocationType.GraniteQuarry:
                 return _graniteQuarryContainer;
-            case LocationType.Constantinople:
-                return _constantinopleContainer;
+            case LocationType.Rome:
+                return _romeContainer;
             case LocationType.ConstructionSite1:
                 return _constructionSite1Container;
             case LocationType.ConstructionSite2:

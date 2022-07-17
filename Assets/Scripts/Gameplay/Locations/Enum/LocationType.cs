@@ -3,7 +3,7 @@ public enum LocationType
     Forest,
     MarbleQuarry,
     GraniteQuarry,
-    Constantinople,
+    Rome,
     ConstructionSite1,
     ConstructionSite2,
     ConstructionSite3,

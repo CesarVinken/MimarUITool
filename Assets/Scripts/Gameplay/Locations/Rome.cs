@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Constantinople : IWorkerLocation, ILabourPoolLocation
+public class Rome : IWorkerLocation, ILabourPoolLocation
 {
     public ResourceType ResourceType { get; private set; } = ResourceType.LabourTime;
-    public LocationType LocationType { get; private set; } = LocationType.Constantinople;
-    public string Name { get; private set; } = "Constantinople";
+    public LocationType LocationType { get; private set; } = LocationType.Rome;
+    public string Name { get; private set; } = "Rome";
     public static List<IWorker> LabourPoolWorkers { get; private set; } = new List<IWorker>();
 
     public void AddWorkerToLabourPool()

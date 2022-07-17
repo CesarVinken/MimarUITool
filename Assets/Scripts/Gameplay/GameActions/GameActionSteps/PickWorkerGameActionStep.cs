@@ -91,7 +91,7 @@ public class PickWorkerGameActionStep : IGameActionStep
             for (int i = 0; i < labourPoolWorkers.Count; i++)
             {
                 LocationType labourPoolWorkerLocation = labourPoolWorkers[i].Location.LocationType;
-                if (labourPoolWorkerLocation == LocationType.Constantinople || labourPoolWorkerLocation == actionLocation.LocationType)
+                if (labourPoolWorkerLocation == LocationType.Rome || labourPoolWorkerLocation == actionLocation.LocationType)
                 {
                     usableWorkers.Add(labourPoolWorkers[i]);
                 }
@@ -109,6 +109,7 @@ public class PickWorkerGameActionStep : IGameActionStep
     {
         HireWorkerActionType hireWorkerActionType = DetermineWorkerActionType(worker);
         GameActionWorkerSelectionTileElement workerSelectionTileElement = GameActionElementInitialiser.InitialiseWorkerSelectionTile(this, worker, hireWorkerActionType);
+
 
         if (!WorkerActionPossible(workerSelectionTileElement, worker))
         {

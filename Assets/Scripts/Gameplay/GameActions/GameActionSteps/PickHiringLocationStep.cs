@@ -49,7 +49,7 @@ public class PickHiringLocationStep : IGameActionStep, IUILocationSelectionGameA
         Dictionary<LocationType, IWorkerLocation> workerLocations = LocationManager.Instance.GetWorkerLocations();
         foreach (KeyValuePair<LocationType, IWorkerLocation> item in workerLocations)
         {
-            if (item.Key == LocationType.Constantinople) continue;
+            if (item.Key == LocationType.Rome) continue;
 
             AddTargetLocationElement(player, item.Value);
         }
