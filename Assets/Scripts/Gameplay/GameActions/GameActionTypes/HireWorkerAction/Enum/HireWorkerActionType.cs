@@ -1,4 +1,4 @@
-public enum HireWorkerActionType
+public enum WorkerActionType
 {
     Bribe,
     ExtendContract,

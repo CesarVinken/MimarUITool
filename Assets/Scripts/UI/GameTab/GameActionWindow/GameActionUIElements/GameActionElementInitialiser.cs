@@ -17,6 +17,22 @@ public class GameActionElementInitialiser
         return stepLabelElement;
     }
 
+    public static IGameActionElement InitialiseInputField(IGameActionStep uiToolGameActionStep, string labelText)
+    {
+        GameObject inputFieldPrefab = GameActionAssetHandler.Instance.GetInputFieldPrefab();
+        GameObject inputFieldPrefabGO = GameObject.Instantiate(inputFieldPrefab);
+        GameActionInputFieldElement inputFieldPrefabElement = inputFieldPrefabGO.GetComponent<GameActionInputFieldElement>();
+
+        if (inputFieldPrefabElement == null)
+        {
+            Debug.LogError($"could not find inputFieldPrefabElement script");
+        }
+
+        inputFieldPrefabElement.SetLabel(labelText);
+        inputFieldPrefabElement.Initialise(uiToolGameActionStep);
+        return inputFieldPrefabElement;
+    }
+
     public static IGameActionElement InitialiseMainContentLabel(IGameActionStep uiToolGameActionStep, string contentText)
     {
         GameObject mainContentLabelPrefab = GameActionAssetHandler.Instance.GetMainContentLabelPrefab();
@@ -28,7 +44,7 @@ public class GameActionElementInitialiser
             Debug.LogError($"could not find mainContentLabelElement script");
         }
 
-        mainContentLabelElement.Setup(contentText);
+        mainContentLabelElement.SetText(contentText);
         mainContentLabelElement.Initialise(uiToolGameActionStep);
         return mainContentLabelElement;
     }
@@ -102,7 +118,7 @@ public class GameActionElementInitialiser
         return locationSelectionTileElement;
     }
 
-    public static GameActionWorkerSelectionTileElement InitialiseWorkerSelectionTile(PickWorkerGameActionStep pickWorkerStep, IWorker worker, HireWorkerActionType hireWorkerActionType)
+    public static GameActionWorkerSelectionTileElement InitialiseWorkerSelectionTile(PickWorkerGameActionStep pickWorkerStep, IWorker worker, WorkerActionType hireWorkerActionType)
     {
         GameObject workerSelectionTileElementPrefab = GameActionAssetHandler.Instance.GetWorkerSelectionTilePrefab();
         GameObject workerSelectionTileElementGO = GameObject.Instantiate(workerSelectionTileElementPrefab);

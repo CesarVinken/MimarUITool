@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
     [SerializeField] protected Image _workerIcon;
 
     public IWorker Worker { get; private set; }
-    public HireWorkerActionType HireWorkerActionType { get; private set; }
+    public WorkerActionType WorkerActionType { get; private set; }
     public bool IsAvailable { get; private set; } = true;
 
     public GameObject GetGameObject()
@@ -38,10 +37,10 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
         _button.onClick.AddListener(delegate { OnClick(); });
     }
 
-    public void SetUp(IWorker worker, PickWorkerGameActionStep pickWorkerGameActionStep, HireWorkerActionType hireWorkerActionType)
+    public void SetUp(IWorker worker, PickWorkerGameActionStep pickWorkerGameActionStep, WorkerActionType workerActionType)
     {
         Worker = worker;
-        HireWorkerActionType = hireWorkerActionType;
+        WorkerActionType = workerActionType;
         _uiToolGameActionStep = pickWorkerGameActionStep;
     }
 

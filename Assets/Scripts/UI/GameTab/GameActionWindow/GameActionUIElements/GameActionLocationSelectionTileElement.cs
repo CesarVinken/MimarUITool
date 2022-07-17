@@ -22,7 +22,13 @@ public class GameActionLocationSelectionTileElement : MonoBehaviour, IGameAction
         return transform;
     }
 
-    private void Awake()
+    public void SetUp(ILocation location, IUILocationSelectionGameActionStep locationSelectionGameActionStep)
+    {
+        TargetLocation = location;
+        _uiToolGameActionStep = locationSelectionGameActionStep;
+    }
+
+    public void Initialise(IGameActionStep uiToolGameActionStep)
     {
         if (_button == null)
         {
@@ -32,17 +38,8 @@ public class GameActionLocationSelectionTileElement : MonoBehaviour, IGameAction
         {
             Debug.LogError($"could not find buttonLabel on {gameObject.name}");
         }
+
         _button.onClick.AddListener(delegate { OnClick(); });
-    }
-
-    public void SetUp(ILocation location, IUILocationSelectionGameActionStep locationSelectionGameActionStep)
-    {
-        TargetLocation = location;
-        _uiToolGameActionStep = locationSelectionGameActionStep;
-    }
-
-    public void Initialise(IGameActionStep uiToolGameActionStep)
-    {
         _buttonLabel.text = $"{TargetLocation.Name}";
     }
 

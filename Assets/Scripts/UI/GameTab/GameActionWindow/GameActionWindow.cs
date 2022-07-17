@@ -97,6 +97,11 @@ public class GameActionWindow : MonoBehaviour
             elementTransform.SetParent(_mainContentContainer);
             elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
+        else if (element is GameActionInputFieldElement)
+        {
+            elementTransform.SetParent(_mainContentContainer);
+            elementTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        }
         else
         {
             new NotImplementedException("element type", element.GetType().ToString());

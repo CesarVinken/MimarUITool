@@ -15,7 +15,7 @@ public class GameActionMainContentTextBlockElement : MonoBehaviour, IGameActionE
         return transform;
     }
 
-    public void Setup(string content)
+    public void SetText(string content)
     {
         _label.text = content;
     }

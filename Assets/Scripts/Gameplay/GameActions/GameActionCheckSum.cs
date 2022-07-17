@@ -4,7 +4,6 @@ public class GameActionCheckSum
 
     public IGameAction GameAction { get; private set; }
     public ILocation Location { get; private set; }
-    public IWorker Worker { get; private set; }
 
     public void WithPlayer(Player player)
     {
@@ -21,8 +20,4 @@ public class GameActionCheckSum
         Location = location;
     }
 
-    public void WithWorker(IWorker worker)
-    {
-        Worker = worker;
-    }
 }

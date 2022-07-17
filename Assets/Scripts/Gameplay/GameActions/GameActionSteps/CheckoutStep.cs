@@ -71,6 +71,34 @@ public class CheckoutStep : IGameActionStep
             return $"{gameActionCheckSum.GameAction.GetName()} will do SOEMTHING to a worker at {gameActionCheckSum.Location.Name}\n" +
                 $"The costs will be SOMETHING";
         }
+        else if (previousStep is SetHiringTermStep)
+        {
+            SetHiringTermStep setHiringTermStep = previousStep as SetHiringTermStep;
+            WorkerGameAction workerGameAction = gameActionCheckSum.GameAction as WorkerGameAction;
+
+            if(workerGameAction == null)
+            {
+                Debug.LogError($"Could not parse the GameAction {gameActionCheckSum.GameAction.GetGameActionType()} as a WorkerGameAction");
+            }
+
+            int contractDuration = workerGameAction.GetContractDuration();
+
+            switch (setHiringTermStep.WorkerActionType)
+            {
+                case WorkerActionType.ExtendContract:
+                    int existingContractDuration = workerGameAction.GetWorker().ServiceLength;
+                    return $"{gameActionCheckSum.GameAction.GetName()} will extend the contract of a worker by {contractDuration} turns to a total of {contractDuration + existingContractDuration} turns.\n" +
+                            $"The costs will be SOMETHING";
+                case WorkerActionType.Hire:
+                    return $"{gameActionCheckSum.GameAction.GetName()} will hire a worker for {contractDuration} turns.\n" +
+                            $"The costs will be SOMETHING";
+                default:
+                    new NotImplementedException($"No checkout was defined with the WorkerActionType {setHiringTermStep.WorkerActionType}");
+                    return "";
+            }
+            
+
+        }
         else if(previousStep is PickConstructionSiteUpgradeStep)
         {
             PickConstructionSiteUpgradeStep pickConstructionSiteUpgradeStep = previousStep as PickConstructionSiteUpgradeStep;

@@ -37,6 +37,10 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         {
             _label.text = "Select a destination";
         }
+        else if (uiToolGameActionStep is PickWorkerGameActionStep)
+        {
+            _label.text = "Select a worker";
+        }
         else if (uiToolGameActionStep is PickHiringLocationStep)
         {
             _label.text = "Select a location";
@@ -45,9 +49,13 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         {
             _label.text = "Select an upgrade";
         }
-        else if(uiToolGameActionStep is PlayerPickStep)
+        else if (uiToolGameActionStep is PlayerPickStep)
         {
             _label.text = "Select player";
+        }
+        else if (uiToolGameActionStep is SetHiringTermStep)
+        {
+            _label.text = "Set a contract length";
         }
         else if (uiToolGameActionStep is PickGameActionStep)
         {
@@ -61,6 +69,7 @@ public class GameActionStepLabelElement : MonoBehaviour, IGameActionElement
         }
         else
         {
+            Debug.LogWarning($"UNKNOWN STEP TYPE { uiToolGameActionStep.GetType()}");
             _label.text = $"UNKNOWN STEP TYPE {uiToolGameActionStep.GetType()}";
         }
     }

@@ -5952,7 +5952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 83.24, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506097335
@@ -11032,6 +11032,8 @@ MonoBehaviour:
   _mainContentLabelPrefab: {fileID: 3956194564753485251, guid: 3b4b1519b8c327e4992be20789ff2aa6,
     type: 3}
   _workerSelectionTilePrefab: {fileID: 2202137820020949588, guid: 1a580b13eea81414893f199958935e5d,
+    type: 3}
+  _inputFieldPrefab: {fileID: 1258292494577016244, guid: 1affbae723175f94dbcdc983cd22b65c,
     type: 3}
 --- !u!1 &929982465
 GameObject:

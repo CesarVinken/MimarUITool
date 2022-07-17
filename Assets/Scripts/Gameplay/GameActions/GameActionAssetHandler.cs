@@ -13,6 +13,8 @@ public class GameActionAssetHandler : MonoBehaviour
     [SerializeField] private GameObject _constructionSiteUpgradeSelectionTilePrefab;
     [SerializeField] private GameObject _mainContentLabelPrefab;
     [SerializeField] private GameObject _workerSelectionTilePrefab;
+    [SerializeField] private GameObject _inputFieldPrefab;
+
 
     private void Awake()
     {
@@ -99,5 +101,10 @@ public class GameActionAssetHandler : MonoBehaviour
     public GameObject GetWorkerSelectionTilePrefab()
     {
         return _workerSelectionTilePrefab;
+    }
+
+    public GameObject GetInputFieldPrefab()
+    {
+        return _inputFieldPrefab;
     }
 }

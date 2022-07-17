@@ -44,8 +44,6 @@ public class UpgradeConstructionSiteGameAction : IGameAction
 
     public bool IsAvailableForPlayer(Player player)
     {
-        //_plannedUpgrade = player.StockpileMaximum.GetNextUpgrade();
-
         // check if player is at maximum upgrade level
         UpgradeLevel highestLevel = player.StockpileMaximum.MaximumUpgrade;
         int currentCap = player.StockpileMaximum.Value;

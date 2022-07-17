@@ -73,8 +73,34 @@ public class PickWorkerGameActionStep : IGameActionStep
 
     public void NextStep()
     {
-        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithWorker(_selectedTileElement.Worker);
-        GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());//TODO based on the worker situation, set follow up step
+        GameActionCheckSum checkSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
+        WorkerGameAction gameAction = checkSum.GameAction as WorkerGameAction;
+
+        if (gameAction == null)
+        {
+            Debug.LogError($"Could not parse the game action of type {checkSum.GameAction.GetType()} as a WorkerGameAction");
+        }
+
+        WorkerActionType workerActionType = _selectedTileElement.WorkerActionType;
+        gameAction.WithWorkerActionType(workerActionType);
+        gameAction.WithWorker(_selectedTileElement.Worker);
+
+        switch (workerActionType)
+        {
+            case WorkerActionType.Bribe:
+                gameAction.WithContractDuration(_selectedTileElement.Worker.ServiceLength);
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
+                break;
+            case WorkerActionType.ExtendContract:
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new SetHiringTermStep(workerActionType));
+                break;
+            case WorkerActionType.Hire:
+                GameActionStepHandler.CurrentGameActionSequence.AddStep(new SetHiringTermStep(workerActionType));
+                break;
+            default:
+                new NotImplementedException("WorkerActionType", workerActionType.ToString());
+                break;
+        }
 
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
@@ -107,7 +133,7 @@ public class PickWorkerGameActionStep : IGameActionStep
 
     private void AddWorkerElement(IWorker worker)
     {
-        HireWorkerActionType hireWorkerActionType = DetermineWorkerActionType(worker);
+        WorkerActionType hireWorkerActionType = DetermineWorkerActionType(worker);
         GameActionWorkerSelectionTileElement workerSelectionTileElement = GameActionElementInitialiser.InitialiseWorkerSelectionTile(this, worker, hireWorkerActionType);
 
 
@@ -119,42 +145,42 @@ public class PickWorkerGameActionStep : IGameActionStep
         _elements.Add(workerSelectionTileElement);
     }
 
-    private HireWorkerActionType DetermineWorkerActionType(IWorker worker)
+    private WorkerActionType DetermineWorkerActionType(IWorker worker)
     {
         Player actionInitiator = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
         PlayerNumber employer = worker.Employer;
 
         if (actionInitiator.PlayerNumber == employer)
         {
-            return HireWorkerActionType.ExtendContract;
+            return WorkerActionType.ExtendContract;
         }
         if(employer == PlayerNumber.None)
         {
-            return HireWorkerActionType.Hire;
+            return WorkerActionType.Hire;
         }
-        return HireWorkerActionType.Bribe;
+        return WorkerActionType.Bribe;
     }
 
     private bool WorkerActionPossible(GameActionWorkerSelectionTileElement workerSelectionTileElement, IWorker worker)
     {
-        HireWorkerActionType hireWorkerActionType = workerSelectionTileElement.HireWorkerActionType;
+        WorkerActionType hireWorkerActionType = workerSelectionTileElement.WorkerActionType;
         Player actionInitiator = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
 
         switch (hireWorkerActionType)
         {
-            case HireWorkerActionType.Bribe:
+            case WorkerActionType.Bribe:
                 if(actionInitiator.Gold.Value < 8)
                 {
                     return false;
                 }
                 break;
-            case HireWorkerActionType.ExtendContract:
+            case WorkerActionType.ExtendContract:
                 if (actionInitiator.Gold.Value < 2)
                 {
                     return false;
                 }
                 break;
-            case HireWorkerActionType.Hire:
+            case WorkerActionType.Hire:
                 if (actionInitiator.Gold.Value < 4)
                 {
                     return false;
