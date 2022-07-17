@@ -4,11 +4,27 @@ public class UpgradeConstructionSiteGameAction : IGameAction
 {
     private GameActionType _gameActionType;
     private IConstructionSiteUpgrade _plannedUpgrade;
+    private ConstructionSiteUpgradeType _constructionSiteUpgradeType;
 
     public UpgradeConstructionSiteGameAction()
     {
         _gameActionType = GameActionType.UpgradeConstructionSite;
-        _plannedUpgrade = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.StockpileMaximum.GetNextUpgrade();
+    }
+
+    public void WithUpgradeType(ConstructionSiteUpgradeType constructionSiteUpgradeType)
+    {
+        _constructionSiteUpgradeType = constructionSiteUpgradeType;
+
+        switch (_constructionSiteUpgradeType)
+        {
+            case ConstructionSiteUpgradeType.StockpileMaximum:
+                _plannedUpgrade = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.StockpileMaximum.GetNextUpgrade();
+                break;
+            default:
+                new NotImplementedException("ConstructionSiteUpgradeType", _constructionSiteUpgradeType.ToString());
+                break;
+        }
+
     }
 
     public string GetName()
@@ -19,6 +35,11 @@ public class UpgradeConstructionSiteGameAction : IGameAction
     public GameActionType GetGameActionType()
     {
         return _gameActionType;
+    }
+
+    public ConstructionSiteUpgradeType GetConstructionSiteUpgradeType()
+    {
+        return _constructionSiteUpgradeType;
     }
 
     public bool IsAvailableForPlayer(Player player)
@@ -34,9 +55,12 @@ public class UpgradeConstructionSiteGameAction : IGameAction
 
         // check if player has resources to pay material costs
 
-        for (int i = 0; i < _plannedUpgrade.Costs.Count; i++)
+        // TODO: Make a list of all available upgrades to check if the player can afford at least one of them. Currently we only check the next stockpile upgrade
+        IConstructionSiteUpgrade stockpileUpgrade = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.StockpileMaximum.GetNextUpgrade();
+
+        for (int i = 0; i < stockpileUpgrade.Costs.Count; i++)
         {
-            IAccumulativePlayerStat cost = _plannedUpgrade.Costs[i];
+            IAccumulativePlayerStat cost = stockpileUpgrade.Costs[i];
             IResource resource = cost as IResource;
             if (cost != null && player.Resources[resource.GetResourceType()].Value < resource.Value)
             {

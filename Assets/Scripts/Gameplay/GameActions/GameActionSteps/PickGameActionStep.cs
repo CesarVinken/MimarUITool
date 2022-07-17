@@ -39,7 +39,7 @@ public class PickGameActionStep : IGameActionStep
 
         // List here all the possible Actions
         AddGameActionElement(gameActionInitiator, new TravelGameAction());
-        AddGameActionElement(gameActionInitiator, new HireWorkerGameAction());
+        AddGameActionElement(gameActionInitiator, new WorkerGameAction());
         AddGameActionElement(gameActionInitiator, new UpgradeConstructionSiteGameAction());
 
         // by default select first available tile
@@ -81,7 +81,7 @@ public class PickGameActionStep : IGameActionStep
         GameActionType gameActionType = _selectedGameAction.GetGameActionType();
         switch (gameActionType)
         {
-            case GameActionType.HireWorker:
+            case GameActionType.ManageWorker:
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickHiringLocationStep());
                 break;
             case GameActionType.Travel:

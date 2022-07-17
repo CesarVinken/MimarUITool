@@ -1,6 +1,6 @@
 public enum GameActionType
 {
-    HireWorker,
+    ManageWorker,
     Travel,
     UpgradeConstructionSite
 }

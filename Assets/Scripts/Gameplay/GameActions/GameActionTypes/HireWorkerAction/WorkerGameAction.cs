@@ -1,13 +1,13 @@
 
 using System.Collections.Generic;
 
-public class HireWorkerGameAction : IGameAction
+public class WorkerGameAction : IGameAction
 {
     private GameActionType _gameActionType;
 
-    public HireWorkerGameAction()
+    public WorkerGameAction()
     {
-        _gameActionType = GameActionType.HireWorker;
+        _gameActionType = GameActionType.ManageWorker;
     }
     public string GetName()
     {

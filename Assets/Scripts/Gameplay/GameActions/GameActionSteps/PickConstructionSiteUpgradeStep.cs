@@ -70,10 +70,20 @@ public class PickConstructionSiteUpgradeStep : IGameActionStep
 
     public void NextStep()
     {
+        GameActionCheckSum checkSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
+        UpgradeConstructionSiteGameAction gameAction = checkSum.GameAction as UpgradeConstructionSiteGameAction;
+
+        if(gameAction == null)
+        {
+            Debug.LogError($"Could not parse the game action of type {checkSum.GameAction.GetType()} as a UpgradeConstructionSiteGameAction");
+        }
+
+        gameAction.WithUpgradeType(_selectedUpgrade.ConstructionSiteUpgradeType);
+
         GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
 
-        LocationType constructionSiteLocation = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player.Monument.ConstructionSite;
-        GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithLocation(LocationManager.Instance.GetLocation(constructionSiteLocation));
+        LocationType constructionSiteLocation = checkSum.Player.Monument.ConstructionSite;
+        checkSum.WithLocation(LocationManager.Instance.GetLocation(constructionSiteLocation));
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 

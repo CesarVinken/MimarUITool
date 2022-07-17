@@ -7,7 +7,17 @@ public class UpgradeConstructionSiteGameActionHandler : IGameActionHandler
     {
         _gameActionCheckSum = gameActionCheckSum;
 
-        UpgradeStockpile(gameActionCheckSum.Player);
+        UpgradeConstructionSiteGameAction upgradeConstructionSiteGameAction = gameActionCheckSum.GameAction as UpgradeConstructionSiteGameAction;
+
+        switch (upgradeConstructionSiteGameAction.GetConstructionSiteUpgradeType())
+        {
+            case ConstructionSiteUpgradeType.StockpileMaximum:
+                UpgradeStockpile(gameActionCheckSum.Player);
+                break;
+            default:
+                new NotImplementedException("ConstructionSiteUpgradeType", upgradeConstructionSiteGameAction.GetConstructionSiteUpgradeType().ToString());
+                break;
+        }
     }
 
     private void UpgradeStockpile(Player player)

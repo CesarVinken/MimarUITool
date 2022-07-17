@@ -24,7 +24,7 @@ public class GameActionExecutor
 
         switch (gameActionType)
         {
-            case GameActionType.HireWorker:
+            case GameActionType.ManageWorker:
                 Debug.Log($"EXECUTE ACTION ---- Hire a worker for {gameActionCheckSum.Player.Name}");
                 break;
             case GameActionType.Travel:
