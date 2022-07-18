@@ -26,6 +26,8 @@ public class GameActionExecutor
         {
             case GameActionType.ManageWorker:
                 Debug.Log($"EXECUTE ACTION ---- Hire a worker for {gameActionCheckSum.Player.Name}");
+                WorkerGameActionHandler workerGameActionHandler = new WorkerGameActionHandler();
+                workerGameActionHandler.Handle(gameActionCheckSum);
                 break;
             case GameActionType.Travel:
                 Debug.Log($"EXECUTE ACTION ---- {gameActionCheckSum.Player.Name} travels to {gameActionCheckSum.Location.Name}");

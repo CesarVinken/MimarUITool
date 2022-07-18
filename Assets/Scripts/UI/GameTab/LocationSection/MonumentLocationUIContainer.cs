@@ -51,8 +51,39 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         });
         _addWorkerButton.onClick.AddListener(() =>
         {
-            AddWorker();
+            OnAddWorkerButtonClick();
         });
+    }
+
+    private void Start()
+    {
+        GameFlowManager.Instance.HireWorkerEvent += OnHireWorkerEvent;
+    }
+
+    private void OnAddWorkerButtonClick()
+    {
+        AddWorker();
+    }
+
+    public void OnHireWorkerEvent(object sender, HireWorkerEvent e)
+    {
+        if(e.Worker.Location.LocationType != LocationType.Rome)
+        {
+            return;
+        }
+
+        if (e.Employer == PlayerNumber.None)
+        {
+            Debug.LogWarning($"TODO: Remove worker from construction site HERE");
+            return;
+        }
+
+        Player player = PlayerManager.Instance.Players[e.Employer];
+
+        if (player.Monument.ConstructionSite != _locationType) return;
+
+        CityWorkerTile workerTile = AddWorker();
+        workerTile.UpdateServiceLength(e.ContractLength);
     }
 
     public void Initialise()
@@ -122,10 +153,10 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
     }
 
     // Add worker tile to construction site, remove neutral worker tile work Rome location
-    public void AddWorker()
+    public CityWorkerTile AddWorker()
     {
         List<WorkerTile> romeWorkerTiles = _romeContainer.GetWorkerTiles();
-        if (romeWorkerTiles.Count < 1) return; // There should be neutral workers available in the shared worker pool
+        if (romeWorkerTiles.Count < 1) return null; // There should be neutral workers available in the shared worker pool
 
         IWorkerLocation buildingSiteLocation = LocationManager.Instance.GetWorkerLocation(_locationType);
 
@@ -141,7 +172,7 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         if (workerTile == null)
         {
             Debug.LogError($"Could not parse worker as a CityWorkerTile");
-            return;
+            return null;
         }
 
         List<IWorker> updatedLabourPool = LabourPoolHandler.AddCityWorkerToLabourPool(Rome.LabourPoolWorkers, buildingSiteLocation);
@@ -149,6 +180,7 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         workerTile.Initialise(_locationType, workerTile.Worker);
         _workerTiles.Add(workerTile);
         _romeContainer.RemoveWorkerTile(lastNeutralWorkerTile);
+        return workerTile;
     }
 
     public void AddPlayerToLocation(Player player)

@@ -13,6 +13,7 @@ public class GameFlowManager : MonoBehaviour
     private GameActionExecutor _gameActionExecutor;
 
     public event EventHandler<MonumentComponentCompletionStateChangeEvent> MonumentComponentCompletionStateChangeEvent;
+    public event EventHandler<HireWorkerEvent> HireWorkerEvent;
 
     public void Setup()
     {
@@ -22,7 +23,6 @@ public class GameFlowManager : MonoBehaviour
 
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
-
     }
 
     public void AddPlannedGameAction(GameActionCheckSum gameAction)
@@ -78,5 +78,11 @@ public class GameFlowManager : MonoBehaviour
     public void ExecuteMonumentComponentStateChangeEvent(PlayerNumber affectedPlayer, MonumentComponent affectedComponent, MonumentComponentState state)
     {
         MonumentComponentCompletionStateChangeEvent?.Invoke(this, new MonumentComponentCompletionStateChangeEvent(affectedPlayer, affectedComponent, state));
+    }
+
+    public void ExecuteHireWorkerEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker, int contractLength)
+    {
+        Debug.LogWarning($"We will evoke the HIRE WORKER EVENT");
+        HireWorkerEvent?.Invoke(this, new HireWorkerEvent(eventTriggerSourceType, employer, worker, contractLength));
     }
 }

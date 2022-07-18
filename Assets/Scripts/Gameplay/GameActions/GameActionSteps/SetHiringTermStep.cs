@@ -67,7 +67,7 @@ public class SetHiringTermStep : IGameActionStep
         {
             Debug.LogError($"Could not parse the GameAction {checksum.GameAction.GetGameActionType()} as a WorkerGameAction");
         }
-        workerGameAction.WithContractDuration(_addedContractDuration);
+        workerGameAction.WithContractLength(_addedContractDuration);
         // TODO SET CONTRACT TERMS
         GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
 

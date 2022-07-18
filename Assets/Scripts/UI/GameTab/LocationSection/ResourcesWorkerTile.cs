@@ -19,10 +19,6 @@ public class ResourcesWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _workerIcon");
         }
-        //if (_stateText == null)
-        //{
-        //    Debug.LogError($"Could not find _stateText");
-        //}
         if (_serviceLengthInputField == null)
         {
             Debug.LogError($"Could not find _serviceLengthInputField");
@@ -30,11 +26,41 @@ public class ResourcesWorkerTile : WorkerTile
 
         _employerButton.onClick.AddListener(() =>
         {
-            SetNextEmployer();
+            OnEmployerButtonClick();
+            //SetNextEmployer();
         });
 
         _serviceLengthInputField.onValueChanged.AddListener(delegate { OnChangeServiceLengthInputField(); });
+    }
 
+    private void Start()
+    {
+        GameFlowManager.Instance.HireWorkerEvent += OnHireWorkerEvent;
+    }
+
+    private void OnEmployerButtonClick()
+    {
+        PlayerNumber nextEmployer = GetNextEmployer();
+        GameFlowManager.Instance.ExecuteHireWorkerEvent(EventTriggerSourceType.Forced, nextEmployer, Worker, _contractLength);
+
+    }
+
+    public void OnHireWorkerEvent(object sender, HireWorkerEvent e)
+    {
+        if (e.Worker.UIWorkerTile != this) return;
+
+        //CityWorker worker = Worker as CityWorker;
+        //if (worker.CurrentBuildingTask?.MonumentComponentType == e.AffectedComponent.MonumentComponentType)
+        //{
+        //    worker.SetCurrentBuildingTask(null); // Unassign worker from current job
+        //}
+        SetEmployer(e.Employer);
+
+        if(e.Employer != PlayerNumber.None)
+        {
+            UpdateServiceLength(e.ContractLength);
+        }
+        //UpdateDropdownComponentList();
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)
@@ -58,31 +84,34 @@ public class ResourcesWorkerTile : WorkerTile
             _serviceLengthInputField.gameObject.SetActive(true);
         }
         Worker.SetEmployer(newEmployer);
-    }
-
-    public void SetNextEmployer()
-    {
-        switch (Worker.Employer)
-        {
-            case PlayerNumber.Player1:
-                SetEmployer(PlayerNumber.Player2);
-                break;
-            case PlayerNumber.Player2:
-                SetEmployer(PlayerNumber.Player3);
-                break;
-            case PlayerNumber.Player3:
-                SetEmployer(PlayerNumber.None);
-                break;
-            case PlayerNumber.None:
-                SetEmployer(PlayerNumber.Player1);
-                UpdateServiceLength(3);
-                break;
-            default:
-                break;
-        }
 
         SetButtonColour(Worker.Employer);
     }
+
+
+    //public void SetNextEmployer()
+    //{
+    //    switch (Worker.Employer)
+    //    {
+    //        case PlayerNumber.Player1:
+    //            SetEmployer(PlayerNumber.Player2);
+    //            break;
+    //        case PlayerNumber.Player2:
+    //            SetEmployer(PlayerNumber.Player3);
+    //            break;
+    //        case PlayerNumber.Player3:
+    //            SetEmployer(PlayerNumber.None);
+    //            break;
+    //        case PlayerNumber.None:
+    //            SetEmployer(PlayerNumber.Player1);
+    //            UpdateServiceLength(3);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+
+    //    SetButtonColour(Worker.Employer);
+    //}
 
     protected override void SetWorkerToNeutral()
     {

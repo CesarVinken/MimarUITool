@@ -5,7 +5,7 @@ public class WorkerGameAction : IGameAction
 {
     private GameActionType _gameActionType;
     private WorkerActionType _workerActionType;
-    private int _contractDuration;
+    private int _contractLength;
     private IWorker _worker;
 
     public WorkerGameAction()
@@ -23,9 +23,9 @@ public class WorkerGameAction : IGameAction
         _worker = worker;
     }
 
-    public void WithContractDuration(int duration)
+    public void WithContractLength(int duration)
     {
-        _contractDuration = duration;
+        _contractLength = duration;
     }
 
     public string GetName()
@@ -49,9 +49,9 @@ public class WorkerGameAction : IGameAction
         return _workerActionType;
     }
 
-    public int GetContractDuration()
+    public int GetContractLength()
     {
-        return _contractDuration;
+        return _contractLength;
     }
 
     public bool IsAvailableForPlayer(Player player)

@@ -78,7 +78,7 @@ public class CheckoutStep : IGameActionStep
                 Debug.LogError($"Could not parse the GameAction {gameActionCheckSum.GameAction.GetGameActionType()} as a WorkerGameAction");
             }
 
-            int contractDuration = workerGameAction.GetContractDuration();
+            int contractDuration = workerGameAction.GetContractLength();
             IWorker worker = workerGameAction.GetWorker();
 
             switch (workerGameAction.GetWorkerActionType())

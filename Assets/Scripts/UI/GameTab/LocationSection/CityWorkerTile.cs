@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -24,10 +23,6 @@ public class CityWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _workerIcon");
         }
-        //if (_stateText == null)
-        //{
-        //    Debug.LogError($"Could not find _stateText");
-        //}
         if (_serviceLengthInputField == null)
         {
             Debug.LogError($"Could not find _serviceLengthInputField");
@@ -78,13 +73,11 @@ public class CityWorkerTile : WorkerTile
     {
         if (newEmployer == PlayerNumber.None)
         {
-            //_stateText.gameObject.SetActive(false);
             _dropdown.gameObject.SetActive(false);
             _serviceLengthInputField.gameObject.SetActive(false);
         }
         else
         {
-            //_stateText.gameObject.SetActive(true);
             _dropdown.gameObject.SetActive(true);
             _serviceLengthInputField.gameObject.SetActive(true);
         }

@@ -88,7 +88,7 @@ public class PickWorkerGameActionStep : IGameActionStep
         switch (workerActionType)
         {
             case WorkerActionType.Bribe:
-                workerGameAction.WithContractDuration(_selectedTileElement.Worker.ServiceLength);
+                workerGameAction.WithContractLength(_selectedTileElement.Worker.ServiceLength);
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
                 break;
             case WorkerActionType.ExtendContract:
