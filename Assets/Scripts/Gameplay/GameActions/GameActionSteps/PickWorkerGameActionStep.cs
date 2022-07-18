@@ -74,21 +74,21 @@ public class PickWorkerGameActionStep : IGameActionStep
     public void NextStep()
     {
         GameActionCheckSum checkSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
-        WorkerGameAction gameAction = checkSum.GameAction as WorkerGameAction;
+        WorkerGameAction workerGameAction = checkSum.GameAction as WorkerGameAction;
 
-        if (gameAction == null)
+        if (workerGameAction == null)
         {
             Debug.LogError($"Could not parse the game action of type {checkSum.GameAction.GetType()} as a WorkerGameAction");
         }
 
         WorkerActionType workerActionType = _selectedTileElement.WorkerActionType;
-        gameAction.WithWorkerActionType(workerActionType);
-        gameAction.WithWorker(_selectedTileElement.Worker);
+        workerGameAction.WithWorkerActionType(workerActionType);
+        workerGameAction.WithWorker(_selectedTileElement.Worker);
 
         switch (workerActionType)
         {
             case WorkerActionType.Bribe:
-                gameAction.WithContractDuration(_selectedTileElement.Worker.ServiceLength);
+                workerGameAction.WithContractDuration(_selectedTileElement.Worker.ServiceLength);
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
                 break;
             case WorkerActionType.ExtendContract:

@@ -57,59 +57,59 @@ public class CheckoutStep : IGameActionStep
     private string WriteCheckout(IGameActionStep previousStep)
     {
         GameActionCheckSum gameActionCheckSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
+        IGameAction gameAction = gameActionCheckSum.GameAction;
         if (previousStep is PickGameActionStep)
         {
             return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {gameActionCheckSum.Player.Name}";
         }
-        else if (previousStep is PickTravelLocationStep)
+        else if (gameAction is TravelGameAction)
         {
-            return $"{gameActionCheckSum.GameAction.GetName()} will travel to {gameActionCheckSum.Location.Name}\n" +
+            return $"{gameAction.GetName()} will travel to {gameActionCheckSum.Location.Name}\n" +
                 $"The costs will be 1 {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}";
         }
-        else if (previousStep is PickWorkerGameActionStep)
+        else if (gameAction is WorkerGameAction)
         {
-            return $"{gameActionCheckSum.GameAction.GetName()} will do SOEMTHING to a worker at {gameActionCheckSum.Location.Name}\n" +
-                $"The costs will be SOMETHING";
-        }
-        else if (previousStep is SetHiringTermStep)
-        {
-            SetHiringTermStep setHiringTermStep = previousStep as SetHiringTermStep;
+
+            Debug.LogWarning($"previousStep { previousStep.GetType()}");
             WorkerGameAction workerGameAction = gameActionCheckSum.GameAction as WorkerGameAction;
 
-            if(workerGameAction == null)
+            if (workerGameAction == null)
             {
                 Debug.LogError($"Could not parse the GameAction {gameActionCheckSum.GameAction.GetGameActionType()} as a WorkerGameAction");
             }
 
             int contractDuration = workerGameAction.GetContractDuration();
+            IWorker worker = workerGameAction.GetWorker();
 
-            switch (setHiringTermStep.WorkerActionType)
+            switch (workerGameAction.GetWorkerActionType())
             {
                 case WorkerActionType.ExtendContract:
-                    int existingContractDuration = workerGameAction.GetWorker().ServiceLength;
-                    return $"{gameActionCheckSum.GameAction.GetName()} will extend the contract of a worker by {contractDuration} turns to a total of {contractDuration + existingContractDuration} turns.\n" +
+                    int existingContractDuration = worker.ServiceLength;
+                    return $"{gameAction.GetName()} will extend the contract of a worker by {contractDuration} turns to a total of {contractDuration + existingContractDuration} turns.\n" +
                             $"The costs will be SOMETHING";
                 case WorkerActionType.Hire:
-                    return $"{gameActionCheckSum.GameAction.GetName()} will hire a worker for {contractDuration} turns.\n" +
+                    return $"{gameAction.GetName()} will hire a worker for {contractDuration} turns.\n" +
                             $"The costs will be SOMETHING";
+                case WorkerActionType.Bribe:
+                    Player targetPlayer = PlayerManager.Instance.Players[worker.Employer];
+                    return $"{gameAction.GetName()} will bribe {PlayerUtility.GetPossessivePlayerString(targetPlayer)} worker at {gameActionCheckSum.Location.Name}\n" +
+                        $"The costs will be SOMETHING";
                 default:
-                    new NotImplementedException($"No checkout was defined with the WorkerActionType {setHiringTermStep.WorkerActionType}");
+                    new NotImplementedException($"No checkout was defined with the WorkerActionType {workerGameAction.GetWorkerActionType()}");
                     return "";
             }
-            
-
         }
-        else if(previousStep is PickConstructionSiteUpgradeStep)
+        else if(gameAction is UpgradeConstructionSiteGameAction)
         {
             PickConstructionSiteUpgradeStep pickConstructionSiteUpgradeStep = previousStep as PickConstructionSiteUpgradeStep;
             string costsString = WriteCosts(gameActionCheckSum);
-            return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {gameActionCheckSum.Player.Name}\n" +
+            return $"Perform a {gameAction.GetName()} action for {gameActionCheckSum.Player.Name}\n" +
                 $"{pickConstructionSiteUpgradeStep.GetEffectDescription()}\n" +
                 $"The costs will be {costsString}";
         }
         else
         {
-            new NotImplementedException($"No checkout was defined with the previous step {previousStep.GetType()}");
+            new NotImplementedException($"No checkout was defined for the GameAction {gameAction.GetName()}");
             return "";
         }
     }
