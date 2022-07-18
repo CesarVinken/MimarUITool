@@ -19,8 +19,6 @@ public class SetHiringTermStep : IGameActionStep
 
     public List<IGameActionElement> Initialise()
     {
-
-        Debug.LogWarning($"Initialise");
         IGameActionElement stepLabelElement = GameActionElementInitialiser.InitialiseTitleLabel(this);
         _elements.Add(stepLabelElement);
 

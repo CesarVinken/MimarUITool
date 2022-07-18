@@ -34,6 +34,7 @@ public class CityWorkerTile : WorkerTile
     private void Start()
     {
         GameFlowManager.Instance.MonumentComponentCompletionStateChangeEvent += OnMonumentComponentCompletionChange;
+        GameFlowManager.Instance.ExtendWorkerContractEvent += OnExtendWorkerContractEvent;
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)
@@ -189,7 +190,7 @@ public class CityWorkerTile : WorkerTile
     }
 
     // A player completes a monument component
-    public void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
+    private void OnMonumentComponentCompletionChange(object sender, MonumentComponentCompletionStateChangeEvent e)
     {
         if (e.AffectedPlayer != Worker.Employer) return;
 
@@ -200,6 +201,14 @@ public class CityWorkerTile : WorkerTile
         }
 
         UpdateDropdownComponentList();
+    }
+
+    private void OnExtendWorkerContractEvent(object sender, ExtendWorkerContractEvent e)
+    {
+        if (e.Worker.UIWorkerTile != this) return;
+        if (e.Employer == PlayerNumber.None) return;
+
+        UpdateServiceLength(e.NewContractLength);
     }
 
     public override void Destroy()

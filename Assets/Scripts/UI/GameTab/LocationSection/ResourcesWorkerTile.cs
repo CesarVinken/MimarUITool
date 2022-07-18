@@ -27,7 +27,6 @@ public class ResourcesWorkerTile : WorkerTile
         _employerButton.onClick.AddListener(() =>
         {
             OnEmployerButtonClick();
-            //SetNextEmployer();
         });
 
         _serviceLengthInputField.onValueChanged.AddListener(delegate { OnChangeServiceLengthInputField(); });
@@ -36,31 +35,30 @@ public class ResourcesWorkerTile : WorkerTile
     private void Start()
     {
         GameFlowManager.Instance.HireWorkerEvent += OnHireWorkerEvent;
+        GameFlowManager.Instance.ExtendWorkerContractEvent += OnExtendWorkerContractEvent;
     }
 
     private void OnEmployerButtonClick()
     {
         PlayerNumber nextEmployer = GetNextEmployer();
         GameFlowManager.Instance.ExecuteHireWorkerEvent(EventTriggerSourceType.Forced, nextEmployer, Worker, _contractLength);
-
     }
 
-    public void OnHireWorkerEvent(object sender, HireWorkerEvent e)
+    private void OnHireWorkerEvent(object sender, HireWorkerEvent e)
     {
         if (e.Worker.UIWorkerTile != this) return;
+        if (e.Employer == PlayerNumber.None) return;
 
-        //CityWorker worker = Worker as CityWorker;
-        //if (worker.CurrentBuildingTask?.MonumentComponentType == e.AffectedComponent.MonumentComponentType)
-        //{
-        //    worker.SetCurrentBuildingTask(null); // Unassign worker from current job
-        //}
         SetEmployer(e.Employer);
+        UpdateServiceLength(e.ContractLength);
+    }
 
-        if(e.Employer != PlayerNumber.None)
-        {
-            UpdateServiceLength(e.ContractLength);
-        }
-        //UpdateDropdownComponentList();
+    private void OnExtendWorkerContractEvent(object sender, ExtendWorkerContractEvent e)
+    {
+        if (e.Worker.UIWorkerTile != this) return;
+        if (e.Employer == PlayerNumber.None) return;
+
+        UpdateServiceLength(e.NewContractLength);
     }
 
     public override void Initialise(LocationType locationType, IWorker worker)

@@ -1,3 +1,4 @@
+using UnityEngine;
 public class WorkerGameActionHandler : IGameActionHandler
 {
     private GameActionCheckSum _gameActionCheckSum;
@@ -16,7 +17,9 @@ public class WorkerGameActionHandler : IGameActionHandler
                 BribeWorker(worker);
                 break;
             case WorkerActionType.ExtendContract:
-                ExtendContract(worker);
+                int existingContractLength = worker.ServiceLength;
+                int additionalContractLength = workerGameAction.GetContractLength();
+                ExtendContract(worker, existingContractLength + additionalContractLength);
                 break;
             case WorkerActionType.Hire:
                 HireWorker(worker, workerGameAction.GetContractLength());
@@ -53,15 +56,16 @@ public class WorkerGameActionHandler : IGameActionHandler
         //SetButtonColour(Worker.Employer);
     }
 
-    private void ExtendContract(IWorker worker)
+    private void ExtendContract(IWorker worker, int contractDuration)
     {
-
+        Debug.LogWarning($"FULL contractDuration {contractDuration}");
+        Player player = _gameActionCheckSum.Player;
+        GameFlowManager.Instance.ExecuteExtendWorkerContractEvent(EventTriggerSourceType.GameAction, player.PlayerNumber, worker, contractDuration);
     }
 
     private void HireWorker(IWorker worker, int contractDuration)
     {
         Player player = _gameActionCheckSum.Player;
         GameFlowManager.Instance.ExecuteHireWorkerEvent(EventTriggerSourceType.GameAction, player.PlayerNumber, worker, contractDuration);
-        player.SetGold(player.Gold.Value - TempConfiguration.HireWorkingFee);
     }
 }

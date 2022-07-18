@@ -11,15 +11,19 @@ public class GameFlowManager : MonoBehaviour
 
     private List<GameActionCheckSum> _plannedGameActions = new List<GameActionCheckSum>();
     private GameActionExecutor _gameActionExecutor;
+    private GameActionPaymentHandler _gameActionPaymentHandler;
 
     public event EventHandler<MonumentComponentCompletionStateChangeEvent> MonumentComponentCompletionStateChangeEvent;
     public event EventHandler<HireWorkerEvent> HireWorkerEvent;
+    public event EventHandler<ExtendWorkerContractEvent> ExtendWorkerContractEvent;
 
     public void Setup()
     {
         Instance = this;
 
         _gameActionExecutor = new GameActionExecutor();
+        _gameActionPaymentHandler = new GameActionPaymentHandler();
+        _gameActionPaymentHandler.Initialise();
 
         GameTabContainer gameTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.GameTab) as GameTabContainer;
         gameTabContainer.GetNextMoveButton().UpdateText();
@@ -84,5 +88,11 @@ public class GameFlowManager : MonoBehaviour
     {
         Debug.LogWarning($"We will evoke the HIRE WORKER EVENT");
         HireWorkerEvent?.Invoke(this, new HireWorkerEvent(eventTriggerSourceType, employer, worker, contractLength));
+    }
+
+    public void ExecuteExtendWorkerContractEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker, int contractLength)
+    {
+        Debug.LogWarning($"We will evoke the EXTEND WORKER CONTRACT EVENT");
+        ExtendWorkerContractEvent?.Invoke(this, new ExtendWorkerContractEvent(eventTriggerSourceType, employer, worker, contractLength));
     }
 }
