@@ -110,10 +110,10 @@ public class UILocationContainer : MonoBehaviour, ILocationUIContainer
         workerTileToRemove.Destroy();
     }
 
-    public List<WorkerTile> GetWorkerTiles()
-    {
-        return WorkerTiles;
-    }
+    //public List<WorkerTile> GetWorkerTiles()
+    //{
+    //    return WorkerTiles;
+    //}
 
     public void GrowLabourPool()
     {
@@ -121,13 +121,13 @@ public class UILocationContainer : MonoBehaviour, ILocationUIContainer
 
         ILabourPoolLocation location = LocationManager.Instance.GetLabourPoolLocation(_locationType);
 
-        WorkerTile workerTile = AddWorkerTile(location.LocationType);
+        WorkerTile workerTile = AddWorkerTile();
         location.AddWorkerToLabourPool();
         List<IWorker> labourpoolWorkers = location.GetLabourPoolWorkers();
         workerTile.Initialise(_locationType, labourpoolWorkers[labourpoolWorkers.Count - 1]);
     }
 
-    public WorkerTile AddWorkerTile(LocationType locationType)
+    public WorkerTile AddWorkerTile()
     {
         IWorkerLocation location = LocationManager.Instance.GetWorkerLocation(_locationType);
 

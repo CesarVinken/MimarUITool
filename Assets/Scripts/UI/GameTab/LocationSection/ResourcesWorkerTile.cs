@@ -35,6 +35,7 @@ public class ResourcesWorkerTile : WorkerTile
     private void Start()
     {
         GameFlowManager.Instance.HireWorkerEvent += OnHireWorkerEvent;
+        GameFlowManager.Instance.BribeWorkerEvent += OnBribeWorkerEvent;
         GameFlowManager.Instance.ExtendWorkerContractEvent += OnExtendWorkerContractEvent;
     }
 
@@ -53,6 +54,15 @@ public class ResourcesWorkerTile : WorkerTile
         UpdateServiceLength(e.ContractLength);
     }
 
+    private void OnBribeWorkerEvent(object sender, BribeWorkerEvent e)
+    {
+        if (e.Worker.UIWorkerTile != this) return;
+        if (e.Employer == PlayerNumber.None) return;
+
+        Debug.LogWarning($"bribe");
+        SetEmployer(e.Employer);
+    }
+
     private void OnExtendWorkerContractEvent(object sender, ExtendWorkerContractEvent e)
     {
         if (e.Worker.UIWorkerTile != this) return;
@@ -63,7 +73,7 @@ public class ResourcesWorkerTile : WorkerTile
 
     public override void Initialise(LocationType locationType, IWorker worker)
     {
-        _locationType = locationType;
+        LocationType = locationType;
         Worker = worker;
 
         Worker.SetUIWorkerTile(this);
@@ -85,31 +95,6 @@ public class ResourcesWorkerTile : WorkerTile
 
         SetButtonColour(Worker.Employer);
     }
-
-
-    //public void SetNextEmployer()
-    //{
-    //    switch (Worker.Employer)
-    //    {
-    //        case PlayerNumber.Player1:
-    //            SetEmployer(PlayerNumber.Player2);
-    //            break;
-    //        case PlayerNumber.Player2:
-    //            SetEmployer(PlayerNumber.Player3);
-    //            break;
-    //        case PlayerNumber.Player3:
-    //            SetEmployer(PlayerNumber.None);
-    //            break;
-    //        case PlayerNumber.None:
-    //            SetEmployer(PlayerNumber.Player1);
-    //            UpdateServiceLength(3);
-    //            break;
-    //        default:
-    //            break;
-    //    }
-
-    //    SetButtonColour(Worker.Employer);
-    //}
 
     protected override void SetWorkerToNeutral()
     {

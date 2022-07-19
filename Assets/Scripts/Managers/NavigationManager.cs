@@ -197,6 +197,15 @@ public class NavigationManager : MonoBehaviour {
         CurrentTab.Activate();
     }
 
+    public MonumentLocationUIContainer GetConstructionSiteContainers(LocationType locationType)
+    {
+        if(_constructionSiteContainersByLocationType.TryGetValue(locationType, out MonumentLocationUIContainer container))
+        {
+            return container;
+        }
+        return null;
+    }
+
     public ILocationUIContainer GetLocationUIContainer(LocationType locationType)
     {
         switch (locationType)

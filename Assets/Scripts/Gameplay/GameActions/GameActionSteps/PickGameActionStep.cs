@@ -88,7 +88,6 @@ public class PickGameActionStep : IGameActionStep
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickTravelLocationStep());
                 break;
             case GameActionType.UpgradeConstructionSite:
-                //GameActionStepHandler.CurrentGameActionSequence.AddStep(new CheckoutStep());
                 GameActionStepHandler.CurrentGameActionSequence.AddStep(new PickConstructionSiteUpgradeStep());
                 break;
             default:

@@ -69,8 +69,6 @@ public class CheckoutStep : IGameActionStep
         }
         else if (gameAction is WorkerGameAction)
         {
-
-            Debug.LogWarning($"previousStep { previousStep.GetType()}");
             WorkerGameAction workerGameAction = gameActionCheckSum.GameAction as WorkerGameAction;
 
             if (workerGameAction == null)
@@ -92,7 +90,7 @@ public class CheckoutStep : IGameActionStep
                             $"The costs will be SOMETHING";
                 case WorkerActionType.Bribe:
                     Player targetPlayer = PlayerManager.Instance.Players[worker.Employer];
-                    return $"{gameAction.GetName()} will bribe {PlayerUtility.GetPossessivePlayerString(targetPlayer)} worker at {gameActionCheckSum.Location.Name}\n" +
+                    return $"{gameActionCheckSum.Player.Name} will bribe {PlayerUtility.GetPossessivePlayerString(targetPlayer)} worker at {gameActionCheckSum.Location.Name}\n" +
                         $"The costs will be SOMETHING";
                 default:
                     new NotImplementedException($"No checkout was defined with the WorkerActionType {workerGameAction.GetWorkerActionType()}");

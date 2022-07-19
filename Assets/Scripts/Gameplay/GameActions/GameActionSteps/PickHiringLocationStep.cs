@@ -49,7 +49,8 @@ public class PickHiringLocationStep : IGameActionStep, IUILocationSelectionGameA
         Dictionary<LocationType, IWorkerLocation> workerLocations = LocationManager.Instance.GetWorkerLocations();
         foreach (KeyValuePair<LocationType, IWorkerLocation> item in workerLocations)
         {
-            if (item.Key == LocationType.Rome) continue;
+            // Only show the construction site of the player
+            if (item.Value.ResourceType == ResourceType.LabourTime && item.Key != player.Monument.ConstructionSite) continue;
 
             AddTargetLocationElement(player, item.Value);
         }

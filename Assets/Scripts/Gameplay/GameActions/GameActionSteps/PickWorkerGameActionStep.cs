@@ -112,21 +112,21 @@ public class PickWorkerGameActionStep : IGameActionStep
         List<IWorker> labourPoolWorkers = labourPoolLocation.GetLabourPoolWorkers();
         List<IWorker> usableWorkers = new List<IWorker>();
 
-        if (actionLocation is ConstructionSite) // only include neutral workers, or workers that are at the specified action location
-        {
-            for (int i = 0; i < labourPoolWorkers.Count; i++)
-            {
-                LocationType labourPoolWorkerLocation = labourPoolWorkers[i].Location.LocationType;
-                if (labourPoolWorkerLocation == LocationType.Rome || labourPoolWorkerLocation == actionLocation.LocationType)
-                {
-                    usableWorkers.Add(labourPoolWorkers[i]);
-                }
-            }
-        }
-        else
-        {
+        //if (actionLocation is ConstructionSite) // only include neutral workers, or workers that are at the specified action location
+        //{
+        //    for (int i = 0; i < labourPoolWorkers.Count; i++)
+        //    {
+        //        LocationType labourPoolWorkerLocation = labourPoolWorkers[i].Location.LocationType;
+        //        if (labourPoolWorkerLocation == LocationType.Rome || labourPoolWorkerLocation == actionLocation.LocationType)
+        //        {
+        //            usableWorkers.Add(labourPoolWorkers[i]);
+        //        }
+        //    }
+        //}
+        //else
+        //{
             usableWorkers.AddRange(labourPoolWorkers);
-        }
+        //}
 
         return usableWorkers;
     }
@@ -136,11 +136,11 @@ public class PickWorkerGameActionStep : IGameActionStep
         WorkerActionType hireWorkerActionType = DetermineWorkerActionType(worker);
         GameActionWorkerSelectionTileElement workerSelectionTileElement = GameActionElementInitialiser.InitialiseWorkerSelectionTile(this, worker, hireWorkerActionType);
 
-
         if (!WorkerActionPossible(workerSelectionTileElement, worker))
         {
             workerSelectionTileElement.MakeUnavailable();
         }
+
         _workerSelectionTiles.Add(workerSelectionTileElement);
         _elements.Add(workerSelectionTileElement);
     }

@@ -39,12 +39,12 @@ public class CityWorkerTile : WorkerTile
 
     public override void Initialise(LocationType locationType, IWorker worker)
     {
-        _locationType = locationType;
+        LocationType = locationType;
 
         Worker = worker;
         Worker.SetUIWorkerTile(this);
 
-        switch (_locationType)
+        switch (LocationType)
         {
             case LocationType.ConstructionSite1:
                 SetEmployer(PlayerNumber.Player1);
@@ -179,14 +179,16 @@ public class CityWorkerTile : WorkerTile
 
     protected override void SetWorkerToNeutral()
     {
-        MonumentLocationUIContainer constructionSiteContainer = NavigationManager.Instance.GetLocationUIContainer(Worker.Location.LocationType) as MonumentLocationUIContainer;
+        //MonumentLocationUIContainer constructionSiteContainer = NavigationManager.Instance.GetLocationUIContainer(Worker.Location.LocationType) as MonumentLocationUIContainer;
         
-        if(constructionSiteContainer == null)
-        {
-            Debug.LogError($"Could not parse constructionSiteContainer as a MonumentLocationUIContainer");
-        }
+        //if(constructionSiteContainer == null)
+        //{
+        //    Debug.LogError($"Could not parse constructionSiteContainer as a MonumentLocationUIContainer");
+        //}
 
-        constructionSiteContainer.RemoveWorkerFromSite(this);
+        MonumentLocationUIContainer.MoveWorkerToNewLocation(this, LocationType.Rome);
+        //constructionSiteContainer.ReturnToNeutralLabourPool(this);
+        //constructionSiteContainer.RemoveWorkerFromSite(this);
     }
 
     // A player completes a monument component

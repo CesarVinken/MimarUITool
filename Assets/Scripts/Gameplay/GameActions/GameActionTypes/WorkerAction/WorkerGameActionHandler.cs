@@ -32,33 +32,12 @@ public class WorkerGameActionHandler : IGameActionHandler
 
     private void BribeWorker(IWorker worker)
     {
-        //WorkerTile workerTile = worker.UIWorkerTile;
-        //GameFlowManager.Instance.ExecuteHireWorkerEvent(_gameActionCheckSum.Player.PlayerNumber, worker);
-        //switch (Worker.Employer)
-        //{
-        //    case PlayerNumber.Player1:
-        //        break;
-        //    case PlayerNumber.Player2:
-        //        SetEmployer(PlayerNumber.Player3);
-        //        break;
-        //    case PlayerNumber.Player3:
-        //        SetEmployer(PlayerNumber.None);
-        //        break;
-        //    case PlayerNumber.None:
-        //        SetEmployer(PlayerNumber.Player1);
-        //        UpdateServiceLength(3);
-        //        break;
-        //    default:
-        //        break;
-        //}
-        //SetEmployer(PlayerNumber.Player2);
-
-        //SetButtonColour(Worker.Employer);
+        Player player = _gameActionCheckSum.Player;
+        GameFlowManager.Instance.ExecuteBribeWorkerEvent(EventTriggerSourceType.GameAction, player.PlayerNumber, worker);
     }
 
     private void ExtendContract(IWorker worker, int contractDuration)
     {
-        Debug.LogWarning($"FULL contractDuration {contractDuration}");
         Player player = _gameActionCheckSum.Player;
         GameFlowManager.Instance.ExecuteExtendWorkerContractEvent(EventTriggerSourceType.GameAction, player.PlayerNumber, worker, contractDuration);
     }

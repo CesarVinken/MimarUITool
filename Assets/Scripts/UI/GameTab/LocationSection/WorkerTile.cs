@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public abstract class WorkerTile : MonoBehaviour
 {
     public IWorker Worker;
-    protected LocationType _locationType = LocationType.Rome;
+    public LocationType LocationType { get; protected set; } = LocationType.Rome;
 
     [SerializeField] protected Image _tileBackground;
     [SerializeField] protected Image _workerIcon;
