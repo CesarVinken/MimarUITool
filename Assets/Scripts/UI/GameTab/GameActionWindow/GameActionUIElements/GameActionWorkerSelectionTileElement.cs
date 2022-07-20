@@ -18,6 +18,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
     public bool IsAvailable { get; private set; } = true;
 
     private Player _player;
+    private LocationType _actionLocationType;
 
     public GameObject GetGameObject()
     {
@@ -53,6 +54,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
         _uiToolGameActionStep = pickWorkerGameActionStep;
 
         _player = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Player;
+        _actionLocationType = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.Location.LocationType;
     }
 
     public void Initialise(IGameActionStep uiToolGameActionStep)
@@ -69,21 +71,9 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
 
     private void SetCostsLabel()
     {
-        string costsString = "";
         List<IAccumulativePlayerStat> costs = GetCosts();
 
-        for (int i = 0; i < costs.Count; i++)
-        {
-            IAccumulativePlayerStat playerStat = _player.GetPlayerStat(costs[i]);
-            if (playerStat.Value < Math.Abs(costs[i].Value))
-            {
-                costsString += $"<color={ColourUtility.GetHexadecimalColour(ColourType.ErrorRed)}>{Math.Abs(costs[i].Value)}</color> {costs[i].InlineIcon} ";
-            }
-            else
-            {
-                costsString += $"{Math.Abs(costs[i].Value)} {costs[i].InlineIcon} ";
-            }
-        }
+        string costsString = GameActionUtility.GetCostsString(costs, _actionLocationType, _player);
 
         _costsLabel.text = costsString;
     }

@@ -114,31 +114,9 @@ public class CheckoutStep : IGameActionStep
 
     private string WriteCosts(GameActionCheckSum gameActionCheckSum)
     {
-        string costsString = "";
-
         List<IAccumulativePlayerStat> costs = gameActionCheckSum.GameAction.GetCosts();
 
-        int goldCosts = 0;
-        bool willTravel = gameActionCheckSum.Player.Location.LocationType != gameActionCheckSum.Location.LocationType;
-
-        if (willTravel)
-        {
-            goldCosts++;
-        }
-
-        for (int i = 0; i < costs.Count; i++)
-        {
-            int cost = costs[i].Value;
-            if(costs[i] is Gold)
-            {
-                cost += goldCosts;
-            }
-            costsString += $"{costs[i].Value} {costs[i].InlineIcon} ";
-        }
-        if(goldCosts > 0 && costs.FirstOrDefault(c => c is Gold) == null)
-        {
-            costsString += $"{goldCosts} {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)} ";
-        }
+        string costsString = GameActionUtility.GetCostsString(costs, gameActionCheckSum.Location.LocationType, gameActionCheckSum.Player);
 
         return costsString;
     }

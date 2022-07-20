@@ -61,6 +61,18 @@ public class WorkerGameAction : IGameAction
 
     public List<IAccumulativePlayerStat> GetCosts()
     {
-        return new List<IAccumulativePlayerStat>() { };
+        switch (_workerActionType)
+        {
+            case WorkerActionType.Bribe:
+                return TempConfiguration.BribeWorkerFee;
+            case WorkerActionType.ExtendContract:
+                return TempConfiguration.ExtendWorkerContractFee;
+            case WorkerActionType.Hire:
+                return TempConfiguration.HireWorkingFee;
+            default:
+                new NotImplementedException("WorkerActionType", _workerActionType.ToString());
+                return null;
+        }
     }
+
 }
