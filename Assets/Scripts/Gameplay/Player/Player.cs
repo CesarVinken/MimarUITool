@@ -183,6 +183,13 @@ public class Player
         }
     }
 
+    public IAccumulativePlayerStat GetPlayerStat(IAccumulativePlayerStat playerStat)
+    {
+        if (playerStat is Gold) return Gold;
+        else if (playerStat is Reputation) return Reputation;
+        else return null;
+    }
+
     private void UpdatePlayerStatUIContent()
     {
         PlayersTabContainer playersTabContainer = NavigationManager.Instance.GetMainTabContainer(MainTabType.PlayersTab) as PlayersTabContainer;

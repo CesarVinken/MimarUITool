@@ -16,7 +16,12 @@ public class GameActionPaymentHandler
         if (e.EventTriggerSourceType == EventTriggerSourceType.Forced) return;
 
         Player player = PlayerManager.Instance.Players[e.Employer];
-        player.SetGold(player.Gold.Value - TempConfiguration.HireWorkingFee);
+
+        for (int i = 0; i < TempConfiguration.HireWorkingFee.Count; i++)
+        {
+            IAccumulativePlayerStat playerStat = player.GetPlayerStat(TempConfiguration.HireWorkingFee[i]);
+            playerStat.AddValue(TempConfiguration.HireWorkingFee[i].Value);
+        }
     }
 
     public void OnExtendWorkerContractEvent(object sender, ExtendWorkerContractEvent e)
@@ -26,7 +31,12 @@ public class GameActionPaymentHandler
         if (e.EventTriggerSourceType == EventTriggerSourceType.Forced) return;
 
         Player player = PlayerManager.Instance.Players[e.Employer];
-        player.SetGold(player.Gold.Value - TempConfiguration.ExtendWorkerContractFee);
+
+        for (int i = 0; i < TempConfiguration.ExtendWorkerContractFee.Count; i++)
+        {
+            IAccumulativePlayerStat playerStat = player.GetPlayerStat(TempConfiguration.ExtendWorkerContractFee[i]);
+            playerStat.AddValue(TempConfiguration.ExtendWorkerContractFee[i].Value);
+        }
     }
 
     public void OnBribeWorkerEvent(object sender, BribeWorkerEvent e)
@@ -36,7 +46,10 @@ public class GameActionPaymentHandler
         if (e.EventTriggerSourceType == EventTriggerSourceType.Forced) return;
 
         Player player = PlayerManager.Instance.Players[e.Employer];
-        player.SetGold(player.Gold.Value - TempConfiguration.BribeWorkerGoldFee);
-        player.SetReputation(player.Reputation.Value - TempConfiguration.BribeWorkerReputationFee);
+        for (int i = 0; i < TempConfiguration.BribeWorkerFee.Count; i++)
+        {
+            IAccumulativePlayerStat playerStat = player.GetPlayerStat(TempConfiguration.BribeWorkerFee[i]);
+            playerStat.AddValue(TempConfiguration.BribeWorkerFee[i].Value);
+        }
     }
 }

@@ -111,7 +111,16 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 
     public void OnBribeWorkerEvent(object sender, BribeWorkerEvent e)
     {
+        if (e.Employer == PlayerNumber.None)
+        {
+            return;
+        }
+
+        ILabourPoolLocation labourPoolLocation = LocationManager.Instance.GetLabourPoolLocation(e.Worker.Location.LocationType);
+        if (labourPoolLocation.LocationType != LocationType.Rome) return;
+
         CityWorkerTile oldWorkerTile = e.Worker.UIWorkerTile as CityWorkerTile;
+
         Player newEmployer = PlayerManager.Instance.Players[e.Employer];
         LocationType newLocation = newEmployer.Monument.ConstructionSite;
 

@@ -5,6 +5,11 @@ public class Reputation : IAccumulativePlayerStat
     private int _amountCap = 999;
     public string InlineIcon { get; } = "<sprite=\"Icons\" index=4>";
 
+    public Reputation(int amount)
+    {
+        Value = amount;
+    }
+
     public Reputation(Player player)
     {
         Player = player;

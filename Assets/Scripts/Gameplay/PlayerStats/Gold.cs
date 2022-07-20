@@ -7,7 +7,12 @@ public class Gold : IAccumulativePlayerStat
 
     private int _amountCap = 999;
 
-    public Gold (Player player)
+    public Gold(int amount)
+    {
+        Value = amount;
+    }
+
+    public Gold(Player player)
     {
         Player = player;
     }
