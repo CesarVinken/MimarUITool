@@ -53,5 +53,4 @@ public class UpgradeConstructionSiteGameActionHandler : IGameActionHandler
         PlayerManager.Instance.GoToLocation(player, constructionSiteLocation.LocationType);
         player.SetGold(player.Gold.Value - 1);
     }
-
 }

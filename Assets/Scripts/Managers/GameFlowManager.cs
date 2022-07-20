@@ -87,19 +87,16 @@ public class GameFlowManager : MonoBehaviour
 
     public void ExecuteHireWorkerEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker, int contractLength)
     {
-        Debug.LogWarning($"We will evoke the HIRE WORKER EVENT");
         HireWorkerEvent?.Invoke(this, new HireWorkerEvent(eventTriggerSourceType, employer, worker, contractLength));
     }
 
     public void ExecuteExtendWorkerContractEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker, int contractLength)
     {
-        Debug.LogWarning($"We will evoke the EXTEND WORKER CONTRACT EVENT");
         ExtendWorkerContractEvent?.Invoke(this, new ExtendWorkerContractEvent(eventTriggerSourceType, employer, worker, contractLength));
     }
 
     public void ExecuteBribeWorkerEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker)
     {
-        Debug.LogWarning($"We will evoke the BRIBE WORKER EVENT");
         BribeWorkerEvent?.Invoke(this, new BribeWorkerEvent(eventTriggerSourceType, employer, worker));
     }
 }
