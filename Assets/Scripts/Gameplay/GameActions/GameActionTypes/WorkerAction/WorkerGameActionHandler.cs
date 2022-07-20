@@ -28,6 +28,8 @@ public class WorkerGameActionHandler : IGameActionHandler
                 new NotImplementedException("WorkerActionType", workerActionType.ToString());
                 break;
         }
+
+        HandleTravelling();
     }
 
     private void BribeWorker(IWorker worker)
@@ -46,5 +48,16 @@ public class WorkerGameActionHandler : IGameActionHandler
     {
         Player player = _gameActionCheckSum.Player;
         GameFlowManager.Instance.ExecuteHireWorkerEvent(EventTriggerSourceType.GameAction, player.PlayerNumber, worker, contractDuration);
+    }
+
+    private void HandleTravelling()
+    {
+        ILocation actionLocation = _gameActionCheckSum.Location;
+
+        if (actionLocation.LocationType == _gameActionCheckSum.Player.Location.LocationType) return; // If the player is already at the location, don't travel, don't subtract costs
+
+        Player player = _gameActionCheckSum.Player;
+        PlayerManager.Instance.GoToLocation(player, actionLocation.LocationType);
+        player.SetGold(player.Gold.Value - 1);
     }
 }
