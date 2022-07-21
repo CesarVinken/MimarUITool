@@ -15,12 +15,10 @@ public class GameActionExecutor
         for (int i = 0; i < gameActionsOrderedByPriority.Count; i++)
         {
             GameActionCheckSum checkSum = gameActionsOrderedByPriority[i];
-            bool willHandle = ActionTargetIsStillUnaffected(checkSum);
+            bool actionSuccess = ActionTargetIsStillUnaffected(checkSum);
+            checkSum.WithActionSuccess(actionSuccess);
 
-            if (willHandle)
-            {
-                HandlePlannedGameAction(gameActionsOrderedByPriority[i]); 
-            }
+            HandlePlannedGameAction(gameActionsOrderedByPriority[i]);
         }
 
         PlayerManager.Instance.RefreshPlayerMoves();

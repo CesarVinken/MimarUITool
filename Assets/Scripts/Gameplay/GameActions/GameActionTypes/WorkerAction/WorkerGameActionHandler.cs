@@ -5,7 +5,14 @@ public class WorkerGameActionHandler : IGameActionHandler
     
     public void Handle(GameActionCheckSum gameActionCheckSum)
     {
+
         _gameActionCheckSum = gameActionCheckSum;
+
+        if (!gameActionCheckSum.IsSuccessful)
+        {
+            HandleUnsuccessfulAction();
+            return;
+        }
 
         WorkerGameAction workerGameAction = _gameActionCheckSum.GameAction as WorkerGameAction;
         WorkerActionType workerActionType = workerGameAction.GetWorkerActionType();
@@ -29,6 +36,11 @@ public class WorkerGameActionHandler : IGameActionHandler
                 break;
         }
 
+        HandleTravelling();
+    }
+
+    private void HandleUnsuccessfulAction()
+    {
         HandleTravelling();
     }
 
