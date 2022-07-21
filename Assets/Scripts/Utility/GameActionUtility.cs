@@ -21,7 +21,7 @@ public class GameActionUtility
     {
         string costsString = "";
         bool willTravel = actingPlayer.Location.LocationType != actionLocationType;
-        int travelCost = -1;
+        int travelCost = TempConfiguration.TravellingGoldCost;
 
         if (willTravel)
         {

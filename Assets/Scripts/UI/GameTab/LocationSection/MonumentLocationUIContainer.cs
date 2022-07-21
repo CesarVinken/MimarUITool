@@ -88,16 +88,16 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 
     public void OnHireWorkerEvent(object sender, HireWorkerEvent e)
     {
+        if (e.Employer == PlayerNumber.None)
+        {
+            return;
+        }
+        
         Player player = PlayerManager.Instance.Players[e.Employer];
 
         if (player.Monument.ConstructionSite != _locationType) return;
 
         if (e.Worker.Location.LocationType != LocationType.Rome)
-        {
-            return;
-        }
-
-        if (e.Employer == PlayerNumber.None)
         {
             return;
         }

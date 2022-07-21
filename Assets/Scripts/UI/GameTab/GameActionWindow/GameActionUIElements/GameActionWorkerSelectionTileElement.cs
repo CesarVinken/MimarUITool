@@ -66,7 +66,16 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
 
     private void SetTitleLabel()
     {
-        _titleLabel.text = $"Worker";
+        string workerName = "Worker";
+        if (WorkerActionType == WorkerActionType.Hire) 
+        {
+            _titleLabel.text = $"{workerName}";
+        }
+        else
+        {
+            int contractLength = Worker.ServiceLength;
+            _titleLabel.text = $"{workerName} ({contractLength} {AssetManager.Instance.GetInlineIcon(InlineIconType.Turns)})";
+        }
     }
 
     private void SetCostsLabel()

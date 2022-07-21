@@ -202,6 +202,8 @@ public class AssetManager : MonoBehaviour
                 return "<sprite=\"Icons\" index=4>";
             case InlineIconType.LabourTime:
                 return "<sprite=\"Icons\" index=5>";
+            case InlineIconType.Turns:
+                return "<sprite=\"Icons\" index=6>";
             default:
                 return "UNKNOWN ICON"; 
         }

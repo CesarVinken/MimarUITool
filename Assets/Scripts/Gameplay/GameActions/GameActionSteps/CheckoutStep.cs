@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,13 +59,15 @@ public class CheckoutStep : IGameActionStep
     {
         GameActionCheckSum gameActionCheckSum = GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum;
         IGameAction gameAction = gameActionCheckSum.GameAction;
+        string playerName = gameActionCheckSum.Player.Name;
+
         if (previousStep is PickGameActionStep)
         {
-            return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {gameActionCheckSum.Player.Name}";
+            return $"Perform a {gameActionCheckSum.GameAction.GetName()} action for {playerName}";
         }
         else if (gameAction is TravelGameAction)
         {
-            return $"{gameAction.GetName()} will travel to {gameActionCheckSum.Location.Name}\n" +
+            return $"{playerName} will travel to {gameActionCheckSum.Location.Name}\n" +
                 $"The costs will be 1 {AssetManager.Instance.GetInlineIcon(InlineIconType.Gold)}";
         }
         else if (gameAction is WorkerGameAction)
@@ -78,20 +81,25 @@ public class CheckoutStep : IGameActionStep
 
             int contractDuration = workerGameAction.GetContractLength();
             IWorker worker = workerGameAction.GetWorker();
+            string costsString = $"The costs will be {WriteCosts(gameActionCheckSum)}";
 
+            string wagesString = WriteWages(TempConfiguration.WorkerWages);
             switch (workerGameAction.GetWorkerActionType())
             {
                 case WorkerActionType.ExtendContract:
                     int existingContractDuration = worker.ServiceLength;
-                    return $"{gameAction.GetName()} will extend the contract of a worker by {contractDuration} turns to a total of {contractDuration + existingContractDuration} turns.\n" +
-                            $"The costs will be SOMETHING";
+                    return $"{playerName} will extend the contract of a worker by {contractDuration} turns to a total of {contractDuration + existingContractDuration} turns.\n" +
+                            $"{costsString}\n" +
+                            $"Per turn {playerName} will pay {wagesString} for upkeep";
                 case WorkerActionType.Hire:
-                    return $"{gameAction.GetName()} will hire a worker for {contractDuration} turns.\n" +
-                            $"The costs will be SOMETHING";
+                    return $"{playerName} will hire a worker for {contractDuration} turns.\n" +
+                            $"{costsString}\n" +
+                            $"Per turn {playerName} will pay {wagesString} for upkeep";
                 case WorkerActionType.Bribe:
                     Player targetPlayer = PlayerManager.Instance.Players[worker.Employer];
-                    return $"{gameActionCheckSum.Player.Name} will bribe {PlayerUtility.GetPossessivePlayerString(targetPlayer)} worker at {gameActionCheckSum.Location.Name}\n" +
-                        $"The costs will be SOMETHING";
+                    return $"{playerName} will bribe {PlayerUtility.GetPossessivePlayerString(targetPlayer)} worker at {gameActionCheckSum.Location.Name}\n" +
+                            $"{costsString}\n" +
+                            $"Per turn {playerName} will pay {wagesString} for upkeep\n";
                 default:
                     new NotImplementedException($"No checkout was defined with the WorkerActionType {workerGameAction.GetWorkerActionType()}");
                     return "";
@@ -99,11 +107,11 @@ public class CheckoutStep : IGameActionStep
         }
         else if(gameAction is UpgradeConstructionSiteGameAction)
         {
+            string costsString = $"The costs will be {WriteCosts(gameActionCheckSum)}";
             PickConstructionSiteUpgradeStep pickConstructionSiteUpgradeStep = previousStep as PickConstructionSiteUpgradeStep;
-            string costsString = WriteCosts(gameActionCheckSum);
             return $"Perform a {gameAction.GetName()} action for {gameActionCheckSum.Player.Name}\n" +
                 $"{pickConstructionSiteUpgradeStep.GetEffectDescription()}\n" +
-                $"The costs will be {costsString}";
+                $"{costsString}";
         }
         else
         {
@@ -119,6 +127,17 @@ public class CheckoutStep : IGameActionStep
         string costsString = GameActionUtility.GetCostsString(costs, gameActionCheckSum.Location.LocationType, gameActionCheckSum.Player);
 
         return costsString;
+    }
+
+    private string WriteWages(List<IAccumulativePlayerStat> wages)
+    {
+        string wagesString = "";
+        for (int i = 0; i < wages.Count; i++)
+        {
+            int cost = wages[i].Value;
+            wagesString += $"{Math.Abs(cost)} {wages[i].InlineIcon} ";
+        }
+        return wagesString;
     }
 
     public void NextStep()

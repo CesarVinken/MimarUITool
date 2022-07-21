@@ -5,5 +5,6 @@ public enum InlineIconType
     Marble,
     Granite,
     Reputation,
-    LabourTime
+    LabourTime,
+    Turns
 }

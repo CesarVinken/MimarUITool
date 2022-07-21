@@ -9,6 +9,7 @@ public abstract class WorkerTile : MonoBehaviour
 
     [SerializeField] protected Image _tileBackground;
     [SerializeField] protected Image _workerIcon;
+    [SerializeField] protected Image _turnsLeftIcon;
 
     [SerializeField] protected TMP_InputField _serviceLengthInputField;
     protected int _contractLength = 0;

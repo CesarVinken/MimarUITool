@@ -11,6 +11,10 @@ public class ResourcesWorkerTile : WorkerTile
         {
             Debug.LogError($"Could not find _employerButton");
         }
+        if (_turnsLeftIcon == null)
+        {
+            Debug.LogError($"Could not find _turnsLeftIcon");
+        }
         if (_tileBackground == null)
         {
             Debug.LogError($"Could not find _tileBackground");
@@ -48,9 +52,14 @@ public class ResourcesWorkerTile : WorkerTile
     private void OnHireWorkerEvent(object sender, HireWorkerEvent e)
     {
         if (e.Worker.UIWorkerTile != this) return;
-        if (e.Employer == PlayerNumber.None) return;
 
         SetEmployer(e.Employer);
+
+        if (e.Employer == PlayerNumber.None)
+        {
+            return;
+        }
+        
         UpdateServiceLength(e.ContractLength);
     }
 
@@ -59,7 +68,6 @@ public class ResourcesWorkerTile : WorkerTile
         if (e.Worker.UIWorkerTile != this) return;
         if (e.Employer == PlayerNumber.None) return;
 
-        Debug.LogWarning($"bribe");
         SetEmployer(e.Employer);
     }
 
@@ -86,10 +94,12 @@ public class ResourcesWorkerTile : WorkerTile
         if (newEmployer == PlayerNumber.None)
         {
             _serviceLengthInputField.gameObject.SetActive(false);
+            _turnsLeftIcon.gameObject.SetActive(false);
         }
         else
         {
             _serviceLengthInputField.gameObject.SetActive(true);
+            _turnsLeftIcon.gameObject.SetActive(true);
         }
         Worker.SetEmployer(newEmployer);
 
