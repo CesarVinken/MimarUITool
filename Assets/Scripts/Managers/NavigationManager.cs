@@ -15,13 +15,15 @@ public class NavigationManager : MonoBehaviour {
 
     [Header("Containers")]
 
-    [SerializeField] private UILocationContainer _forestContainer;
-    [SerializeField] private UILocationContainer _marbleQuarryContainer;
-    [SerializeField] private UILocationContainer _graniteQuarryContainer;
-    [SerializeField] private UILocationContainer _romeContainer;
+    [SerializeField] private UIWorkerLocationContainer _forestContainer;
+    [SerializeField] private UIWorkerLocationContainer _marbleQuarryContainer;
+    [SerializeField] private UIWorkerLocationContainer _graniteQuarryContainer;
+    [SerializeField] private UIWorkerLocationContainer _romeContainer;
     [SerializeField] private MonumentLocationUIContainer _constructionSite1Container;
     [SerializeField] private MonumentLocationUIContainer _constructionSite2Container;
     [SerializeField] private MonumentLocationUIContainer _constructionSite3Container;
+    [SerializeField] private UILocationContainer _ostiaContainer;
+    [SerializeField] private UILocationContainer _forumRomanumContainer;
 
     [SerializeField] private GameTabContainer _gameTabContainer;
     [SerializeField] private PlayersTabContainer _playersTabContainer;
@@ -84,6 +86,14 @@ public class NavigationManager : MonoBehaviour {
         {
             Debug.LogError("_constructionSite3Container is not set");
         }
+        if (_ostiaContainer == null)
+        {
+            Debug.LogError("_ostiaContainer is not set");
+        }
+        if (_forumRomanumContainer == null)
+        {
+            Debug.LogError("_forumRomanumContainer is not set");
+        }
 
         if (_gameTabContainer == null)
         {
@@ -106,6 +116,8 @@ public class NavigationManager : MonoBehaviour {
         _marbleQuarryContainer.SetLocationType(LocationType.MarbleQuarry);
         _graniteQuarryContainer.SetLocationType(LocationType.GraniteQuarry);
         _romeContainer.SetLocationType(LocationType.Rome);
+        _ostiaContainer.SetLocationType(LocationType.Ostia);
+        _forumRomanumContainer.SetLocationType(LocationType.ForumRomanum);
 
         _constructionSite1Container.SetLocationType(LocationType.ConstructionSite1);
         _constructionSite2Container.SetLocationType(LocationType.ConstructionSite2);
@@ -113,7 +125,7 @@ public class NavigationManager : MonoBehaviour {
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite1, _constructionSite1Container);
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite2, _constructionSite2Container);
         _constructionSiteContainersByLocationType.Add(LocationType.ConstructionSite3, _constructionSite3Container);
-
+        
         SetupTabContainers();
     }
 
@@ -224,6 +236,10 @@ public class NavigationManager : MonoBehaviour {
                 return _constructionSite2Container;
             case LocationType.ConstructionSite3:
                 return _constructionSite3Container;
+            case LocationType.ForumRomanum:
+                return _forumRomanumContainer;
+            case LocationType.Ostia:
+                return _ostiaContainer;
             default:
                 new NotImplementedException("Location type", locationType.ToString());
                 return null;

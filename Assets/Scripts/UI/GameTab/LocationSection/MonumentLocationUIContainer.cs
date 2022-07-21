@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
 {
-    [SerializeField] private UILocationContainer _romeContainer;
+    [SerializeField] private UIWorkerLocationContainer _romeContainer;
 
     [SerializeField] private Button _addWorkerButton;
     [SerializeField] private Button _removeWorkerButton;
@@ -163,7 +163,7 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         MonumentLocationUIContainer oldLocationMonumentUIContainer = NavigationManager.Instance.GetConstructionSiteContainers(oldWorkerTile.Worker.Location.LocationType);
         MonumentLocationUIContainer newLocationMonumentUIContainer = NavigationManager.Instance.GetConstructionSiteContainers(newLocationType);
 
-        UILocationContainer romeContainer = NavigationManager.Instance.GetLocationUIContainer(LocationType.Rome) as UILocationContainer;
+        UIWorkerLocationContainer romeContainer = NavigationManager.Instance.GetLocationUIContainer(LocationType.Rome) as UIWorkerLocationContainer;
 
         if (oldLocationMonumentUIContainer == null)
         {
@@ -197,7 +197,13 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
     {
         if(newLocationMonumentUIContainer == null)
         {
-            UILocationContainer romeContainer = NavigationManager.Instance.GetLocationUIContainer(LocationType.Rome) as UILocationContainer;
+            UIWorkerLocationContainer romeContainer = NavigationManager.Instance.GetLocationUIContainer(LocationType.Rome) as UIWorkerLocationContainer;
+
+            if(romeContainer == null)
+            {
+                Debug.LogError($"Could not parse romeContainer");
+            }
+
             return AddWorkerTileToRome(romeContainer);
         }
         else
@@ -227,7 +233,7 @@ public class MonumentLocationUIContainer : MonoBehaviour, ILocationUIContainer
         return workerTile;
     }
 
-    private static WorkerTile AddWorkerTileToRome(UILocationContainer romeContainer)
+    private static WorkerTile AddWorkerTileToRome(UIWorkerLocationContainer romeContainer)
     {
         WorkerTile workerTile = romeContainer.AddWorkerTile();
 

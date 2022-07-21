@@ -9,6 +9,8 @@ public class LocationManager : MonoBehaviour
     private MarbleQuarry _marbleQuarry;
     private GraniteQuarry _graniteQuarry;
     private Rome _rome;
+    private Ostia _ostia;
+    private ForumRomanum _forumRomanum;
     private ConstructionSite _constructionSite1;
     private ConstructionSite _constructionSite2;
     private ConstructionSite _constructionSite3;
@@ -26,6 +28,8 @@ public class LocationManager : MonoBehaviour
         _marbleQuarry = new MarbleQuarry();
         _graniteQuarry = new GraniteQuarry();
         _rome = new Rome();
+        _ostia = new Ostia();
+        _forumRomanum = new ForumRomanum();
         _constructionSite1 = new ConstructionSite(LocationType.ConstructionSite1, "Construction Site 1");
         _constructionSite2 = new ConstructionSite(LocationType.ConstructionSite2, "Construction Site 2");
         _constructionSite3 = new ConstructionSite(LocationType.ConstructionSite3, "Construction Site 3");
@@ -37,6 +41,8 @@ public class LocationManager : MonoBehaviour
         _locations.Add(LocationType.GraniteQuarry, _graniteQuarry);
         _locations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _locations.Add(LocationType.Forest, _forest);
+        _locations.Add(LocationType.Ostia, _ostia);
+        _locations.Add(LocationType.ForumRomanum, _forumRomanum);
 
         _workerlLocations.Add(LocationType.Rome, _rome);
         _workerlLocations.Add(LocationType.ConstructionSite1, _constructionSite1);
@@ -54,15 +60,24 @@ public class LocationManager : MonoBehaviour
         _labourPoolLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
         _labourPoolLocations.Add(LocationType.Forest, _forest);
 
-        _playerLocations.Add(LocationType.ConstructionSite1, _constructionSite1);
-        _playerLocations.Add(LocationType.ConstructionSite2, _constructionSite2);
-        _playerLocations.Add(LocationType.ConstructionSite3, _constructionSite3);
-        _playerLocations.Add(LocationType.GraniteQuarry, _graniteQuarry);
-        _playerLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
-        _playerLocations.Add(LocationType.Forest, _forest);
+        foreach (KeyValuePair<LocationType, ILocation> item in _locations)
+        {
+            if (item.Value is IPlayerLocation)
+            {
+                _playerLocations.Add(item.Key, item.Value as IPlayerLocation);
+            }
+        }
+        //    _playerLocations.Add(LocationType.ConstructionSite1, _constructionSite1);
+        //    _playerLocations.Add(LocationType.ConstructionSite2, _constructionSite2);
+        //    _playerLocations.Add(LocationType.ConstructionSite3, _constructionSite3);
+        //    _playerLocations.Add(LocationType.GraniteQuarry, _graniteQuarry);
+        //    _playerLocations.Add(LocationType.MarbleQuarry, _marbleQuarry);
+        //    _playerLocations.Add(LocationType.Forest, _forest);
+        //    _playerLocations.Add(LocationType.ForumRomanum, _forumRomanum);
+        //    _playerLocations.Add(LocationType.Ostia, _ostia);
     }
 
-    public void InitialiseLocations()
+        public void InitialiseLocations()
     {
         _constructionSite1.SetName($"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player1])} Construction Site");
         _constructionSite2.SetName($"{PlayerUtility.GetPossessivePlayerString(PlayerManager.Instance.Players[PlayerNumber.Player2])} Construction Site");
@@ -131,7 +146,7 @@ public class LocationManager : MonoBehaviour
 
     public void UpdateLabourPoolLocationUI(LocationType locationType)
     {
-        UILocationContainer locationUIContainer = NavigationManager.Instance.GetLocationUIContainer(locationType) as UILocationContainer;
+        UIWorkerLocationContainer locationUIContainer = NavigationManager.Instance.GetLocationUIContainer(locationType) as UIWorkerLocationContainer;
 
         if(locationUIContainer == null)
         {
