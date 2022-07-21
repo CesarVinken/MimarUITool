@@ -82,8 +82,8 @@ public class CheckoutStep : IGameActionStep
             int contractDuration = workerGameAction.GetContractLength();
             IWorker worker = workerGameAction.GetWorker();
             string costsString = $"The costs will be {WriteCosts(gameActionCheckSum)}";
-
             string wagesString = WriteWages(TempConfiguration.WorkerWages);
+
             switch (workerGameAction.GetWorkerActionType())
             {
                 case WorkerActionType.ExtendContract:
@@ -123,8 +123,10 @@ public class CheckoutStep : IGameActionStep
     private string WriteCosts(GameActionCheckSum gameActionCheckSum)
     {
         List<IAccumulativePlayerStat> costs = gameActionCheckSum.GameAction.GetCosts();
+        LocationType location = gameActionCheckSum.Location.LocationType;
+        Player player = gameActionCheckSum.Player;
 
-        string costsString = GameActionUtility.GetCostsString(costs, gameActionCheckSum.Location.LocationType, gameActionCheckSum.Player);
+        string costsString = GameActionUtility.GetCostsString(costs, location, player);
 
         return costsString;
     }

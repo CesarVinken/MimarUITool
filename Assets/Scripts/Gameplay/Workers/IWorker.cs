@@ -1,4 +1,4 @@
-public interface IWorker
+public interface IWorker : IGameActionTarget
 {
     public PlayerNumber Employer { get; }
     public int ServiceLength { get; }
@@ -10,4 +10,5 @@ public interface IWorker
     public void SetServiceLength(int newValue);
 
     public void SetUIWorkerTile(WorkerTile workerTile);
+
 }
