@@ -40,6 +40,7 @@ public class PickGameActionStep : IGameActionStep
         // List here all the possible Actions
         AddGameActionElement(gameActionInitiator, new TravelGameAction());
         AddGameActionElement(gameActionInitiator, new WorkerGameAction());
+        AddGameActionElement(gameActionInitiator, new MakeSacrificeGameAction());
         AddGameActionElement(gameActionInitiator, new UpgradeConstructionSiteGameAction());
 
         // by default select first available tile
@@ -73,6 +74,12 @@ public class PickGameActionStep : IGameActionStep
         AddStepsForSelectedGameAction();
 
         GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithActionType(_selectedGameAction);
+
+        if(_selectedGameAction.GetGameActionType() == GameActionType.MakeSacrifice)
+        {
+            GameActionStepHandler.CurrentGameActionSequence.GameActionCheckSum.WithLocation(LocationManager.Instance.GetLocation(LocationType.ForumRomanum));
+        }
+
         GameActionStepHandler.CurrentGameActionSequence.NextStep();
     }
 

@@ -17,6 +17,7 @@ public class GameFlowManager : MonoBehaviour
     public event EventHandler<HireWorkerEvent> HireWorkerEvent;
     public event EventHandler<ExtendWorkerContractEvent> ExtendWorkerContractEvent;
     public event EventHandler<BribeWorkerEvent> BribeWorkerEvent;
+    public event EventHandler<MakeSacrificeEvent> MakeSacrificeEvent;
 
     public void Setup()
     {
@@ -98,5 +99,10 @@ public class GameFlowManager : MonoBehaviour
     public void ExecuteBribeWorkerEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber employer, IWorker worker)
     {
         BribeWorkerEvent?.Invoke(this, new BribeWorkerEvent(eventTriggerSourceType, employer, worker));
+    }
+
+    public void ExecuteMakeSacrificeEvent(EventTriggerSourceType eventTriggerSourceType, PlayerNumber player)
+    {
+        MakeSacrificeEvent?.Invoke(this, new MakeSacrificeEvent(eventTriggerSourceType, player));
     }
 }

@@ -65,6 +65,7 @@ public class GameActionExecutor
                     }
                 }
                 return true;
+            case GameActionType.MakeSacrifice:
             case GameActionType.Travel:
             case GameActionType.UpgradeConstructionSite:
                 return true;
@@ -104,6 +105,12 @@ public class GameActionExecutor
 
                 UpgradeConstructionSiteGameActionHandler constructionSiteUpgradeHandler = new UpgradeConstructionSiteGameActionHandler();
                 constructionSiteUpgradeHandler.Handle(gameActionCheckSum);
+                break;
+            case GameActionType.MakeSacrifice:
+                Debug.Log($"Make a sacrifice for {gameActionCheckSum.Player.Name}");
+
+                MakeSacrificeGameActionHandler makeSacrificeGameActionHandler = new MakeSacrificeGameActionHandler();
+                makeSacrificeGameActionHandler.Handle(gameActionCheckSum);
                 break;
             default:
                 new NotImplementedException("GameAction", gameActionCheckSum.GameAction.GetName());

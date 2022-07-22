@@ -38,7 +38,6 @@ public class WorkerGameAction : IGameAction
         return _worker;
     }
 
-
     public GameActionType GetGameActionType()
     {
         return _gameActionType;

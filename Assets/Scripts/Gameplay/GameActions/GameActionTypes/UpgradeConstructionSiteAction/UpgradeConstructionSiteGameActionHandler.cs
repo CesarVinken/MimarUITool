@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class UpgradeConstructionSiteGameActionHandler : IGameActionHandler
 {
@@ -51,6 +50,6 @@ public class UpgradeConstructionSiteGameActionHandler : IGameActionHandler
 
         Player player = _gameActionCheckSum.Player;
         PlayerManager.Instance.GoToLocation(player, constructionSiteLocation.LocationType);
-        player.SetGold(player.Gold.Value - 1);
+        player.SetGold(player.Gold.Value + TempConfiguration.TravellingGoldCost);
     }
 }

@@ -82,7 +82,7 @@ public class GameActionWorkerSelectionTileElement : MonoBehaviour, IGameActionEl
     {
         List<IAccumulativePlayerStat> costs = GetCosts();
 
-        string costsString = GameActionUtility.GetCostsString(costs, _actionLocationType, _player);
+        string costsString = GameActionUtility.GetTotalCostsTileString(costs, _actionLocationType, _player);
 
         _costsLabel.text = costsString;
     }

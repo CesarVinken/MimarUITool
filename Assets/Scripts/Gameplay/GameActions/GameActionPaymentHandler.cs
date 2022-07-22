@@ -7,6 +7,7 @@ public class GameActionPaymentHandler
         GameFlowManager.Instance.HireWorkerEvent += OnHireWorkerEvent;
         GameFlowManager.Instance.ExtendWorkerContractEvent += OnExtendWorkerContractEvent;
         GameFlowManager.Instance.BribeWorkerEvent += OnBribeWorkerEvent;
+        GameFlowManager.Instance.MakeSacrificeEvent += OnMakeSacrificeEvent;
     }
 
     public void OnHireWorkerEvent(object sender, HireWorkerEvent e)
@@ -50,6 +51,18 @@ public class GameActionPaymentHandler
         {
             IAccumulativePlayerStat playerStat = player.GetPlayerStat(TempConfiguration.BribeWorkerFee[i]);
             playerStat.AddValue(TempConfiguration.BribeWorkerFee[i].Value);
+        }
+    }
+
+    public void OnMakeSacrificeEvent(object sender, MakeSacrificeEvent e)
+    {
+        if (e.PlayerNumber == PlayerNumber.None) return;
+
+        Player player = PlayerManager.Instance.Players[e.PlayerNumber];
+        for (int i = 0; i < TempConfiguration.MakeSacrificeTransaction.Count; i++)
+        {
+            IAccumulativePlayerStat playerStat = player.GetPlayerStat(TempConfiguration.MakeSacrificeTransaction[i]);
+            playerStat.AddValue(TempConfiguration.MakeSacrificeTransaction[i].Value);
         }
     }
 }
